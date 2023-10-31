@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.start).setOnClickListener {
-        val intent = Intent(this, RewardsActivity::class.java)
-        startActivity(intent)
+            val intent = Intent(this, RewardsActivity::class.java)
+            startActivity(intent)
         }
     }
 }

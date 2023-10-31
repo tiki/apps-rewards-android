@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Rewards"
-include(":app")
+include(":example")
 include(":apps-receipt-rewards")
