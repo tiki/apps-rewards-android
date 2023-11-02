@@ -17,6 +17,8 @@ android {
         }
     }
 
+    viewBinding.isEnabled = true
+
     buildTypes {
         release {
             isMinifyEnabled = false
