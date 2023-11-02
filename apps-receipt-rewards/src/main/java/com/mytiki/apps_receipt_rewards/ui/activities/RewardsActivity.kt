@@ -38,6 +38,7 @@ class RewardsActivity : AppCompatActivity() {
                             BottomSheet(sheetState) {
                                 showBottomSheet = false
                                 this@RewardsActivity.finish()
+                                overridePendingTransition(0, android.R.anim.fade_out)
                             }
                         }
                 }
