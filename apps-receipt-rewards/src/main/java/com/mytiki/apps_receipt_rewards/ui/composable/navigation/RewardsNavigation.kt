@@ -9,7 +9,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.mytiki.apps_receipt_rewards.ui.activities.RewardsActivity
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferViewModel
 
