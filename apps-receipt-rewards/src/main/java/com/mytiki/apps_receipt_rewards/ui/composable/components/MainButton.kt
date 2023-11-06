@@ -19,9 +19,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainButton(text: String, isfFilled: Boolean, onClick: () -> Unit){
+fun MainButton(modifier: Modifier = Modifier, text: String, isfFilled: Boolean, onClick: () -> Unit){
     Card (
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(54.dp)
             .clickable { onClick() },

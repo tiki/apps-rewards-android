@@ -2,6 +2,7 @@ package com.mytiki.apps_receipt_rewards.ui.composable.screens.offer
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -71,15 +73,11 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
 fun OfferContent(navController: NavHostController, onClose: () -> Unit){
     
     Scaffold(
-        modifier = Modifier.padding(
-            start = 15.dp,
-            end = 15.dp,
-            top =  24.dp,
-            bottom = 40.dp
-        ),
         topBar = {
             Row (
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .padding(top = 24.dp, start = 24.dp, end = 24.dp)
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.Top
             ){
@@ -93,44 +91,49 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
 
         },
         bottomBar = {
-                MainButton(text = "Get estimate", isfFilled = true) {}
+            Column(modifier = Modifier.padding(horizontal = 15.dp)) {
+                MainButton(
+                    text = "Get estimate", isfFilled = true
+                ) {}
+                Spacer(modifier = Modifier.height(40.dp))
+            }
         },
         containerColor = MaterialTheme.colorScheme.background) {paddingValue ->
         Column (
             modifier = Modifier.padding(paddingValue),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(56.dp))
-            DisplayCard(height = 201) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
+                Spacer(modifier = Modifier.height(56.dp))
+                DisplayCard(height = 201, horizontalPadding = 15, verticalPadding = 0) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Earn monthly",
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "\$5 - \$15",
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.displayLarge,
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "for your shopping habits",
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(40.dp))
+                Box(modifier = Modifier.padding(horizontal = 15.dp)) {
                     Text(
-                        text = "Earn monthly",
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "\$5 - \$15",
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.displayLarge,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "for your shopping habits",
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        style = MaterialTheme.typography.titleLarge,
+                        text = "Estimate based on similar users spending habits and market price for shopping data. ",
+                        style = MaterialTheme.typography.labelMedium
                     )
                 }
-            }
-            Spacer(modifier = Modifier.height(40.dp))
-            Text(
-                text = "Estimate based on similar users spending habits and market price for shopping data. ",
-                style = MaterialTheme.typography.labelMedium
-            )
         }
     }
 
