@@ -49,7 +49,7 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
         if (showBottomSheet) {
             BottomSheet(
                 sheetState,
-                modifier = Modifier.height(538.dp),
+                modifier = Modifier.height(560.dp),
                 onDismiss = {
                     showBottomSheet = false
                     onDismissBottomSheet()
@@ -76,7 +76,7 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
                 verticalAlignment = Alignment.Top
             ){
                 Column {
-                    Text(text = "CASHBACK CONNECTIONS", style = MaterialTheme.typography.headlineSmall)
+                    Text(text = "CASHBACK CONNECTIONS", style = MaterialTheme.typography.headlineMedium)
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(text = "Share data. Earn cash.", style = MaterialTheme.typography.titleMedium)
                 }
@@ -86,6 +86,7 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
         },
         bottomBar = {
             Column(modifier = Modifier.padding(horizontal = 15.dp)) {
+                Spacer(modifier = Modifier.height(32.dp))
                 MainButton(
                     text = "Get estimate", isfFilled = true
                 ) {}
@@ -98,7 +99,7 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
                 Spacer(modifier = Modifier.height(56.dp))
-                DisplayCard(height = 201, horizontalPadding = 15, verticalPadding = 0) {
+                DisplayCard(height = 215, horizontalPadding = 15, verticalPadding = 0) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,

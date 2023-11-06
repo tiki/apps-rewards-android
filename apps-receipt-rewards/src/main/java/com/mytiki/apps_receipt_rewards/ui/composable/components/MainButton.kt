@@ -22,7 +22,7 @@ fun MainButton(modifier: Modifier = Modifier, text: String, isfFilled: Boolean, 
     Card (
         modifier = modifier
             .fillMaxWidth()
-            .height(54.dp)
+            .height(60.dp)
             .clickable { onClick() },
         shape = MaterialTheme.shapes.extraSmall,
         colors = CardDefaults.cardColors(
