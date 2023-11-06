@@ -49,7 +49,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.1")
     val material3Version = "1.1.2"
     val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
 
@@ -58,6 +57,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
 //  Jetpack Compose
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
@@ -68,6 +68,15 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation("androidx.compose.material3:material3:$material3Version")
     implementation("androidx.compose.ui:ui-tooling-preview")
+
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.2")
+
+    //navigation
+    implementation("androidx.compose.ui:ui:1.6.0-alpha08")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
 //  Test
     testImplementation("junit:junit:4.13.2")
