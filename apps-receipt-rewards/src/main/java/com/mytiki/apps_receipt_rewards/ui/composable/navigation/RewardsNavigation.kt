@@ -15,6 +15,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mytiki.apps_receipt_rewards.ui.composable.screens.home.HomeScreen
+import com.mytiki.apps_receipt_rewards.ui.composable.screens.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.terms.TermsScreen
@@ -24,6 +26,7 @@ import com.mytiki.apps_receipt_rewards.ui.composable.screens.terms.TermsViewMode
 fun RewardsNavigation(
     offerViewModel: OfferViewModel = viewModel(),
     termsViewModel: TermsViewModel = viewModel(),
+    homeViewModel: HomeViewModel = viewModel(),
     onDismissBottomSheet: () -> Unit ){
     val navController = rememberNavController()
     val fadeSpec: FiniteAnimationSpec<Float> = spring(stiffness = Spring.StiffnessVeryLow)
@@ -56,6 +59,12 @@ fun RewardsNavigation(
             }
         ){
             TermsScreen(termsViewModel, navController)
+        }
+
+        composable(
+            route = RewardsRoute.HomeScreen.name,
+        ){
+            HomeScreen(homeViewModel, navController, onDismissBottomSheet)
         }
     }
 }

@@ -24,6 +24,7 @@ import com.mytiki.apps_receipt_rewards.ui.composable.components.bottomSheet.Bott
 import com.mytiki.apps_receipt_rewards.ui.composable.components.CloseButton
 import com.mytiki.apps_receipt_rewards.ui.composable.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.ui.composable.components.MainButton
+import com.mytiki.apps_receipt_rewards.ui.composable.components.bottomSheet.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.ui.composable.navigation.RewardsRoute
 import kotlinx.coroutines.launch
 
@@ -31,7 +32,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController, onDismissBottomSheet: () -> Unit) {
 
-    val showBottomSheet = offerViewModel.showBottomSheet
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
     fun close(){
@@ -39,30 +39,13 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
             onDismissBottomSheet()
         }
     }
-<<<<<<< Updated upstream
 
-    RewardsTheme {
-
-        if (showBottomSheet) {
-            BottomSheet(
-                sheetState,
-                modifier = Modifier.height(560.dp),
-                onDismiss = {
-                    showBottomSheet = false
-                    onDismissBottomSheet()
-                },
-                content = {
-                    OfferContent( navController){ close() }
-                }
-            )
-        }
-=======
-    if (showBottomSheet.value) {
+    if (offerViewModel.showBottomSheet.value) {
         BottomSheet(
             sheetState,
             modifier = Modifier.height(538.dp),
             onDismiss = {
-                showBottomSheet.value = false
+                offerViewModel.showBottomSheet.value = false
                 onDismissBottomSheet()
             },
             content = {
@@ -73,32 +56,17 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
                 }){ close() }
             }
         )
->>>>>>> Stashed changes
     }
 }
 
 
 
 @Composable
-fun OfferContent(navigateTo: (String) -> Unit,onClose: () -> Unit){
+fun OfferContent(navigateTo: (String) -> Unit, onClose: () -> Unit){
     
     Scaffold(
         topBar = {
-            Row (
-                modifier = Modifier
-                    .padding(top = 24.dp, start = 24.dp, end = 24.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
-            ){
-                Column {
-                    Text(text = "CASHBACK CONNECTIONS", style = MaterialTheme.typography.headlineMedium)
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(text = "Share data. Earn cash.", style = MaterialTheme.typography.titleMedium)
-                }
-                CloseButton{onClose()}
-            }
-
+            BottomSheetHeader(title = "CASHBACK CONNECTIONS", subTitle = "Share data. Earn cash."){onClose()}
         },
         bottomBar = {
             Column(modifier = Modifier.padding(horizontal = 15.dp)) {

@@ -57,7 +57,7 @@ fun TermsScreen(termsViewModel: TermsViewModel, navController: NavHostController
                     MainButton(
                         text = "I agree", isfFilled = true
                     ) {
-                        navController.navigate(RewardsRoute.OfferScreen.name)
+                        navController.navigate(RewardsRoute.HomeScreen.name)
                     }
                     Spacer(modifier = Modifier.height(40.dp))
                 }
