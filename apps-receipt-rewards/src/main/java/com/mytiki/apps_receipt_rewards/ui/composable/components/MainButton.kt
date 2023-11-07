@@ -39,7 +39,7 @@ fun MainButton(modifier: Modifier = Modifier, text: String, isfFilled: Boolean, 
             Text(
                 text = text,
                 color = if (isfFilled) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )
         }

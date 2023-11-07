@@ -15,27 +15,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheet
+import com.mytiki.apps_receipt_rewards.ui.composable.components.bottomSheet.BottomSheet
 import com.mytiki.apps_receipt_rewards.ui.composable.components.CloseButton
 import com.mytiki.apps_receipt_rewards.ui.composable.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.ui.composable.components.MainButton
-import com.mytiki.apps_receipt_rewards.ui.theme.RewardsTheme
+import com.mytiki.apps_receipt_rewards.ui.composable.navigation.RewardsRoute
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController, onDismissBottomSheet: () -> Unit) {
 
-    var showBottomSheet by remember { mutableStateOf(true) }
+    val showBottomSheet = offerViewModel.showBottomSheet
     val sheetState = rememberModalBottomSheetState(true)
     val scope = rememberCoroutineScope()
     fun close(){
@@ -43,6 +39,7 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
             onDismissBottomSheet()
         }
     }
+<<<<<<< Updated upstream
 
     RewardsTheme {
 
@@ -59,12 +56,31 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
                 }
             )
         }
+=======
+    if (showBottomSheet.value) {
+        BottomSheet(
+            sheetState,
+            modifier = Modifier.height(538.dp),
+            onDismiss = {
+                showBottomSheet.value = false
+                onDismissBottomSheet()
+            },
+            content = {
+                OfferContent({route ->
+                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+                        navController.navigate(route)
+                    }
+                }){ close() }
+            }
+        )
+>>>>>>> Stashed changes
     }
 }
 
 
+
 @Composable
-fun OfferContent(navController: NavHostController, onClose: () -> Unit){
+fun OfferContent(navigateTo: (String) -> Unit,onClose: () -> Unit){
     
     Scaffold(
         topBar = {
@@ -89,7 +105,10 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
                 Spacer(modifier = Modifier.height(32.dp))
                 MainButton(
                     text = "Get estimate", isfFilled = true
-                ) {}
+                ) {
+
+                    navigateTo(RewardsRoute.TermsScreen.name)
+                }
                 Spacer(modifier = Modifier.height(40.dp))
             }
         },
@@ -107,7 +126,7 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
                     ) {
                         Text(
                             text = "Earn monthly",
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
@@ -118,7 +137,7 @@ fun OfferContent(navController: NavHostController, onClose: () -> Unit){
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "for your shopping habits",
-                            style = MaterialTheme.typography.titleLarge,
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     }
                 }

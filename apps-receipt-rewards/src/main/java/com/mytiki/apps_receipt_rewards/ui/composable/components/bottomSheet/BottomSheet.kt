@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.ui.composable.components
+package com.mytiki.apps_receipt_rewards.ui.composable.components.bottomSheet
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*

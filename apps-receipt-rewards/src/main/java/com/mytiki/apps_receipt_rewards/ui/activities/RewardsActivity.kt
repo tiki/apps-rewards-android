@@ -4,14 +4,8 @@ import android.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mytiki.apps_receipt_rewards.databinding.RewardsActivityBinding
-import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.ui.composable.navigation.RewardsNavigation
 import com.mytiki.apps_receipt_rewards.ui.theme.RewardsTheme
 
