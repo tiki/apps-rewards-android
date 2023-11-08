@@ -31,17 +31,23 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RewardsChart(
-    data: Float,
-    radiusOuter: Dp = 50.dp,
-    chartBarWidth: Dp = 20.dp,
-    animDuration: Int = 1000,
-    color: Color
+    value: Float,
+    size: Dp = 100.dp,
+    barWidth: Dp = 20.dp,
+    animDuration: Int = 1500,
+    color: Color = MaterialTheme.colorScheme.primary
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
+    val radius = size/2
+    val angle = 360f * value
+    val extraDegrees = ((360/(2*Math.PI*(radius.value - barWidth.value/2))) * (barWidth.value/2)).toFloat()
+
     val borderColor = MaterialTheme.colorScheme.outline
 
+
+
     val animateSize by animateFloatAsState(
-        targetValue = if (animationPlayed) data else 0f,
+        targetValue = if (animationPlayed) (angle)else 0f,
         animationSpec = tween(
             durationMillis = animDuration,
             delayMillis = 0,
@@ -52,7 +58,6 @@ fun RewardsChart(
     LaunchedEffect(key1 = true) {
         animationPlayed = true
     }
-
     Box(
         modifier = Modifier.size(100.dp),
         contentAlignment = Alignment.Center
@@ -60,7 +65,7 @@ fun RewardsChart(
     ) {
         Canvas(
             modifier = Modifier
-                .size(((radiusOuter.value * 2) - 1).dp)
+                .size(((radius.value * 2) - 1).dp)
         ) {
             drawArc(
                 color = borderColor,
@@ -72,7 +77,7 @@ fun RewardsChart(
         }
         Canvas(
             modifier = Modifier
-                .size((((radiusOuter.value  - chartBarWidth.value ) * 2) + 1).dp)
+                .size((((radius.value  - barWidth.value ) * 2) + 1).dp)
         ) {
             drawArc(
                 color = borderColor,
@@ -84,15 +89,15 @@ fun RewardsChart(
         }
         Canvas(
             modifier = Modifier
-                .size(((radiusOuter.value  - chartBarWidth.value/2 ) * 2).dp)
-                .rotate((-90f + ((360/(2*Math.PI*(radiusOuter.value))) * chartBarWidth.value )).toFloat())
+                .size(((radius.value - barWidth.value / 2) * 2).dp)
+                .rotate(-90f + extraDegrees)
         ) {
             drawArc(
                 color = color,
                 0f,
                 animateSize,
                 useCenter = false,
-                style = Stroke(chartBarWidth.toPx(), cap = StrokeCap.Round)
+                style = Stroke(barWidth.toPx(), cap = StrokeCap.Round)
             )
         }
     }

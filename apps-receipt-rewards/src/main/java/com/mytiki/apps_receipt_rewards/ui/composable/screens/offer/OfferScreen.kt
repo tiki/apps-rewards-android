@@ -49,11 +49,14 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
                 onDismissBottomSheet()
             },
             content = {
-                OfferContent({route ->
-                    scope.launch { sheetState.hide() }.invokeOnCompletion {
-                        navController.navigate(route)
+                OfferContent(
+                    offerViewModel,
+                    {route ->
+                        scope.launch { sheetState.hide() }.invokeOnCompletion {
+                            navController.navigate(route)
+                        }
                     }
-                }){ close() }
+                ){ close() }
             }
         )
     }
@@ -62,7 +65,7 @@ fun OfferScreen(offerViewModel: OfferViewModel, navController: NavHostController
 
 
 @Composable
-fun OfferContent(navigateTo: (String) -> Unit, onClose: () -> Unit){
+fun OfferContent(offerViewModel: OfferViewModel, navigateTo: (String) -> Unit, onClose: () -> Unit){
     
     Scaffold(
         topBar = {
@@ -74,7 +77,6 @@ fun OfferContent(navigateTo: (String) -> Unit, onClose: () -> Unit){
                 MainButton(
                     text = "Get estimate", isfFilled = true
                 ) {
-
                     navigateTo(RewardsRoute.TermsScreen.name)
                 }
                 Spacer(modifier = Modifier.height(40.dp))
@@ -86,7 +88,7 @@ fun OfferContent(navigateTo: (String) -> Unit, onClose: () -> Unit){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
                 Spacer(modifier = Modifier.height(56.dp))
-                DisplayCard(height = 215, horizontalPadding = 15, verticalPadding = 0) {
+                DisplayCard(height = 201.dp, horizontalPadding = 15.dp, verticalPadding = 0.dp) {
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -110,12 +112,12 @@ fun OfferContent(navigateTo: (String) -> Unit, onClose: () -> Unit){
                     }
                 }
                 Spacer(modifier = Modifier.height(40.dp))
-                Box(modifier = Modifier.padding(horizontal = 15.dp)) {
-                    Text(
-                        text = "Estimate based on similar users spending habits and market price for shopping data. ",
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
+                Text(
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    text = "Estimate based on similar users spending habits and market price for shopping data. ",
+                    style = MaterialTheme.typography.labelMedium
+                )
+
         }
     }
 
