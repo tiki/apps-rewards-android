@@ -21,7 +21,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -32,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheetHeader
+import com.mytiki.apps_receipt_rewards.ui.composable.navigation.RewardsRoute
+import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.AccountType
 import kotlinx.coroutines.launch
 
  @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
@@ -49,6 +51,14 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
             onDismissBottomSheet()
         }
     }
+     fun toAccount(account: Account){
+         if (account.accountCommon.accountType == AccountType.EMAIL){
+             navController.navigate("${RewardsRoute.EmailScreen.name}/${account.toJson()}")
+         } else {
+             navController.navigate("${RewardsRoute.EmailScreen.name}/${account.toJson()}")
+         }
+
+     }
     BottomSheet(
         sheetState = sheetState,
         onDismiss = {
@@ -96,18 +106,19 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
                             horizontalArrangement = Arrangement.SpaceBetween,
                             maxItemsInEachRow = 3
                         ) {
-                            homeViewModel.retailerList.forEach { retailer ->
-                                HomeRetailerItem(retailer, PaddingValues(vertical = 12.dp))
+                            homeViewModel.accountLists.forEach { retailer ->
+                                HomeRetailerItem(retailer, PaddingValues(vertical = 12.dp)){account ->
+                                    toAccount(account)
+                                }
                             }
                         }
                     } else {
                         Column() {
                             LazyRow {
-                                items(homeViewModel.retailerList.toList()) { retailer ->
-                                    HomeRetailerItem(
-                                        retailer,
-                                        PaddingValues(horizontal = 10.dp)
-                                    )
+                                items(homeViewModel.accountLists.toList()) { retailer ->
+                                    HomeRetailerItem(retailer, PaddingValues(horizontal = 10.dp)){account ->
+                                        toAccount(account)
+                                    }
                                 }
                             }
                         }

@@ -7,17 +7,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.ui.composable.components.RetailerTile
-import com.mytiki.apps_receipt_rewards.ui.model.Retailer
+import com.mytiki.apps_receipt_rewards.ui.composable.components.AccountTile
+import com.mytiki.apps_receipt_rewards.ui.model.Account
 
 @Composable
-fun HomeRetailerItem(retailer: Retailer, paddingValues: PaddingValues = PaddingValues(0.dp)) {
-    RetailerTile(
-        retailer = retailer,
+fun HomeRetailerItem(account: Account, paddingValues: PaddingValues = PaddingValues(0.dp), onClick: (Account) -> Unit) {
+    AccountTile(
+        account = account,
         padding = paddingValues,
-        onClick = { /*TODO*/ }
+        onClick = { onClick(account) }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -28,7 +27,7 @@ fun HomeRetailerItem(retailer: Retailer, paddingValues: PaddingValues = PaddingV
                 style = MaterialTheme.typography.labelSmall,
             )
             Text(
-                text = retailer.retailerCommon.retailerName,
+                text = account.accountCommon.accountName,
                 style = MaterialTheme.typography.labelSmall,
             )
         }
