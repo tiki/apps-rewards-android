@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -25,15 +27,16 @@ import com.mytiki.apps_receipt_rewards.ui.model.Retailer
 
 
 @Composable
-fun RetailerButton(
+fun RetailerTile(
     retailer: Retailer,
     size: Dp = 80.dp,
+    padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
     onClick: () -> Unit,
     text: @Composable () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 8.dp).clickable { onClick() },
+        modifier = Modifier.padding(padding).clickable { onClick() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -46,6 +49,8 @@ fun RetailerButton(
                 modifier = Modifier
                     .size(size)
                     .clip(MaterialTheme.shapes.extraSmall)
+                    .shadow(elevation = 4.dp)
+
             )
             when (retailer.accountStatus) {
                 AccountStatus.NOT_LINKED -> {

@@ -42,7 +42,7 @@ fun RewardsChart(
     val angle = 360f * value
     val extraDegrees = ((360/(2*Math.PI*(radius.value - barWidth.value/2))) * (barWidth.value/2)).toFloat()
 
-    val borderColor = MaterialTheme.colorScheme.outline
+    val borderColor = MaterialTheme.colorScheme.outlineVariant
 
 
 

@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.ui.composable.components.bottomSheet
+package com.mytiki.apps_receipt_rewards.ui.composable.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

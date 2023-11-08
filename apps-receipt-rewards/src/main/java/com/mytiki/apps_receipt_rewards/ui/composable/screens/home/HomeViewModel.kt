@@ -10,6 +10,7 @@ import com.mytiki.apps_receipt_rewards.ui.model.RetailerCommon
 
 class HomeViewModel: ViewModel() {
     var showBottomSheet =  mutableStateOf(true)
+    var isExpanded = mutableStateOf(false)
     val chartData = mutableFloatStateOf(4.80f / 12f)
     val  retailerList = mutableStateListOf<Retailer>(
         Retailer(AccountStatus.NOT_LINKED, RetailerCommon.GMAIL),
