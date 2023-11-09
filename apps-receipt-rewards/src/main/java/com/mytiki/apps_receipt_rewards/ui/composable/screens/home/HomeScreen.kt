@@ -7,6 +7,9 @@ import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.animation.with
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,6 +30,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -39,16 +43,30 @@ import kotlinx.coroutines.launch
  )
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, onDismissBottomSheet: () -> Unit) {
+     val configuration = LocalConfiguration.current
+
     val sheetState = rememberModalBottomSheetState(false){
         homeViewModel.isExpanded.value = it == SheetValue.Expanded
         return@rememberModalBottomSheetState true
     }
     val scope = rememberCoroutineScope()
+
+
     fun close(){
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             onDismissBottomSheet()
         }
     }
+     fun toAccount(account: Account){
+         if (account.accountCommon.accountType == AccountType.EMAIL){
+             navController.navigate("${RewardsRoute.EmailScreen.name}/${account.toJson()}")
+         } else {
+             navController.navigate("${RewardsRoute.EmailScreen.name}/${account.toJson()}")
+         }
+
+     }
+
+
     BottomSheet(
         sheetState = sheetState,
         onDismiss = {
@@ -56,65 +74,22 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
             onDismissBottomSheet()
         }
     ) {
-        LazyColumn (modifier = Modifier.fillMaxSize()){
-            item {
-                BottomSheetHeader(
-                    title = "CASHBACK CONNECTIONS",
-                    subTitle = "Share data. Earn cash."
-                ) { close() }
-            }
-            item {
-                HomeContent(homeViewModel, sheetState) {}
-                Spacer(modifier = Modifier.height(24.dp))
-            }
-            item() {
-                AnimatedContent(
-                    targetState = homeViewModel.isExpanded.value,
-                    transitionSpec = {
-                        fadeIn(animationSpec = tween(750, 750)) with
-                                fadeOut(animationSpec = tween(750)) using
-                                SizeTransform { initialSize, targetSize ->
-                                    if (targetState) {
-                                        keyframes {
-                                            // Expand horizontally first.
-                                            IntSize(targetSize.width, initialSize.height) at 750
-                                            durationMillis = 1500
-                                        }
-                                    } else {
-                                        keyframes {
-                                            // Shrink vertically first.
-                                            IntSize(initialSize.width, targetSize.height) at 750
-                                            durationMillis = 1500
-                                        }
-                                    }
-                                }
-                    }, label = ""
-                ) { targetExpanded ->
-                    if (targetExpanded) {
-                        FlowRow(
-                            modifier = Modifier.fillMaxSize().padding(horizontal = 40.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            maxItemsInEachRow = 3
-                        ) {
-                            homeViewModel.retailerList.forEach { retailer ->
-                                HomeRetailerItem(retailer, PaddingValues(vertical = 12.dp))
-                            }
-                        }
-                    } else {
-                        Column() {
-                            LazyRow {
-                                items(homeViewModel.retailerList.toList()) { retailer ->
-                                    HomeRetailerItem(
-                                        retailer,
-                                        PaddingValues(horizontal = 10.dp)
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
+
+        AnimatedContent(
+            targetState = homeViewModel.isExpanded.value,
+            transitionSpec = {
+                slideInVertically(initialOffsetY = { configuration.screenHeightDp/2  }, animationSpec = tween(750,750)) togetherWith
+                        slideOutVertically( targetOffsetY = { -configuration.screenHeightDp/2 }, animationSpec = tween(750, 750))
+            }, label = ""
+        ) { targetExpanded ->
+            if (targetExpanded) {
+                HomeExpanded(homeViewModel) { toAccount(it) }
+            } else {
+                HomePartiallyExpanded(homeViewModel, { toAccount(it) }) { close() }
+
             }
         }
+
     }
 }
 
