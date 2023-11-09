@@ -23,28 +23,28 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.ui.model.AccountStatus
-import com.mytiki.apps_receipt_rewards.ui.model.Retailer
+import com.mytiki.apps_receipt_rewards.ui.model.Account
 
 
 @Composable
-fun RetailerTile(
-    retailer: Retailer,
+fun AccountTile(
+    account: Account,
     size: Dp = 80.dp,
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
-    onClick: () -> Unit,
+    onClick: (Account) -> Unit,
     text: @Composable () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(padding).clickable { onClick() },
+        modifier = Modifier.padding(padding).clickable { onClick(account) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(id = retailer.retailerCommon.imageId),
-                contentDescription = "${retailer.retailerCommon.name} logo",
+                painter = painterResource(id = account.accountCommon.imageId),
+                contentDescription = "${account.accountCommon.name} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(size)
@@ -52,11 +52,11 @@ fun RetailerTile(
                     .shadow(elevation = 4.dp)
 
             )
-            when (retailer.accountStatus) {
+            when (account.accountStatus) {
                 AccountStatus.NOT_LINKED -> {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_add),
-                        contentDescription = "Add Retailer",
+                        contentDescription = "Add Account",
                         modifier = Modifier.size(iconSize),
                         tint = Color.Unspecified
                     )
@@ -66,7 +66,7 @@ fun RetailerTile(
                 AccountStatus.UNVERIFIED -> {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_alert),
-                        contentDescription = "Retailer needs to be reconnected",
+                        contentDescription = "Account needs to be reconnected",
                         modifier = Modifier.size(iconSize),
                         tint = Color.Unspecified
                     )
