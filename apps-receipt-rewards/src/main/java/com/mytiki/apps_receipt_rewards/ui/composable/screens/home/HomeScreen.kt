@@ -36,6 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheetHeader
+import com.mytiki.apps_receipt_rewards.ui.composable.navigation.RewardsRoute
+import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.AccountType
 import kotlinx.coroutines.launch
 
  @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
