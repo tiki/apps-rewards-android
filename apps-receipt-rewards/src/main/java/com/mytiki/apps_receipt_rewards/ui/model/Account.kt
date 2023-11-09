@@ -1,18 +1,12 @@
 package com.mytiki.apps_receipt_rewards.ui.model
 
+import android.util.Log
 import com.google.gson.Gson
+import org.json.JSONObject
 import java.lang.reflect.Type
 
 class Account(
     val accountStatus: AccountStatus,
-    val accountCommon: AccountCommon
-){
-    fun toJson(): String?{
-        return  Gson().toJson(this)
-    }
-    companion object{
-        fun fromJson(value: String): Account{
-            return Gson().fromJson(value, Account::class.java)
-        }
-    }
-}
+    val accountCommon: AccountCommon,
+    val username: String,
+)

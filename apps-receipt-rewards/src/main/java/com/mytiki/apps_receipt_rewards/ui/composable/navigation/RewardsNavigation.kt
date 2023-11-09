@@ -30,7 +30,8 @@ fun RewardsNavigation(
     termsViewModel: TermsViewModel = viewModel(),
     homeViewModel: HomeViewModel = viewModel(),
     emailViewModel: EmailViewModel = viewModel(),
-    onDismissBottomSheet: () -> Unit ){
+    onDismissBottomSheet: () -> Unit
+){
     val navController = rememberNavController()
     val fadeSpec: FiniteAnimationSpec<Float> = spring(stiffness = Spring.StiffnessVeryLow)
     val springSpec = spring<IntOffset>(dampingRatio = Spring.DampingRatioNoBouncy)
@@ -38,7 +39,7 @@ fun RewardsNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = RewardsRoute.OfferScreen.name
+        startDestination = RewardsRoute.EmailScreen.name
     ){
         composable(
             route = RewardsRoute.OfferScreen.name,
@@ -71,8 +72,7 @@ fun RewardsNavigation(
         }
 
         composable(
-            route = "${ RewardsRoute.TermsScreen.name }/{account}",
-            arguments = listOf(navArgument("account") { type = NavType.StringType }),
+            route = RewardsRoute.EmailScreen.name,
             enterTransition = {
                 slideInHorizontally(initialOffsetX = { configuration.screenWidthDp/2 }, animationSpec = springSpec)
             },
@@ -86,9 +86,7 @@ fun RewardsNavigation(
                 slideOutHorizontally(targetOffsetX = { configuration.screenWidthDp/2 }, animationSpec = springSpec)
             }
         ){backStackEntry ->
-            backStackEntry.arguments?.getString("account")?.let { Account.fromJson(it) }?.let {
-                EmailScreen(emailViewModel, navController, it)
-            }
+            EmailScreen(emailViewModel, navController)
         }
     }
 }

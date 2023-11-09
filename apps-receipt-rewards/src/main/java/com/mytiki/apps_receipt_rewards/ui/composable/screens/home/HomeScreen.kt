@@ -61,12 +61,7 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
         }
     }
      fun toAccount(account: Account){
-         if (account.accountCommon.accountType == AccountType.EMAIL){
-             navController.navigate("${RewardsRoute.EmailScreen.name}/${account.toJson()}")
-         } else {
-             navController.navigate("${RewardsRoute.EmailScreen.name}/${account.toJson()}")
-         }
-
+         navController.navigate(RewardsRoute.EmailScreen.name)
      }
 
 
@@ -77,7 +72,6 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
             onDismissBottomSheet()
         }
     ) {
-
         AnimatedContent(
             targetState = homeViewModel.isExpanded.value,
             transitionSpec = {
@@ -92,7 +86,6 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
 
             }
         }
-
     }
 }
 

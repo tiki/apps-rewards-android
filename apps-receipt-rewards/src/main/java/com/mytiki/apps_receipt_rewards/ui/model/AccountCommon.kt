@@ -7,4 +7,11 @@ enum class AccountCommon(val imageId: Int, val accountName: String, val accountT
     TACO_BELL(R.drawable.taco_bell, "Taco Bell", AccountType.RETAILER),
     DOLLAR_GENERAL(R.drawable.dollar_general, "Dollar General", AccountType.RETAILER),
     GMAIL(R.drawable.gmail, "Gmail", AccountType.EMAIL);
+
+    override fun toString() = this.name
+
+    companion object {
+        fun fromSource(string: String) = AccountCommon.values().first { it.name == string }
+
+    }
 }

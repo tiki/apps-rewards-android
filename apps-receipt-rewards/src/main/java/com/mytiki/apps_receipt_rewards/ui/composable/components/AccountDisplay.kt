@@ -1,6 +1,7 @@
 package com.mytiki.apps_receipt_rewards.ui.composable.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,13 +29,16 @@ import com.mytiki.apps_receipt_rewards.ui.theme.SpaceGrotesk
 @Composable
 fun AccountDisplay(account: Account, height: Dp,  body: String) {
     DisplayCard(height = height, horizontalPadding = 24.dp) {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Image(
                 painter = painterResource(id = account.accountCommon.imageId),
-                contentDescription = "${account.accountCommon.name} logo",
+                contentDescription = "${account.accountCommon.accountName} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(100.dp)
@@ -42,7 +47,7 @@ fun AccountDisplay(account: Account, height: Dp,  body: String) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = account.accountCommon.name,
+                text = account.accountCommon.accountName,
                 style = TextStyle(
                     fontFamily = SpaceGrotesk,
                     fontWeight = FontWeight.Bold,
@@ -54,7 +59,8 @@ fun AccountDisplay(account: Account, height: Dp,  body: String) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = body,
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
+                textAlign = TextAlign.Center
             )
         }
     }
