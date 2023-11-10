@@ -51,7 +51,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                     modifier = androidx.compose.ui.Modifier
                         .size(56.dp)
                         .clip(MaterialTheme.shapes.extraSmall)
-                        .shadow(elevation = 4.dp)
+                        .shadow(elevation = 2.dp)
 
                 )
                 if (isicons) {

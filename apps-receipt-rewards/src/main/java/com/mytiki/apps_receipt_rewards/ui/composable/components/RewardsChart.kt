@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,7 +32,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RewardsChart(
-    value: Float,
+    values: List<Float>,
     size: Dp = 100.dp,
     barWidth: Dp = 20.dp,
     animDuration: Int = 1500,
@@ -39,11 +40,12 @@ fun RewardsChart(
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
     val radius = size/2
-    val angle = 360f * value
+
     val extraDegrees = ((360/(2*Math.PI*(radius.value - barWidth.value/2))) * (barWidth.value/2)).toFloat()
 
     val borderColor = MaterialTheme.colorScheme.outlineVariant
 
+    var angle by remember { mutableFloatStateOf(0f) }
 
 
     val animateSize by animateFloatAsState(
@@ -87,19 +89,24 @@ fun RewardsChart(
                 style = Stroke(1.dp.toPx(), cap = StrokeCap.Round)
             )
         }
-        Canvas(
-            modifier = Modifier
-                .size(((radius.value - barWidth.value / 2) * 2).dp)
-                .rotate(-90f + extraDegrees)
-        ) {
-            drawArc(
-                color = color,
-                0f,
-                animateSize,
-                useCenter = false,
-                style = Stroke(barWidth.toPx(), cap = StrokeCap.Round)
-            )
+
+        values.forEach {
+            angle = it
+            Canvas(
+                modifier = Modifier
+                    .size(((radius.value - barWidth.value / 2) * 2).dp)
+                    .rotate(-90f + extraDegrees)
+            ) {
+                drawArc(
+                    color = color,
+                    0f,
+                    animateSize,
+                    useCenter = false,
+                    style = Stroke(barWidth.toPx(), cap = StrokeCap.Round)
+                )
+            }
         }
+
     }
 }
 

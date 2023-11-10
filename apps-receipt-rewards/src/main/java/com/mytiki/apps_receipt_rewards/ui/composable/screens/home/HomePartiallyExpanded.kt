@@ -72,7 +72,7 @@ fun HomePartiallyExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) ->
                     )
 
                 }
-                RewardsChart(value = homeViewModel.chartData.floatValue)
+                RewardsChart(values = homeViewModel.chartData)
             }
         }
         Spacer(modifier = Modifier.height(48.dp))

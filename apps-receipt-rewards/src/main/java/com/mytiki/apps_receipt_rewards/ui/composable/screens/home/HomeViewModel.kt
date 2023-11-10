@@ -11,7 +11,7 @@ import com.mytiki.apps_receipt_rewards.ui.model.account.AccountCommon
 class HomeViewModel: ViewModel() {
     var showBottomSheet =  mutableStateOf(true)
     var isExpanded = mutableStateOf(false)
-    val chartData = mutableFloatStateOf(4.80f / 12f)
+    val chartData = mutableStateListOf(4.80f / 12f)
     val  accountLists = mutableStateListOf<Account>(
         Account(AccountStatus.NOT_LINKED, AccountCommon.GMAIL, "gabrielschuler3@gmail.com"),
         Account(AccountStatus.NOT_LINKED, AccountCommon.WALMART, "gabrielschuler3@gmail.com"),

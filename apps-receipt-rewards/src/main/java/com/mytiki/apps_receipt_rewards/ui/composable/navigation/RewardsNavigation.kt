@@ -16,6 +16,8 @@ import com.mytiki.apps_receipt_rewards.ui.composable.screens.email.EmailScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.email.EmailViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.home.HomeScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.home.HomeViewModel
+import com.mytiki.apps_receipt_rewards.ui.composable.screens.more.MoreScreen
+import com.mytiki.apps_receipt_rewards.ui.composable.screens.more.MoreViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.retailer.RetailerScreen
@@ -30,6 +32,7 @@ fun RewardsNavigation(
     homeViewModel: HomeViewModel = viewModel(),
     emailViewModel: EmailViewModel = viewModel(),
     retailerViewModel: RetailerViewModel = viewModel(),
+    moreViewModel: MoreViewModel = viewModel(),
     onDismissBottomSheet: () -> Unit
 ){
     val navController = rememberNavController()
@@ -105,6 +108,23 @@ fun RewardsNavigation(
             }
         ){backStackEntry ->
             RetailerScreen(retailerViewModel, navController)
+        }
+        composable(
+            route = RewardsRoute.MoreScreen.name,
+            enterTransition = {
+                slideInHorizontally(initialOffsetX = { configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { -configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            }
+        ){backStackEntry ->
+            MoreScreen(moreViewModel, navController)
         }
     }
 }

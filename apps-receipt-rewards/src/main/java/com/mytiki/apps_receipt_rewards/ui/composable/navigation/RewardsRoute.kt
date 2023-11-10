@@ -7,7 +7,8 @@ enum class RewardsRoute {
     TermsScreen,
     HomeScreen,
     EmailScreen,
-    RetailerScreen;
+    RetailerScreen,
+    MoreScreen;
 
     companion object {
         fun fromRoute(route: String?): RewardsRoute
@@ -17,6 +18,7 @@ enum class RewardsRoute {
             HomeScreen.name -> HomeScreen
             EmailScreen.name -> EmailScreen
             RetailerScreen.name -> RetailerScreen
+            MoreScreen.name -> MoreScreen
             null -> OfferScreen
             else -> throw IllegalArgumentException("Route $route is not recognize")
             }
