@@ -32,6 +32,7 @@ import com.mytiki.apps_receipt_rewards.ui.composable.components.MainButton
 @Composable
 fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController) {
     val accountList = emailViewModel.accountLists
+    val accountCommon = emailViewModel.accountCommon.value
 
     Surface(
         modifier = Modifier
@@ -48,7 +49,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp)) {
                     Spacer(modifier = Modifier.height(64.dp))
-                    Header(text = accountList[0].accountCommon.accountName) {
+                    Header(text = accountCommon.accountName) {
                         navController.popBackStack()
                     }
                 }
@@ -56,7 +57,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
             item {
                 Spacer(modifier = Modifier.height(28.dp))
                 AccountDisplay(
-                    accountList[0],
+                    accountCommon,
                     275.dp,
                     "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
                 )
@@ -69,7 +70,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            items(emailViewModel.accountLists.toList()) {
+            items(accountList) {
                 AccountCard(it){}
             }
             item {

@@ -18,12 +18,14 @@ import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.ui.composable.components.AccountCard
 import com.mytiki.apps_receipt_rewards.ui.composable.components.AccountDisplay
 import com.mytiki.apps_receipt_rewards.ui.composable.components.Header
+import com.mytiki.apps_receipt_rewards.ui.composable.components.Input
 import com.mytiki.apps_receipt_rewards.ui.composable.components.MainButton
 import com.mytiki.apps_receipt_rewards.ui.composable.components.OfferCard
 
 @Composable
 fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostController) {
     val accountList = retailerViewModel.accountLists
+    val accountCommon = retailerViewModel.accountCommon.value
 
     Surface(
         modifier = Modifier
@@ -40,7 +42,7 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                     .fillMaxWidth()
                     .padding(horizontal = 15.dp)) {
                     Spacer(modifier = Modifier.height(64.dp))
-                    Header(text = accountList[0].accountCommon.accountName) {
+                    Header(text = accountCommon.accountName) {
                         navController.popBackStack()
                     }
                 }
@@ -48,7 +50,7 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
             item {
                 Spacer(modifier = Modifier.height(28.dp))
                 AccountDisplay(
-                    accountList[0],
+                    accountCommon,
                     239.dp,
                     "3% cashback on all purchases",
                 )
@@ -61,8 +63,19 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            items(retailerViewModel.accountLists.toList()) {
-                AccountCard(it, false){}
+            if (retailerViewModel.accountLists.isEmpty()){
+                item {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Input(tile = "Email", text = retailerViewModel.username.value, isShow = true, onChange = {retailerViewModel.username.value = it})
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Input(tile = "Password", text = retailerViewModel.password.value, isShow = false, onChange = {retailerViewModel.password.value = it})
+                    Spacer(modifier = Modifier.height(48.dp))
+                    MainButton(modifier = Modifier.padding(horizontal = 21.dp), text = "Sign In", isfFilled = true) {}
+                }
+            } else {
+                items(retailerViewModel.accountLists) {
+                    AccountCard(it, false) {}
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(32.dp))
