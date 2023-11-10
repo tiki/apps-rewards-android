@@ -9,20 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.IntOffset
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.email.EmailScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.email.EmailViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.home.HomeScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.offer.OfferViewModel
+import com.mytiki.apps_receipt_rewards.ui.composable.screens.retailer.RetailerScreen
+import com.mytiki.apps_receipt_rewards.ui.composable.screens.retailer.RetailerViewModel
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.terms.TermsScreen
 import com.mytiki.apps_receipt_rewards.ui.composable.screens.terms.TermsViewModel
-import com.mytiki.apps_receipt_rewards.ui.model.Account
 
 @Composable
 fun RewardsNavigation(
@@ -30,6 +29,7 @@ fun RewardsNavigation(
     termsViewModel: TermsViewModel = viewModel(),
     homeViewModel: HomeViewModel = viewModel(),
     emailViewModel: EmailViewModel = viewModel(),
+    retailerViewModel: RetailerViewModel = viewModel(),
     onDismissBottomSheet: () -> Unit
 ){
     val navController = rememberNavController()
@@ -39,7 +39,7 @@ fun RewardsNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = RewardsRoute.EmailScreen.name
+        startDestination = RewardsRoute.RetailerScreen.name
     ){
         composable(
             route = RewardsRoute.OfferScreen.name,
@@ -87,6 +87,24 @@ fun RewardsNavigation(
             }
         ){backStackEntry ->
             EmailScreen(emailViewModel, navController)
+        }
+
+        composable(
+            route = RewardsRoute.RetailerScreen.name,
+            enterTransition = {
+                slideInHorizontally(initialOffsetX = { configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { -configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { configuration.screenWidthDp/2 }, animationSpec = springSpec)
+            }
+        ){backStackEntry ->
+            RetailerScreen(retailerViewModel, navController)
         }
     }
 }

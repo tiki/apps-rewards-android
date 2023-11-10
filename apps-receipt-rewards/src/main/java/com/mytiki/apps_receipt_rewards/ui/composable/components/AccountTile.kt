@@ -22,8 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.ui.model.AccountStatus
-import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.account.AccountStatus
+import com.mytiki.apps_receipt_rewards.ui.model.account.Account
 
 
 @Composable

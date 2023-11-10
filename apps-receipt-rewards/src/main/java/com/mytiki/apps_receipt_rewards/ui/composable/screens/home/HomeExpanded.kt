@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.ui.composable.components.AccountTile
-import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.account.Account
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

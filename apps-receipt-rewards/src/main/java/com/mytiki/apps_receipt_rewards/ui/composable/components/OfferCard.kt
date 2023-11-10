@@ -27,11 +27,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.ui.model.account.Account
-import com.mytiki.apps_receipt_rewards.ui.model.account.AccountStatus
+import com.mytiki.apps_receipt_rewards.ui.model.offer.Offer
 
 @Composable
-fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) {
+fun OfferCard(offer: Offer, onClick: () -> Unit) {
     val configuration = LocalConfiguration.current
     Row(
         modifier = Modifier
@@ -45,8 +44,8 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = account.accountCommon.imageId),
-                    contentDescription = "${account.accountCommon.name} logo",
+                    painter = painterResource(id = offer.accountCommon.imageId),
+                    contentDescription = "${offer.accountCommon.name} logo",
                     contentScale = ContentScale.Crop,
                     modifier = androidx.compose.ui.Modifier
                         .size(56.dp)
@@ -54,43 +53,15 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                         .shadow(elevation = 4.dp)
 
                 )
-                if (isicons) {
-                    when (account.accountStatus) {
-                        AccountStatus.NOT_LINKED -> {}
-                        AccountStatus.VERIFIED -> {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_sync),
-                                contentDescription = "Sync Account",
-                                modifier = androidx.compose.ui.Modifier.size(32.dp),
-                                tint = Color.Unspecified
-                            )
-                        }
-
-                        AccountStatus.UNVERIFIED -> {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_alert),
-                                contentDescription = "Account needs to be reconnected",
-                                modifier = androidx.compose.ui.Modifier.size(32.dp),
-                                tint = Color.Unspecified
-                            )
-                        }
-                    }
-                }
             }
             Spacer(modifier = Modifier.width(24.dp))
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
-                    text = account.accountCommon.accountName,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = if (account.accountStatus == AccountStatus.UNVERIFIED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
-                )
-                Text(
                     modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
-                    text = account.username,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = if (account.accountStatus == AccountStatus.UNVERIFIED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    text = offer.discount,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    softWrap = true
                 )
             }
         }
@@ -100,11 +71,11 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_minus),
-                contentDescription = "Remove Account",
+                painter = painterResource(id = R.drawable.ic_arrow_rigth),
+                contentDescription = "Go to discount",
                 modifier = Modifier
                     .size(36.dp)
-                    .clickable { },
+                    .clickable {  },
                 tint = Color.Unspecified,
             )
         }

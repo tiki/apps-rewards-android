@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.ui.composable.components.AccountTile
-import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.account.Account
 
 @Composable
 fun HomeRetailerItem(account: Account, paddingValues: PaddingValues = PaddingValues(0.dp), onClick: (Account) -> Unit) {

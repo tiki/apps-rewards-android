@@ -23,11 +23,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.account.Account
 import com.mytiki.apps_receipt_rewards.ui.theme.SpaceGrotesk
 
 @Composable
-fun AccountDisplay(account: Account, height: Dp,  body: String) {
+fun AccountDisplay(account: Account, height: Dp, body: String) {
     DisplayCard(height = height, horizontalPadding = 24.dp) {
         Column(
             modifier = Modifier

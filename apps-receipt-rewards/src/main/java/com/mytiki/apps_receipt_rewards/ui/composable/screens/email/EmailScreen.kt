@@ -1,12 +1,9 @@
 package com.mytiki.apps_receipt_rewards.ui.composable.screens.email
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowColumn
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,14 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -32,7 +27,6 @@ import com.mytiki.apps_receipt_rewards.ui.composable.components.GoogleSignIn
 import com.mytiki.apps_receipt_rewards.ui.composable.components.Header
 import com.mytiki.apps_receipt_rewards.ui.composable.components.Input
 import com.mytiki.apps_receipt_rewards.ui.composable.components.MainButton
-import com.mytiki.apps_receipt_rewards.ui.model.Account
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -76,12 +70,12 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                 )
             }
             items(emailViewModel.accountLists.toList()) {
-                AccountCard(it)
+                AccountCard(it){}
             }
             item {
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
-                    text = "Accounts",
+                    text = "Add Account",
                     modifier = Modifier.padding(horizontal = 21.dp),
                     style = MaterialTheme.typography.headlineLarge
                 )
@@ -104,7 +98,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                         .background(MaterialTheme.colorScheme.outlineVariant)) {}
                 }
                 Spacer(modifier = Modifier.height(32.dp))
-                Input(tile = "Email", text = emailViewModel.email.value, isShow = true, onChange = {emailViewModel.email.value = it})
+                Input(tile = "Email", text = emailViewModel.username.value, isShow = true, onChange = {emailViewModel.username.value = it})
                 Spacer(modifier = Modifier.height(32.dp))
                 Input(tile = "Password", text = emailViewModel.password.value, isShow = false, onChange = {emailViewModel.password.value = it})
                 Spacer(modifier = Modifier.height(48.dp))

@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.ui.model
+package com.mytiki.apps_receipt_rewards.ui.model.account
 import com.mytiki.apps_receipt_rewards.R
 
 enum class AccountCommon(val imageId: Int, val accountName: String, val accountType: AccountType) {

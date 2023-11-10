@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +22,7 @@ import com.mytiki.apps_receipt_rewards.ui.composable.components.AccountTile
 import com.mytiki.apps_receipt_rewards.ui.composable.components.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.ui.composable.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.ui.composable.components.RewardsChart
-import com.mytiki.apps_receipt_rewards.ui.model.Account
+import com.mytiki.apps_receipt_rewards.ui.model.account.Account
 
 @Composable
 fun HomePartiallyExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) -> Unit, close: () -> Unit) {
