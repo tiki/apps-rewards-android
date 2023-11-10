@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,10 +25,9 @@ import androidx.compose.ui.unit.sp
 import com.mytiki.apps_receipt_rewards.ui.theme.DarkGray
 import com.mytiki.apps_receipt_rewards.ui.theme.SpaceGrotesk
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Unit) {
-    Column (modifier = Modifier.padding(21.dp)){
+    Column (modifier = Modifier.padding(horizontal = 21.dp)){
         Text(
             text = tile,
             style = TextStyle(
@@ -40,14 +40,17 @@ fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Uni
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
-            modifier = Modifier.border(
-                BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                MaterialTheme.shapes.extraSmall
-            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(
+                    BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    MaterialTheme.shapes.extraSmall
+                ),
             colors = TextFieldDefaults.colors(
-                textColor = Color.Gray,
-                disabledTextColor = Color.Transparent,
-                backgroundColor = Color.White,
+                focusedTextColor = MaterialTheme.colorScheme.outline,
+                unfocusedTextColor = MaterialTheme.colorScheme.outline,
+                focusedContainerColor = MaterialTheme.colorScheme.background,
+                unfocusedContainerColor = MaterialTheme.colorScheme.background,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent

@@ -1,6 +1,7 @@
 package com.mytiki.apps_receipt_rewards.ui.composable.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -100,8 +101,10 @@ fun AccountCard(account: Account) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_minus),
                 contentDescription = "Remove Account",
-                modifier = androidx.compose.ui.Modifier.size(36.dp),
-                tint = Color.Unspecified
+                modifier = Modifier
+                    .size(36.dp)
+                    .clickable {  },
+                tint = Color.Unspecified,
             )
         }
     }

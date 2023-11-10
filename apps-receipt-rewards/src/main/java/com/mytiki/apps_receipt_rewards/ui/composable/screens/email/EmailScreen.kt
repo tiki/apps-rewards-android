@@ -58,16 +58,14 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                         navController.popBackStack()
                     }
                 }
-
             }
             item {
                 Spacer(modifier = Modifier.height(28.dp))
                 AccountDisplay(
                     accountList[0],
                     275.dp,
-                    "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards"
+                    "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
                 )
-
             }
             item {
                 Spacer(modifier = Modifier.height(24.dp))
@@ -110,7 +108,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                 Spacer(modifier = Modifier.height(32.dp))
                 Input(tile = "Password", text = emailViewModel.password.value, isShow = false, onChange = {emailViewModel.password.value = it})
                 Spacer(modifier = Modifier.height(48.dp))
-                MainButton(text = "Sign In", isfFilled = true) {}
+                MainButton(modifier = Modifier.padding(horizontal = 21.dp), text = "Sign In", isfFilled = true) {}
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }
