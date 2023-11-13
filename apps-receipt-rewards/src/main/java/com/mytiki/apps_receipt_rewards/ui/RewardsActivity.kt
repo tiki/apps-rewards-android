@@ -14,7 +14,6 @@ class RewardsActivity : AppCompatActivity() {
     private var _binding: RewardsActivityBinding? = null
     private val binding get() = _binding!!
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = RewardsActivityBinding.inflate(layoutInflater)

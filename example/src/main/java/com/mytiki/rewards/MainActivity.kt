@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.mytiki.apps_receipt_rewards.ui.Rewards
 import com.mytiki.apps_receipt_rewards.ui.RewardsActivity
 
 class MainActivity : AppCompatActivity() {
@@ -11,8 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.start).setOnClickListener {
-            val intent = Intent(this, RewardsActivity::class.java)
-            startActivity(intent)
+            Rewards.start(this)
         }
     }
 }
