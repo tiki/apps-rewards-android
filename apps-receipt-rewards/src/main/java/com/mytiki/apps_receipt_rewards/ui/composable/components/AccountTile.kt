@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.ui.model.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.ui.model.account.Account
+import com.mytiki.apps_receipt_rewards.ui.model.account.AccountStatus
 
 
 @Composable
@@ -36,7 +38,7 @@ fun AccountTile(
     text: @Composable () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(padding).clickable { onClick(account) },
+        modifier = Modifier.padding(padding).requiredWidth(size).clickable { onClick(account) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -47,7 +49,7 @@ fun AccountTile(
                 contentDescription = "${account.accountCommon.name} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(size)
+                    .requiredSize(size)
                     .clip(MaterialTheme.shapes.extraSmall)
                     .shadow(elevation = 4.dp)
 

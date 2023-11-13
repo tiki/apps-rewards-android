@@ -42,7 +42,7 @@ fun RewardsNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = RewardsRoute.RetailerScreen.name
+        startDestination = RewardsRoute.MoreScreen.name
     ){
         composable(
             route = RewardsRoute.OfferScreen.name,

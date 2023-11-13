@@ -38,6 +38,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
         lineHeight = (17.86).sp,
+        color = Green
     ),
 
     headlineLarge = TextStyle(
