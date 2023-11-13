@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.mytiki.apps_receipt_rewards.ui.activities.RewardsActivity
+import com.mytiki.apps_receipt_rewards.ui.RewardsActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
