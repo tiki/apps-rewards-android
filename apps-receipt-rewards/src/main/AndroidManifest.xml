@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".ui.RewardsActivity"
+            android:name=".RewardsActivity"
             android:exported="false"
             android:label="@string/title_activity_rewards"
             android:theme="@style/Theme.AppCompat.Translucent"/>
