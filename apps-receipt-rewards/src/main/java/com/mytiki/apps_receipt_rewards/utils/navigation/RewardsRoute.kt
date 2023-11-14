@@ -9,8 +9,7 @@ enum class RewardsRoute {
     MoreScreen;
 
     companion object {
-        fun fromRoute(route: String?): RewardsRoute
-            = when(route?.substringBefore("/")){
+        fun fromRoute(route: String?): RewardsRoute = when (route?.substringBefore("/")) {
             OfferScreen.name -> OfferScreen
             TermsScreen.name -> TermsScreen
             HomeScreen.name -> HomeScreen
@@ -19,6 +18,6 @@ enum class RewardsRoute {
             MoreScreen.name -> MoreScreen
             null -> OfferScreen
             else -> throw IllegalArgumentException("Route $route is not recognize")
-            }
+        }
     }
 }

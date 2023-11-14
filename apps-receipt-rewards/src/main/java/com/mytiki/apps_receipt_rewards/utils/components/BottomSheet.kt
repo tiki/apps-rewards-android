@@ -10,17 +10,22 @@ import androidx.compose.ui.graphics.Color
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet(sheetState: SheetState, modifier: Modifier = Modifier, onDismiss: () -> Unit, content: @Composable () -> Unit) {
+fun BottomSheet(
+    sheetState: SheetState,
+    modifier: Modifier = Modifier,
+    onDismiss: () -> Unit,
+    content: @Composable () -> Unit
+) {
 
-   ModalBottomSheet(
-       onDismissRequest = onDismiss,
-       modifier = modifier,
-       sheetState = sheetState,
-       shape = MaterialTheme.shapes.large,
-       containerColor = MaterialTheme.colorScheme.background,
-       scrimColor = Color.Transparent,
-       dragHandle = {}
-   ) {
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        modifier = modifier,
+        sheetState = sheetState,
+        shape = MaterialTheme.shapes.large,
+        containerColor = MaterialTheme.colorScheme.background,
+        scrimColor = Color.Transparent,
+        dragHandle = {}
+    ) {
         content()
     }
 }

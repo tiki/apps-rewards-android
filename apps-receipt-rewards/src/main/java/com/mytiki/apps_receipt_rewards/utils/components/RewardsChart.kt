@@ -31,9 +31,10 @@ fun RewardsChart(
     color: Color = MaterialTheme.colorScheme.primary
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
-    val radius = size/2
+    val radius = size / 2
 
-    val extraDegrees = ((360/(2*Math.PI*(radius.value - barWidth.value/2))) * (barWidth.value/2)).toFloat()
+    val extraDegrees =
+        ((360 / (2 * Math.PI * (radius.value - barWidth.value / 2))) * (barWidth.value / 2)).toFloat()
 
     val borderColor = MaterialTheme.colorScheme.outlineVariant
 
@@ -68,7 +69,7 @@ fun RewardsChart(
         }
         Canvas(
             modifier = Modifier
-                .size((((radius.value  - barWidth.value ) * 2) + 1).dp)
+                .size((((radius.value - barWidth.value) * 2) + 1).dp)
         ) {
             drawArc(
                 color = borderColor,
@@ -79,7 +80,7 @@ fun RewardsChart(
             )
         }
 
-        values.forEachIndexed {index, value ->
+        values.forEachIndexed { index, value ->
             percent += value
 
             val animateSize by animateFloatAsState(

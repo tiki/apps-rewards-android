@@ -8,11 +8,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @Composable
-fun HomeRetailerItem(account: Account, paddingValues: PaddingValues = PaddingValues(0.dp), onClick: (Account) -> Unit) {
+fun HomeRetailerItem(
+    account: Account,
+    paddingValues: PaddingValues = PaddingValues(0.dp),
+    onClick: (Account) -> Unit
+) {
     AccountTile(
         account = account,
         padding = paddingValues,

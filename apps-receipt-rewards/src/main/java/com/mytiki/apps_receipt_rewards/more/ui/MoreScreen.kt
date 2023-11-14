@@ -34,21 +34,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.R
+import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
+import com.mytiki.apps_receipt_rewards.more.MoreViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
-import com.mytiki.apps_receipt_rewards.more.MoreViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
+fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
         color = MaterialTheme.colorScheme.background
-    ){
-        Column (
+    ) {
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
@@ -62,13 +62,17 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
 
             Spacer(modifier = Modifier.height(34.dp))
 
-            Text("Monthly Estimate", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+            Text(
+                "Monthly Estimate",
+                modifier = Modifier.padding(horizontal = 21.dp),
+                style = MaterialTheme.typography.headlineLarge
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Box(
                 modifier = Modifier
-                    .padding(21.dp, 0.dp, 17.dp, 0.dp,)
+                    .padding(21.dp, 0.dp, 17.dp, 0.dp)
             ) {
                 Card(
                     modifier = Modifier
@@ -102,7 +106,12 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
                                 moreViewModel.chartData.keys.forEach { key ->
                                     Spacer(modifier = Modifier.height(2.dp))
                                     Text(
-                                        text = "$key: ${String.format("%.0f", moreViewModel.chartData[key]?.times(100))}%",
+                                        text = "$key: ${
+                                            String.format(
+                                                "%.0f",
+                                                moreViewModel.chartData[key]?.times(100)
+                                            )
+                                        }%",
                                         style = MaterialTheme.typography.titleSmall
                                     )
                                 }
@@ -122,11 +131,15 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text("Account", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+            Text(
+                "Account",
+                modifier = Modifier.padding(horizontal = 21.dp),
+                style = MaterialTheme.typography.headlineLarge
+            )
 
             Box(
                 modifier = Modifier
-                    .padding(21.dp, 0.dp, 17.dp, 0.dp,)
+                    .padding(21.dp, 0.dp, 17.dp, 0.dp)
             ) {
                 Card(
                     modifier = Modifier
@@ -147,10 +160,13 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
                             .padding(horizontal = 29.dp, vertical = 12.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        moreViewModel.accountLists.forEach{account ->
-                            AccountTile(account = account, padding = PaddingValues(horizontal = 7.dp, vertical = 12.dp), onClick = {}) {
+                        moreViewModel.accountLists.forEach { account ->
+                            AccountTile(
+                                account = account,
+                                padding = PaddingValues(horizontal = 7.dp, vertical = 12.dp),
+                                onClick = {}) {
                                 Text(
-                                    text = if(account.accountCommon == AccountCommon.GMAIL) account.username else account.accountCommon.accountName,
+                                    text = if (account.accountCommon == AccountCommon.GMAIL) account.username else account.accountCommon.accountName,
                                     style = MaterialTheme.typography.labelSmall,
                                     maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
@@ -163,13 +179,17 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            Text("Program Details", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+            Text(
+                "Program Details",
+                modifier = Modifier.padding(horizontal = 21.dp),
+                style = MaterialTheme.typography.headlineLarge
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Box(
                 modifier = Modifier
-                    .padding(21.dp, 0.dp, 17.dp, 0.dp,)
+                    .padding(21.dp, 0.dp, 17.dp, 0.dp)
             ) {
                 Card(
                     modifier = Modifier
@@ -269,43 +289,74 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController){
                         )
 
                         Spacer(modifier = Modifier.height(48.dp))
-                        Divider( modifier = Modifier.padding(bottom = 16.dp),color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                        Divider(
+                            modifier = Modifier.padding(bottom = 16.dp),
+                            color = MaterialTheme.colorScheme.outlineVariant,
+                            thickness = 1.dp
+                        )
 
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 12.dp)
-                                .clickable {  },
+                                .clickable { },
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text("Report an issue", style = MaterialTheme.typography.labelLarge)
-                            Image(painter = painterResource(id = R.drawable.ic_issue), contentDescription = "", modifier = Modifier.size(18.dp))
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_issue),
+                                contentDescription = "",
+                                modifier = Modifier.size(18.dp)
+                            )
                         }
 
-                        Divider( modifier = Modifier.padding(vertical = 16.dp),color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                        Divider(
+                            modifier = Modifier.padding(vertical = 16.dp),
+                            color = MaterialTheme.colorScheme.outlineVariant,
+                            thickness = 1.dp
+                        )
 
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 12.dp)
-                                .clickable {  },
+                                .clickable { },
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("Data licensing agreement", style = MaterialTheme.typography.labelLarge)
-                            Image(painter = painterResource(id = R.drawable.ic_union), contentDescription = "", modifier = Modifier.size(18.dp))
+                            Text(
+                                "Data licensing agreement",
+                                style = MaterialTheme.typography.labelLarge
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_union),
+                                contentDescription = "",
+                                modifier = Modifier.size(18.dp)
+                            )
                         }
 
-                        Divider( modifier = Modifier.padding(vertical = 16.dp),color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                        Divider(
+                            modifier = Modifier.padding(vertical = 16.dp),
+                            color = MaterialTheme.colorScheme.outlineVariant,
+                            thickness = 1.dp
+                        )
 
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 12.dp)
-                                .clickable {  },
+                                .clickable { },
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("Opt out of cashback connections", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error)
-                            Image(painter = painterResource(id = R.drawable.ic_block), contentDescription = "", modifier = Modifier.size(18.dp))
+                            Text(
+                                "Opt out of cashback connections",
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_block),
+                                contentDescription = "",
+                                modifier = Modifier.size(18.dp)
+                            )
                         }
                         Spacer(modifier = Modifier.height(16.dp))
                     }

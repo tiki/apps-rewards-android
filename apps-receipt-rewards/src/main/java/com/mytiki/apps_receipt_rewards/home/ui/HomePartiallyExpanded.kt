@@ -18,15 +18,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
+import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
-import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 
 @Composable
-fun HomePartiallyExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) -> Unit, close: () -> Unit) {
+fun HomePartiallyExpanded(
+    homeViewModel: HomeViewModel,
+    navigateTo: (Account) -> Unit,
+    close: () -> Unit
+) {
     Column {
         BottomSheetHeader(
             title = "CASHBACK CONNECTIONS",

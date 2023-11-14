@@ -37,7 +37,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
             .padding(top = 24.dp, start = 29.dp, end = 29.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Row {
             Box(
                 contentAlignment = Alignment.Center
@@ -46,7 +46,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
                     painter = painterResource(id = offer.accountCommon.imageId),
                     contentDescription = "${offer.accountCommon.name} logo",
                     contentScale = ContentScale.Crop,
-                    modifier = androidx.compose.ui.Modifier
+                    modifier = Modifier
                         .size(56.dp)
                         .clip(MaterialTheme.shapes.extraSmall)
                         .shadow(elevation = 4.dp)
@@ -74,7 +74,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
                 contentDescription = "Go to discount",
                 modifier = Modifier
                     .size(36.dp)
-                    .clickable {  },
+                    .clickable { },
                 tint = Color.Unspecified,
             )
         }

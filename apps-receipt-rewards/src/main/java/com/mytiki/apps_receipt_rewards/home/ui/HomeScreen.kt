@@ -1,4 +1,4 @@
- package com.mytiki.apps_receipt_rewards.home.ui
+package com.mytiki.apps_receipt_rewards.home.ui
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -14,34 +14,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavHostController
-import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
-import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
+import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
+import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 import kotlinx.coroutines.launch
 
- @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
-     ExperimentalAnimationApi::class
- )
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
+    ExperimentalAnimationApi::class
+)
 @Composable
-fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, onDismissBottomSheet: () -> Unit) {
-     val configuration = LocalConfiguration.current
+fun HomeScreen(
+    homeViewModel: HomeViewModel,
+    navController: NavHostController,
+    onDismissBottomSheet: () -> Unit
+) {
+    val configuration = LocalConfiguration.current
 
-    val sheetState = rememberModalBottomSheetState(false){
+    val sheetState = rememberModalBottomSheetState(false) {
         homeViewModel.isExpanded.value = it == SheetValue.Expanded
         return@rememberModalBottomSheetState true
     }
     val scope = rememberCoroutineScope()
 
 
-    fun close(){
+    fun close() {
         scope.launch { sheetState.hide() }.invokeOnCompletion {
             onDismissBottomSheet()
         }
     }
-     fun toAccount(account: Account){
-         navController.navigate(RewardsRoute.EmailScreen.name)
-     }
+
+    fun toAccount(account: Account) {
+        navController.navigate(RewardsRoute.EmailScreen.name)
+    }
 
 
     BottomSheet(
@@ -54,8 +60,14 @@ fun HomeScreen(homeViewModel: HomeViewModel, navController: NavHostController, o
         AnimatedContent(
             targetState = homeViewModel.isExpanded.value,
             transitionSpec = {
-                slideInVertically(initialOffsetY = { configuration.screenHeightDp/2  }, animationSpec = tween(750,750)) togetherWith
-                        slideOutVertically( targetOffsetY = { -configuration.screenHeightDp/2 }, animationSpec = tween(750, 750))
+                slideInVertically(
+                    initialOffsetY = { configuration.screenHeightDp / 2 },
+                    animationSpec = tween(750, 750)
+                ) togetherWith
+                        slideOutVertically(
+                            targetOffsetY = { -configuration.screenHeightDp / 2 },
+                            animationSpec = tween(750, 750)
+                        )
             }, label = ""
         ) { targetExpanded ->
             if (targetExpanded) {

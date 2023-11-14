@@ -77,8 +77,12 @@ object Rewards {
      *
      * @param context
      */
-    fun scan(context: Context){
-        Toast.makeText(context, "Receipt scanning functionality not implemented in demo app." , Toast.LENGTH_LONG).show()
+    fun scan(context: Context) {
+        Toast.makeText(
+            context,
+            "Receipt scanning functionality not implemented in demo app.",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     /**

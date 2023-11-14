@@ -39,7 +39,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
             .padding(top = 24.dp, start = 29.dp, end = 29.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Row {
             Box(
                 contentAlignment = Alignment.Center
@@ -48,7 +48,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                     painter = painterResource(id = account.accountCommon.imageId),
                     contentDescription = "${account.accountCommon.name} logo",
                     contentScale = ContentScale.Crop,
-                    modifier = androidx.compose.ui.Modifier
+                    modifier = Modifier
                         .size(56.dp)
                         .clip(MaterialTheme.shapes.extraSmall)
                         .shadow(elevation = 2.dp)
@@ -61,7 +61,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_sync),
                                 contentDescription = "Sync Account",
-                                modifier = androidx.compose.ui.Modifier.size(32.dp),
+                                modifier = Modifier.size(32.dp),
                                 tint = Color.Unspecified
                             )
                         }
@@ -70,7 +70,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_alert),
                                 contentDescription = "Account needs to be reconnected",
-                                modifier = androidx.compose.ui.Modifier.size(32.dp),
+                                modifier = Modifier.size(32.dp),
                                 tint = Color.Unspecified
                             )
                         }

@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 
 @Composable
-fun CloseButton(closeFunction: () -> Unit){
+fun CloseButton(closeFunction: () -> Unit) {
     Icon(
         painter = painterResource(id = R.drawable.ic_x_mark),
         contentDescription = "",

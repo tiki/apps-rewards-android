@@ -25,7 +25,7 @@ import com.mytiki.apps_receipt_rewards.utils.theme.SpaceGrotesk
 
 @Composable
 fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Unit) {
-    Column (modifier = Modifier.padding(horizontal = 21.dp)){
+    Column(modifier = Modifier.padding(horizontal = 21.dp)) {
         Text(
             text = tile,
             style = TextStyle(
@@ -54,7 +54,7 @@ fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Uni
                 disabledIndicatorColor = Color.Transparent
             ),
             value = text,
-            onValueChange = {onChange(it)},
+            onValueChange = { onChange(it) },
             shape = MaterialTheme.shapes.extraSmall,
             textStyle = MaterialTheme.typography.titleLarge,
             visualTransformation = if (isShow) VisualTransformation.None else PasswordVisualTransformation()

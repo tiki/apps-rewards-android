@@ -45,9 +45,11 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
 
         ) {
             item {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                ) {
                     Spacer(modifier = Modifier.height(64.dp))
                     Header(text = accountCommon.accountName) {
                         navController.popBackStack()
@@ -71,7 +73,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                 )
             }
             items(accountList) {
-                AccountCard(it){}
+                AccountCard(it) {}
             }
             item {
                 Spacer(modifier = Modifier.height(24.dp))
@@ -81,29 +83,52 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(40.dp))
-                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-                    GoogleSignIn(){}
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    GoogleSignIn {}
                 }
                 Spacer(modifier = Modifier.height(40.dp))
-                Row (modifier = Modifier
-                    .padding(horizontal = 21.dp)
-                    .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically){
-                    Box(modifier = Modifier
-                        .height(1.dp)
-                        .weight(1f)
-                        .background(MaterialTheme.colorScheme.outlineVariant)) {}
-                    Text(text = "or", modifier =  Modifier.padding(horizontal = 15.dp), style = MaterialTheme.typography.displaySmall, textAlign = TextAlign.Center)
-                    Box(modifier = Modifier
-                        .height(1.dp)
-                        .weight(1f)
-                        .background(MaterialTheme.colorScheme.outlineVariant)) {}
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 21.dp)
+                        .fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .height(1.dp)
+                            .weight(1f)
+                            .background(MaterialTheme.colorScheme.outlineVariant)
+                    ) {}
+                    Text(
+                        text = "or",
+                        modifier = Modifier.padding(horizontal = 15.dp),
+                        style = MaterialTheme.typography.displaySmall,
+                        textAlign = TextAlign.Center
+                    )
+                    Box(
+                        modifier = Modifier
+                            .height(1.dp)
+                            .weight(1f)
+                            .background(MaterialTheme.colorScheme.outlineVariant)
+                    ) {}
                 }
                 Spacer(modifier = Modifier.height(32.dp))
-                Input(tile = "Email", text = emailViewModel.username.value, isShow = true, onChange = {emailViewModel.username.value = it})
+                Input(
+                    tile = "Email",
+                    text = emailViewModel.username.value,
+                    isShow = true,
+                    onChange = { emailViewModel.username.value = it })
                 Spacer(modifier = Modifier.height(32.dp))
-                Input(tile = "Password", text = emailViewModel.password.value, isShow = false, onChange = {emailViewModel.password.value = it})
+                Input(
+                    tile = "Password",
+                    text = emailViewModel.password.value,
+                    isShow = false,
+                    onChange = { emailViewModel.password.value = it })
                 Spacer(modifier = Modifier.height(48.dp))
-                MainButton(modifier = Modifier.padding(horizontal = 21.dp), text = "Sign In", isfFilled = true) {}
+                MainButton(
+                    modifier = Modifier.padding(horizontal = 21.dp),
+                    text = "Sign In",
+                    isfFilled = true
+                ) {}
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

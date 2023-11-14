@@ -38,7 +38,10 @@ fun AccountTile(
     text: @Composable () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(padding).requiredWidth(size).clickable { onClick(account) },
+        modifier = Modifier
+            .padding(padding)
+            .requiredWidth(size)
+            .clickable { onClick(account) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(

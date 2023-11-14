@@ -10,7 +10,7 @@ import com.mytiki.apps_receipt_rewards.R
 
 // Set of Material typography styles to start with
 
-val SpaceGrotesk= FontFamily(
+val SpaceGrotesk = FontFamily(
     Font(R.font.space_grotesk_light, FontWeight.Light), //300
     Font(R.font.space_grotesk_regular, FontWeight.Normal), //400
     Font(R.font.space_grotesk_medium, FontWeight.Medium), //500
@@ -99,7 +99,7 @@ val Typography = Typography(
         color = Black
     ),
 
-    labelLarge= TextStyle(
+    labelLarge = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
@@ -121,4 +121,4 @@ val Typography = Typography(
         color = DarkGray
     ),
 
-)
+    )

@@ -2,16 +2,12 @@ package com.mytiki.apps_receipt_rewards.utils.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
-import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -24,15 +20,17 @@ fun DisplayCard(
     topPadding: Dp = 0.dp,
     endPadding: Dp = 0.dp,
     bottomPadding: Dp = 0.dp,
-    content: @Composable () -> Unit){
-    Box(modifier = Modifier
-        .padding(
-            startPadding,
-            topPadding,
-            (endPadding.value-4).dp,
-            bottomPadding,
-        )
-        ) {
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .padding(
+                startPadding,
+                topPadding,
+                (endPadding.value - 4).dp,
+                bottomPadding,
+            )
+    ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -57,14 +55,16 @@ fun DisplayCard(
     height: Dp = 0.dp,
     horizontalPadding: Dp = 0.dp,
     verticalPadding: Dp = 0.dp,
-    content: @Composable () -> Unit){
-    Box(modifier = Modifier
-        .padding(
-            horizontalPadding,
-            verticalPadding,
-            (horizontalPadding.value-4).dp,
-            verticalPadding,
-        )
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .padding(
+                horizontalPadding,
+                verticalPadding,
+                (horizontalPadding.value - 4).dp,
+                verticalPadding,
+            )
     ) {
         Card(
             modifier = Modifier
@@ -90,14 +90,16 @@ fun DisplayCard(
 fun DisplayCard(
     height: Dp = 0.dp,
     padding: Dp = 0.dp,
-    content: @Composable () -> Unit){
-    Box(modifier = Modifier
-        .padding(
-            padding,
-            padding,
-            (padding.value-4).dp,
-            padding,
-        )
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .padding(
+                padding,
+                padding,
+                (padding.value - 4).dp,
+                padding,
+            )
     ) {
         Card(
             modifier = Modifier

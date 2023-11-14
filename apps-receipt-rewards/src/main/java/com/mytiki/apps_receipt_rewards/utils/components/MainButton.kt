@@ -18,8 +18,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainButton(modifier: Modifier = Modifier, text: String, isfFilled: Boolean, onClick: () -> Unit){
-    Card (
+fun MainButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    isfFilled: Boolean,
+    onClick: () -> Unit
+) {
+    Card(
         modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
@@ -28,14 +33,17 @@ fun MainButton(modifier: Modifier = Modifier, text: String, isfFilled: Boolean, 
         colors = CardDefaults.cardColors(
             containerColor = if (isfFilled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background
         ),
-        border = if (isfFilled) null else BorderStroke(width = 2.dp, color = MaterialTheme.colorScheme.primary)
+        border = if (isfFilled) null else BorderStroke(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.primary
+        )
 
-    ){
-        Column (
+    ) {
+        Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        ){
+        ) {
             Text(
                 text = text,
                 color = if (isfFilled) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.primary,

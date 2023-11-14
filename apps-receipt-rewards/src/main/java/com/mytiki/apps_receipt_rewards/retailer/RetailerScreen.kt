@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
+import com.mytiki.apps_receipt_rewards.offer.ui.OfferCard
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.Input
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
-import com.mytiki.apps_receipt_rewards.offer.ui.OfferCard
 
 @Composable
 fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostController) {
@@ -38,9 +38,11 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
 
         ) {
             item {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                ) {
                     Spacer(modifier = Modifier.height(64.dp))
                     Header(text = accountCommon.accountName) {
                         navController.popBackStack()
@@ -63,14 +65,26 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            if (retailerViewModel.accountLists.isEmpty()){
+            if (retailerViewModel.accountLists.isEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
-                    Input(tile = "Email", text = retailerViewModel.username.value, isShow = true, onChange = {retailerViewModel.username.value = it})
+                    Input(
+                        tile = "Email",
+                        text = retailerViewModel.username.value,
+                        isShow = true,
+                        onChange = { retailerViewModel.username.value = it })
                     Spacer(modifier = Modifier.height(32.dp))
-                    Input(tile = "Password", text = retailerViewModel.password.value, isShow = false, onChange = {retailerViewModel.password.value = it})
+                    Input(
+                        tile = "Password",
+                        text = retailerViewModel.password.value,
+                        isShow = false,
+                        onChange = { retailerViewModel.password.value = it })
                     Spacer(modifier = Modifier.height(48.dp))
-                    MainButton(modifier = Modifier.padding(horizontal = 21.dp), text = "Sign In", isfFilled = true) {}
+                    MainButton(
+                        modifier = Modifier.padding(horizontal = 21.dp),
+                        text = "Sign In",
+                        isfFilled = true
+                    ) {}
                 }
             } else {
                 items(retailerViewModel.accountLists) {
@@ -79,7 +93,11 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
             }
             item {
                 Spacer(modifier = Modifier.height(32.dp))
-                MainButton(modifier = Modifier.padding(horizontal = 21.dp), text = "Scan receipt", isfFilled = false) {}
+                MainButton(
+                    modifier = Modifier.padding(horizontal = 21.dp),
+                    text = "Scan receipt",
+                    isfFilled = false
+                ) {}
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
                     text = "More Offers",
@@ -88,7 +106,7 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                 )
             }
             items(retailerViewModel.offerLists.toList()) {
-                OfferCard(it){}
+                OfferCard(it) {}
             }
             item {
                 Spacer(modifier = Modifier.height(40.dp))

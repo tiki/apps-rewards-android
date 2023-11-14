@@ -16,18 +16,18 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomSheetHeader(title: String, subTitle: String, onClose: () -> Unit) {
-    Row (
+    Row(
         modifier = Modifier
             .padding(top = 24.dp, start = 24.dp, end = 24.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Top
-    ){
+    ) {
         Column {
             Text(text = title, style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = subTitle, style = MaterialTheme.typography.titleMedium)
         }
-        CloseButton{onClose()}
+        CloseButton { onClose() }
     }
 }

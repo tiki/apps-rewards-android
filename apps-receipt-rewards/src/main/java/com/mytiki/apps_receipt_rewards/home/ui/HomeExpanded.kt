@@ -17,14 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) -> Unit) {
-    LazyColumn (modifier = Modifier.fillMaxSize()){
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Spacer(modifier = Modifier.height(49.dp))
             Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
