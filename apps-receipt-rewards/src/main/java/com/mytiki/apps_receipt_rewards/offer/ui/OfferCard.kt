@@ -34,7 +34,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 24.dp, start = 29.dp, end = 29.dp),
+            .padding(horizontal =  29.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

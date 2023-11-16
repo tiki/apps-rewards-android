@@ -79,7 +79,7 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                         text = retailerViewModel.password.value,
                         isShow = false,
                         onChange = { retailerViewModel.password.value = it })
-                    Spacer(modifier = Modifier.height(48.dp))
+                    Spacer(modifier = Modifier.height(32.dp))
                     MainButton(
                         modifier = Modifier.padding(horizontal = 21.dp),
                         text = "Sign In",
@@ -88,7 +88,9 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                 }
             } else {
                 items(retailerViewModel.accountLists) {
+                    Spacer(modifier = Modifier.height(32.dp))
                     AccountCard(it, false) {}
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
             item {
@@ -98,17 +100,16 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                     text = "Scan receipt",
                     isfFilled = false
                 ) {}
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(30.dp))
                 Text(
                     text = "More Offers",
-                    modifier = Modifier.padding(horizontal = 21.dp),
+                    modifier = Modifier.padding(horizontal = 21.dp).height(36.dp),
                     style = MaterialTheme.typography.headlineLarge
                 )
+                Spacer(modifier = Modifier.height(32.dp))
             }
             items(retailerViewModel.offerLists.toList()) {
                 OfferCard(it) {}
-            }
-            item {
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

@@ -36,7 +36,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 24.dp, start = 29.dp, end = 29.dp),
+            .padding(horizontal = 29.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -51,7 +51,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                     modifier = Modifier
                         .size(56.dp)
                         .clip(MaterialTheme.shapes.extraSmall)
-                        .shadow(elevation = 2.dp)
+                        .shadow(elevation = 4.dp)
 
                 )
                 if (isicons) {

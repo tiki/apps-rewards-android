@@ -27,7 +27,7 @@ fun MainButton(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(54.dp)
             .clickable { onClick() },
         shape = MaterialTheme.shapes.extraSmall,
         colors = CardDefaults.cardColors(

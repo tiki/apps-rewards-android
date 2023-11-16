@@ -116,6 +116,7 @@ fun OfferContent(
             )
             Spacer(modifier = Modifier.height(32.dp))
             MainButton(
+                modifier = Modifier.padding(horizontal = 15.dp),
                 text = "Get estimate", isfFilled = true
             ) {
                 navigateTo(RewardsRoute.TermsScreen.name)

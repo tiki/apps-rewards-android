@@ -73,20 +73,21 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                 )
             }
             items(accountList) {
+                Spacer(modifier = Modifier.height(32.dp))
                 AccountCard(it) {}
             }
             item {
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(38.dp))
                 Text(
                     text = "Add Account",
                     modifier = Modifier.padding(horizontal = 21.dp),
                     style = MaterialTheme.typography.headlineLarge
                 )
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(46.dp))
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     GoogleSignIn {}
                 }
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(38.dp))
                 Row(
                     modifier = Modifier
                         .padding(horizontal = 21.dp)
