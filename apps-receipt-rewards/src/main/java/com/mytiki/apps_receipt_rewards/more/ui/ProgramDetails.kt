@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
+import com.mytiki.apps_receipt_rewards.more.ui.IconTitle
 
 @Composable
 fun ProgramDetails() {
@@ -81,33 +83,38 @@ fun ProgramDetails() {
 
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 49.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    IconTitle(
-                        painter = painterResource(id = R.drawable.ic_purchase),
-                        text = "Purchases"
-                    )
-                    IconTitle(
-                        painter = painterResource(id = R.drawable.ic_receipt),
-                        text = "Receipts"
-                    )
+                    .fillMaxWidth()
+                    .padding(horizontal = 49.dp),
+                    horizontalArrangement = Arrangement.Center
+                    ) {
+                    Column {
+                        IconTitle(
+                            Modifier
+                                .width(90.dp)
+                                .height(20.dp),
+                            painter = painterResource(id = R.drawable.ic_purchase),
+                            text = "Purchases"
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        IconTitle(
+                            Modifier
+                                .width(90.dp)
+                                .height(20.dp),
+                            painter = painterResource(id = R.drawable.ic_user_id),
+                            text = "User ID"
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Column {
+                        IconTitle(
+                            Modifier
+                                .width(90.dp)
+                                .height(20.dp),
+                            painter = painterResource(id = R.drawable.ic_receipt),
+                            text = "Receipts"
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 49.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    IconTitle(
-                        painter = painterResource(id = R.drawable.ic_user_id),
-                        text = "User ID"
-                    )
-                }
-
 
                 Spacer(modifier = Modifier.height(48.dp))
                 Text(

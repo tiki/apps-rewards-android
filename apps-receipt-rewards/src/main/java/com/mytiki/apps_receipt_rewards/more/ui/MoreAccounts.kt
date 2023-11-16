@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -17,14 +19,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.ui.account.Account
-import com.mytiki.apps_receipt_rewards.ui.account.AccountCommon
-import com.mytiki.apps_receipt_rewards.ui.account.AccountTile
+import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MoreAccounts(accountsList: List<Account>) {
-    Text("Account", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+    Text("Accounts", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+
+    Spacer(modifier = Modifier.height(16.dp))
 
     Box(
         modifier = Modifier
@@ -46,11 +50,11 @@ fun MoreAccounts(accountsList: List<Account>) {
             FlowRow(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 29.dp, vertical = 12.dp),
+                    .padding(horizontal = 32.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 accountsList.forEach{account ->
-                    AccountTile(account = account, padding = PaddingValues(horizontal = 7.dp, vertical = 12.dp), onClick = {}) {
+                    AccountTile(account = account, padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp), onClick = {}) {
                         Text(
                             text = if(account.accountCommon == AccountCommon.GMAIL) account.username else account.accountCommon.accountName,
                             style = MaterialTheme.typography.labelSmall,

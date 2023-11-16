@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
+import com.mytiki.apps_receipt_rewards.ui.RewardsViewModel
 
-class MoreViewModel : ViewModel() {
+class MoreViewModel() : ViewModel() {
     val chartData = mutableStateMapOf(
         AccountCommon.WALMART.accountName to 0.4f,
         AccountCommon.TACO_BELL.accountName to 0.3f,

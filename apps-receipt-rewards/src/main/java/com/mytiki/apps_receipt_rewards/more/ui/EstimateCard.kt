@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -19,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.ui.utils.components.RewardsChart
+import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 
 @Composable
 fun EstimateCard(data: Map<String, Float>) {
@@ -47,7 +48,7 @@ fun EstimateCard(data: Map<String, Float>) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 31.dp, vertical = 24.dp),
+                    .padding(horizontal = 32.dp, vertical = 24.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -58,13 +59,15 @@ fun EstimateCard(data: Map<String, Float>) {
                     Column {
                         Text(
                             text = "Largest Contributors",
-                            style = MaterialTheme.typography.displaySmall
+                            style = MaterialTheme.typography.displaySmall,
+                            modifier = Modifier.height(18.dp)
                         )
                         data.keys.forEach { key ->
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
                                 text = "$key: ${String.format("%.0f", data[key]?.times(100))}%",
-                                style = MaterialTheme.typography.titleSmall
+                                style = MaterialTheme.typography.titleSmall,
+                                modifier = Modifier.height(18.dp)
                             )
                         }
                     }

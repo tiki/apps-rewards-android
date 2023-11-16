@@ -15,6 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
@@ -46,7 +47,11 @@ fun HomeScreen(
     }
 
     fun toAccount(account: Account) {
-        navController.navigate(RewardsRoute.EmailScreen.name)
+        if (account.accountCommon.accountType == AccountType.EMAIL) {
+            navController.navigate(RewardsRoute.EmailScreen.name)
+        } else {
+            navController.navigate(RewardsRoute.RetailerScreen.name)
+        }
     }
 
 

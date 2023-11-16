@@ -78,17 +78,6 @@ fun OfferContent(
                 subTitle = "Share data. Earn cash."
             ) { onClose() }
         },
-        bottomBar = {
-            Column(modifier = Modifier.padding(horizontal = 15.dp)) {
-                Spacer(modifier = Modifier.height(32.dp))
-                MainButton(
-                    text = "Get estimate", isfFilled = true
-                ) {
-                    navigateTo(RewardsRoute.TermsScreen.name)
-                }
-                Spacer(modifier = Modifier.height(40.dp))
-            }
-        },
         containerColor = MaterialTheme.colorScheme.background
     ) { paddingValue ->
         Column(
@@ -121,10 +110,17 @@ fun OfferContent(
             }
             Spacer(modifier = Modifier.height(40.dp))
             Text(
-                modifier = Modifier.padding(horizontal = 24.dp),
+                modifier = Modifier.padding(horizontal = 30.dp),
                 text = "Estimate based on similar users spending habits and market price for shopping data. ",
                 style = MaterialTheme.typography.labelMedium
             )
+            Spacer(modifier = Modifier.height(32.dp))
+            MainButton(
+                text = "Get estimate", isfFilled = true
+            ) {
+                navigateTo(RewardsRoute.TermsScreen.name)
+            }
+            Spacer(modifier = Modifier.height(40.dp))
 
         }
     }

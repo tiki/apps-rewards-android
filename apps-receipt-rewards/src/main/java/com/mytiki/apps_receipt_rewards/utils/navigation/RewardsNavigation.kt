@@ -24,9 +24,11 @@ import com.mytiki.apps_receipt_rewards.retailer.RetailerScreen
 import com.mytiki.apps_receipt_rewards.retailer.RetailerViewModel
 import com.mytiki.apps_receipt_rewards.terms.TermsScreen
 import com.mytiki.apps_receipt_rewards.terms.TermsViewModel
+import com.mytiki.apps_receipt_rewards.ui.RewardsViewModel
 
 @Composable
 fun RewardsNavigation(
+    rewardsViewModel: RewardsViewModel = viewModel(),
     offerViewModel: OfferViewModel = viewModel(),
     termsViewModel: TermsViewModel = viewModel(),
     homeViewModel: HomeViewModel = viewModel(),
@@ -42,7 +44,7 @@ fun RewardsNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = RewardsRoute.MoreScreen.name
+        startDestination = RewardsRoute.OfferScreen.name
     ) {
         composable(
             route = RewardsRoute.OfferScreen.name,

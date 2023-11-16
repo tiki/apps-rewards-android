@@ -23,21 +23,18 @@ val Typography = Typography(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 42.sp,
-        lineHeight = (53.59).sp,
         color = Green
     ),
     displayMedium = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
-        lineHeight = (22.97).sp,
         color = Green
     ),
     displaySmall = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
-        lineHeight = (17.86).sp,
         color = Green
     ),
 
@@ -45,49 +42,42 @@ val Typography = Typography(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
-        lineHeight = (35.73).sp,
         color = Black
     ),
     headlineMedium = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
-        lineHeight = (30.62).sp,
         color = Black
     ),
     headlineSmall = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp,
-        lineHeight = (28.07).sp,
         color = Black
     ),
     titleLarge = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        lineHeight = (25.52).sp,
         color = Black
     ),
     titleMedium = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
-        lineHeight = (20.42).sp,
         color = DarkGray
     ),
     titleSmall = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        lineHeight = (17.86).sp,
         color = Black
     ),
     bodyLarge = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
-        lineHeight = (25.52).sp,
         color = Black
     ),
 
@@ -95,7 +85,6 @@ val Typography = Typography(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = (20.42).sp,
         color = Black
     ),
 
@@ -103,21 +92,18 @@ val Typography = Typography(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
-        lineHeight = (20.42).sp,
         color = DarkGray
     ),
     labelMedium = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        lineHeight = (17.86).sp,
         color = DarkGray
     ),
     labelSmall = TextStyle(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
-        lineHeight = (15.31).sp,
         color = DarkGray
     ),
 

@@ -13,10 +13,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IconTitle(painter: Painter, text: String) {
+fun IconTitle(textModifier: Modifier = Modifier,
+    painter: Painter, text: String) {
     Row {
         Image(painter = painter, contentDescription = "", modifier = Modifier.size(18.dp))
         Spacer(modifier = Modifier.width(10.dp))
-        Text(text, style = MaterialTheme.typography.labelLarge)
+        Text(text, textModifier,style = MaterialTheme.typography.labelLarge)
     }
 }
