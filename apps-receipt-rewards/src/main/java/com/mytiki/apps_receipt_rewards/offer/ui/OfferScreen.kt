@@ -12,12 +12,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.offer.OfferViewModel
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
@@ -28,9 +31,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OfferScreen(
-    offerViewModel: OfferViewModel,
+    rewardsSharedViewModel: RewardsSharedViewModel,
     navController: NavHostController,
-    onDismissBottomSheet: () -> Unit
+    onDismissBottomSheet: () -> Unit,
+    offerViewModel: OfferViewModel = viewModel(),
 ) {
 
     val sheetState = rememberModalBottomSheetState(true)
@@ -51,6 +55,7 @@ fun OfferScreen(
             },
             content = {
                 OfferContent(
+                    rewardsSharedViewModel,
                     offerViewModel,
                     { route ->
                         scope.launch { sheetState.hide() }.invokeOnCompletion {
@@ -66,6 +71,7 @@ fun OfferScreen(
 
 @Composable
 fun OfferContent(
+    rewardsSharedViewModel: RewardsSharedViewModel,
     offerViewModel: OfferViewModel,
     navigateTo: (String) -> Unit,
     onClose: () -> Unit

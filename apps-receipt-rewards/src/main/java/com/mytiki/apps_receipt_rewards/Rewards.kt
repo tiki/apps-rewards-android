@@ -25,6 +25,10 @@ object Rewards {
         context.startActivity(intent)
     }
 
+    fun getIsLicensed(): Boolean {
+        return isLicensed
+    }
+
     /**
      * License
      *

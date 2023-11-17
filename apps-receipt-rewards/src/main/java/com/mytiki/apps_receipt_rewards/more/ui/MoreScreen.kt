@@ -13,6 +13,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.more.MoreViewModel
 import com.mytiki.apps_receipt_rewards.ui.more.EstimateCard
@@ -21,7 +22,10 @@ import com.mytiki.apps_receipt_rewards.ui.more.ProgramDetails
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 
 @Composable
-fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController) {
+fun MoreScreen(
+    navController: NavHostController,
+    moreViewModel: MoreViewModel = viewModel(),
+) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),

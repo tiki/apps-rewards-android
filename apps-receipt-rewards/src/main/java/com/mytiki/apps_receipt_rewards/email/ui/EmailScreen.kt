@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
@@ -30,7 +31,10 @@ import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController) {
+fun EmailScreen(
+    navController: NavHostController,
+    emailViewModel: EmailViewModel = viewModel(),
+) {
     val accountList = emailViewModel.accountLists
     val accountCommon = emailViewModel.accountCommon.value
 

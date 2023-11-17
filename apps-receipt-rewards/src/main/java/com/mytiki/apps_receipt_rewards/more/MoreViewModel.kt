@@ -1,12 +1,10 @@
 package com.mytiki.apps_receipt_rewards.more
 
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.ViewModel
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
-import com.mytiki.apps_receipt_rewards.ui.RewardsViewModel
 
 class MoreViewModel() : ViewModel() {
     val chartData = mutableListOf(

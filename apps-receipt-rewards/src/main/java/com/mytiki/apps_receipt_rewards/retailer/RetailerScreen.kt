@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
@@ -23,7 +24,10 @@ import com.mytiki.apps_receipt_rewards.utils.components.Input
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 
 @Composable
-fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostController) {
+fun RetailerScreen(
+    navController: NavHostController,
+    retailerViewModel: RetailerViewModel = viewModel(),
+) {
     val accountList = retailerViewModel.accountLists
     val accountCommon = retailerViewModel.accountCommon.value
 

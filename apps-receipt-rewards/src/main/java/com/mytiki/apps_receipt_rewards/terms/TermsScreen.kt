@@ -14,15 +14,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun TermsScreen(termsViewModel: TermsViewModel, navController: NavHostController) {
+fun TermsScreen(
+    rewardsSharedViewModel: RewardsSharedViewModel,
+    navController: NavHostController,
+    termsViewModel: TermsViewModel = viewModel(),
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -47,6 +54,7 @@ fun TermsScreen(termsViewModel: TermsViewModel, navController: NavHostController
                     MainButton(
                         text = "I agree", isfFilled = true
                     ) {
+                        rewardsSharedViewModel.acceptLicense()
                         navController.navigate(RewardsRoute.HomeScreen.name)
                     }
                     Spacer(modifier = Modifier.height(40.dp))
