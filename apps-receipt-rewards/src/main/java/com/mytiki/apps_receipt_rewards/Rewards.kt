@@ -10,54 +10,61 @@ import com.mytiki.apps_receipt_rewards.home.HomeEarnings
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
 
+/**
+ * This object provides functionalities and information related to rewards and accounts.
+ */
 object Rewards {
 
     private var accounts: MutableList<Account> = mutableListOf()
     private var isLicensed: Boolean = false
 
+
     /**
-     * Start
+     * Starts the Rewards activity.
      *
-     * @param context
+     * @param context The context used to start the RewardsActivity.
      */
     fun start(context: Context) {
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
     }
 
+    /**
+     * Retrieves the current license status.
+     *
+     * @return The current license status.
+     */
     fun getIsLicensed(): Boolean {
         return isLicensed
     }
 
     /**
-     * License
-     *
+     * Grants a license.
      */
     fun license() {
         isLicensed = true
     }
 
     /**
-     * Decline
-     *
+     * Declines a license.
      */
     fun decline() {
         isLicensed = false
     }
 
     /**
-     * Estimate
+     * Provides an estimate of an offer.
      *
-     * @return
+     * @return The estimated offer.
      */
     fun estimate(): OfferEstimate {
         return OfferEstimate(5, 15)
     }
 
     /**
-     * Earnings
+     * Retrieves the earnings details.
      *
-     * @return
+     * @return The earnings details.
      */
     fun earnings(): HomeEarnings {
         return HomeEarnings(
@@ -68,18 +75,18 @@ object Rewards {
     }
 
     /**
-     * Terms
+     * Retrieves the terms and conditions.
      *
-     * @return
+     * @return The terms and conditions.
      */
     fun terms(): String {
         return terms
     }
 
     /**
-     * Scan
+     * Scans receipts.
      *
-     * @param context
+     * @param context The context used for scanning.
      */
     fun scan(context: Context) {
         Toast.makeText(
@@ -90,10 +97,10 @@ object Rewards {
     }
 
     /**
-     * Offers
+     * Retrieves a list of offers for a given account provider.
      *
-     * @param provider
-     * @return
+     * @param provider The account provider.
+     * @return A list of offers for the provider.
      */
     fun offers(provider: AccountCommon): MutableList<Offer> {
         return mutableListOf<Offer>(
@@ -103,18 +110,18 @@ object Rewards {
     }
 
     /**
-     * Accounts
+     * Retrieves a list of accounts.
      *
-     * @return
+     * @return A list of accounts.
      */
     fun accounts(): List<Account> {
         return accounts
     }
 
     /**
-     * Available accounts
+     * Retrieves a list of available accounts.
      *
-     * @return
+     * @return A list of available accounts.
      */
     fun availableAccounts(): List<AccountCommon> {
         val availableAccounts = mutableListOf<AccountCommon>()
@@ -130,9 +137,9 @@ object Rewards {
     }
 
     /**
-     * Login
+     * Logs in to an account.
      *
-     * @param account
+     * @param account The account to log in.
      */
     fun login(account: Account) {
         if (account.username.isNotEmpty() &&
@@ -148,9 +155,9 @@ object Rewards {
     }
 
     /**
-     * Logout
+     * Logs out from an account.
      *
-     * @param account
+     * @param account The account to log out.
      */
     fun logout(account: Account) {
         if (account.username.isNotEmpty()) {

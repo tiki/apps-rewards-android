@@ -33,9 +33,9 @@ import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 
 @Composable
 fun RewardsNavigation(
+    navController: NavHostController = rememberNavController(),
     onDismissBottomSheet: () -> Unit
 ) {
-    val navController = rememberNavController()
     val fadeSpec: FiniteAnimationSpec<Float> = spring(stiffness = Spring.StiffnessVeryLow)
     val springSpec = spring<IntOffset>(dampingRatio = Spring.DampingRatioNoBouncy)
     val configuration = LocalConfiguration.current
