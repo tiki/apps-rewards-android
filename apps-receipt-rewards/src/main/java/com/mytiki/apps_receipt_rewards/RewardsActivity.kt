@@ -21,11 +21,9 @@ class RewardsActivity : AppCompatActivity() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                RewardsTheme {
-                    RewardsNavigation() {
-                        this@RewardsActivity.finish()
-                        overridePendingTransition(0, R.anim.fade_out)
-                    }
+                RewardsNavigation() {
+                    this@RewardsActivity.finish()
+                    overridePendingTransition(0, R.anim.fade_out)
                 }
             }
             setContentView(view)

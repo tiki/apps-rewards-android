@@ -30,6 +30,7 @@ import com.mytiki.apps_receipt_rewards.retailer.RetailerViewModel
 import com.mytiki.apps_receipt_rewards.terms.TermsScreen
 import com.mytiki.apps_receipt_rewards.terms.TermsViewModel
 import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
+import com.mytiki.apps_receipt_rewards.utils.theme.RewardsTheme
 
 @Composable
 fun RewardsNavigation(
@@ -41,141 +42,142 @@ fun RewardsNavigation(
     val configuration = LocalConfiguration.current
 
     val rewardsSharedViewModel: RewardsSharedViewModel = viewModel()
-
-    NavHost(
-        navController = navController,
-        startDestination = if (!rewardsSharedViewModel.isLicensed.collectAsState().value) RewardsRoute.OfferScreen.name else RewardsRoute.HomeScreen.name
-    ) {
-
-        composable(
-            route = RewardsRoute.OfferScreen.name,
+    RewardsTheme (rewardsSharedViewModel.colorScheme.value){
+        NavHost(
+            navController = navController,
+            startDestination = if (!rewardsSharedViewModel.isLicensed.collectAsState().value) RewardsRoute.OfferScreen.name else RewardsRoute.HomeScreen.name
         ) {
-            OfferScreen(rewardsSharedViewModel, navController, onDismissBottomSheet)
-        }
 
-        composable(
-            route = RewardsRoute.TermsScreen.name,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
+            composable(
+                route = RewardsRoute.OfferScreen.name,
+            ) {
+                OfferScreen(rewardsSharedViewModel, navController, onDismissBottomSheet)
             }
-        ) {
-            TermsScreen(rewardsSharedViewModel, navController)
-        }
 
-        composable(
-            route = RewardsRoute.HomeScreen.name,
-        ) {
-            HomeScreen(navController, onDismissBottomSheet)
-        }
+            composable(
+                route = RewardsRoute.TermsScreen.name,
+                enterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                exitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popEnterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popExitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                }
+            ) {
+                TermsScreen(rewardsSharedViewModel, navController)
+            }
 
-        composable(
-            route = RewardsRoute.EmailScreen.name,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
+            composable(
+                route = RewardsRoute.HomeScreen.name,
+            ) {
+                HomeScreen(navController, onDismissBottomSheet)
             }
-        ) { backStackEntry ->
-            EmailScreen(navController)
-        }
 
-        composable(
-            route = RewardsRoute.RetailerScreen.name,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
+            composable(
+                route = RewardsRoute.EmailScreen.name,
+                enterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                exitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popEnterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popExitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                }
+            ) { backStackEntry ->
+                EmailScreen(navController)
             }
-        ) { backStackEntry ->
-            RetailerScreen(navController)
-        }
-        composable(
-            route = RewardsRoute.MoreScreen.name,
-            enterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            exitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popEnterTransition = {
-                slideInHorizontally(
-                    initialOffsetX = { -configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
-            },
-            popExitTransition = {
-                slideOutHorizontally(
-                    targetOffsetX = { configuration.screenWidthDp / 2 },
-                    animationSpec = springSpec
-                )
+
+            composable(
+                route = RewardsRoute.RetailerScreen.name,
+                enterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                exitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popEnterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popExitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                }
+            ) { backStackEntry ->
+                RetailerScreen(navController)
             }
-        ) { backStackEntry ->
-            MoreScreen(navController)
+            composable(
+                route = RewardsRoute.MoreScreen.name,
+                enterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                exitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popEnterTransition = {
+                    slideInHorizontally(
+                        initialOffsetX = { -configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                },
+                popExitTransition = {
+                    slideOutHorizontally(
+                        targetOffsetX = { configuration.screenWidthDp / 2 },
+                        animationSpec = springSpec
+                    )
+                }
+            ) { backStackEntry ->
+                MoreScreen(navController)
+            }
         }
     }
 }

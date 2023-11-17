@@ -3,12 +3,20 @@ package com.mytiki.apps_receipt_rewards
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.home.HomeEarnings
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
+import com.mytiki.apps_receipt_rewards.utils.theme.Black
+import com.mytiki.apps_receipt_rewards.utils.theme.DarkGray
+import com.mytiki.apps_receipt_rewards.utils.theme.Green
+import com.mytiki.apps_receipt_rewards.utils.theme.Red
+import com.mytiki.apps_receipt_rewards.utils.theme.White
 
 /**
  * This object provides functionalities and information related to rewards and accounts.
@@ -16,7 +24,17 @@ import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
 object Rewards {
 
     private var accounts: MutableList<Account> = mutableListOf()
-    private var isLicensed: Boolean = false
+    var isLicensed: Boolean = false
+        private set
+    var colorScheme: ColorScheme = lightColorScheme(
+        primary = Color(0xFF00B272),
+        error = Color(0xFFC73000),
+        background = Color(0xFFFFFFFF),
+        onBackground = Color(0x15000000),
+        outline = Color(0xFF000000),
+        outlineVariant = Color(0x99000000),
+    )
+        private set
 
 
     /**
@@ -24,18 +42,24 @@ object Rewards {
      *
      * @param context The context used to start the RewardsActivity.
      */
-    fun start(context: Context) {
+    fun start(
+        context: Context,
+        primaryTextColor: Color = Color(0xFF000000),
+        secondaryTextColor: Color = Color(0x99000000),
+        primaryBackgroundColor: Color = Color(0xFFFFFFFF),
+        secondaryBackgroundColor: Color = Color(0x15000000),
+        accentColor: Color = Color(0xFF00B272)
+    ) {
+        colorScheme = lightColorScheme(
+            primary = accentColor,
+            error = Color(0xFFC73000),
+            background = primaryBackgroundColor,
+            onBackground = secondaryBackgroundColor,
+            outline = primaryTextColor,
+            outlineVariant = secondaryTextColor,
+        )
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
-    }
-
-    /**
-     * Retrieves the current license status.
-     *
-     * @return The current license status.
-     */
-    fun getIsLicensed(): Boolean {
-        return isLicensed
     }
 
     /**
