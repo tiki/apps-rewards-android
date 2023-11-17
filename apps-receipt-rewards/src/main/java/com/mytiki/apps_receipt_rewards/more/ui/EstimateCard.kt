@@ -20,10 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 
 @Composable
-fun EstimateCard(data: Map<String, Float>) {
+fun EstimateCard(data: List<MoreContributor>) {
     Text("Monthly Estimate", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
 
     Spacer(modifier = Modifier.height(16.dp))
@@ -62,17 +63,17 @@ fun EstimateCard(data: Map<String, Float>) {
                             style = MaterialTheme.typography.displaySmall,
                             modifier = Modifier.height(18.dp)
                         )
-                        data.keys.forEach { key ->
+                        data.forEach { item ->
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "$key: ${String.format("%.0f", data[key]?.times(100))}%",
+                                text = "${item.name}: ${String.format("%.0f", item.percentage.times(100))}%",
                                 style = MaterialTheme.typography.titleSmall,
                                 modifier = Modifier.height(18.dp)
                             )
                         }
                     }
                 }
-                RewardsChart(values = data.values.toList())
+                RewardsChart(values = data.map { it.percentage }.toList())
             }
         }
     }

@@ -7,24 +7,25 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
+import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsNavigation
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 import kotlinx.coroutines.launch
 
-@OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class,
-    ExperimentalAnimationApi::class
-)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel,
@@ -33,7 +34,7 @@ fun HomeScreen(
 ) {
     val configuration = LocalConfiguration.current
 
-    val sheetState = rememberModalBottomSheetState(false) {
+    val sheetState = rememberModalBottomSheetState(true) {
         homeViewModel.isExpanded.value = it == SheetValue.Expanded
         return@rememberModalBottomSheetState true
     }
@@ -57,6 +58,7 @@ fun HomeScreen(
 
     BottomSheet(
         sheetState = sheetState,
+        modifier = Modifier.height(538.dp),
         onDismiss = {
             homeViewModel.showBottomSheet.value = false
             onDismissBottomSheet()
@@ -78,7 +80,7 @@ fun HomeScreen(
             if (targetExpanded) {
                 HomeExpanded(homeViewModel) { toAccount(it) }
             } else {
-                HomePartiallyExpanded(homeViewModel, { toAccount(it) }) { close() }
+                HomePartiallyExpanded(homeViewModel, {navController.navigate(RewardsRoute.MoreScreen.name)},{ toAccount(it) }) { close() }
 
             }
         }

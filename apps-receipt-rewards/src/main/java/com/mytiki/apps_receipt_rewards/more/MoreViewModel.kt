@@ -9,10 +9,10 @@ import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.ui.RewardsViewModel
 
 class MoreViewModel() : ViewModel() {
-    val chartData = mutableStateMapOf(
-        AccountCommon.WALMART.accountName to 0.4f,
-        AccountCommon.TACO_BELL.accountName to 0.3f,
-        AccountCommon.DOLLAR_GENERAL.accountName to 0.2f
+    val chartData = mutableListOf(
+        MoreContributor(AccountCommon.WALMART.accountName, 0.4f),
+        MoreContributor(AccountCommon.TACO_BELL.accountName, 0.3f),
+        MoreContributor(AccountCommon.DOLLAR_GENERAL.accountName, 0.2f)
     )
 
     val accountLists = mutableStateListOf<Account>(

@@ -28,6 +28,7 @@ import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 @Composable
 fun HomePartiallyExpanded(
     homeViewModel: HomeViewModel,
+    showMoreOnClick: () -> Unit,
     navigateTo: (Account) -> Unit,
     close: () -> Unit
 ) {
@@ -72,7 +73,7 @@ fun HomePartiallyExpanded(
                     Text(
                         text = "Show More",
                         modifier = Modifier
-                            .clickable {},
+                            .clickable {showMoreOnClick()},
                         style = MaterialTheme.typography.displayMedium
                     )
 

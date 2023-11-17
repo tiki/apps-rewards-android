@@ -74,7 +74,7 @@ fun ProgramDetails() {
                     textAlign = TextAlign.Center,
                 )
                 Text(
-                    "cashback connections",
+                    "Cashback Connections",
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.fillMaxSize(),
                     textAlign = TextAlign.Center,
