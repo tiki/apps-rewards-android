@@ -6,15 +6,17 @@ import android.widget.Toast
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.home.HomeEarnings
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
+import com.mytiki.apps_receipt_rewards.utils.theme.Black
+import com.mytiki.apps_receipt_rewards.utils.theme.DarkGray
+import com.mytiki.apps_receipt_rewards.utils.theme.Green
+import com.mytiki.apps_receipt_rewards.utils.theme.Red
+import com.mytiki.apps_receipt_rewards.utils.theme.White
 
 /**
  * This object provides functionalities and information related to rewards and accounts.
@@ -24,21 +26,21 @@ object Rewards {
     private var accounts: MutableList<Account> = mutableListOf()
     var isLicensed: Boolean = false
         private set
-    lateinit var colorScheme: ColorScheme
+    var colorScheme: ColorScheme = lightColorScheme(
+        primary = Color(0xFF00B272),
+        error = Color(0xFFC73000),
+        background = Color(0xFFFFFFFF),
+        onBackground = Color(0x15000000),
+        outline = Color(0xFF000000),
+        outlineVariant = Color(0x99000000),
+    )
         private set
-    lateinit var fontFamily: FontFamily
-        private set
+
 
     /**
      * Starts the Rewards activity.
      *
      * @param context The context used to start the RewardsActivity.
-     * @param primaryTextColor The primary text color.
-     * @param secondaryTextColor The secondary text color.
-     * @param primaryBackgroundColor The primary background color.
-     * @param secondaryBackgroundColor The secondary background color.
-     * @param accentColor The accent color.
-     * @param fontFamily The FontFamily for text styling.
      */
     fun start(
         context: Context,
@@ -46,14 +48,7 @@ object Rewards {
         secondaryTextColor: Color = Color(0x99000000),
         primaryBackgroundColor: Color = Color(0xFFFFFFFF),
         secondaryBackgroundColor: Color = Color(0x15000000),
-        accentColor: Color = Color(0xFF00B272),
-        fontFamily: FontFamily = FontFamily(
-            Font(R.font.space_grotesk_light, FontWeight.Light), //300
-            Font(R.font.space_grotesk_regular, FontWeight.Normal), //400
-            Font(R.font.space_grotesk_medium, FontWeight.Medium), //500
-            Font(R.font.space_grotesk_semi_bold, FontWeight.SemiBold), //600
-            Font(R.font.space_grotesk_bold, FontWeight.Bold), //700
-        )
+        accentColor: Color = Color(0xFF00B272)
     ) {
         colorScheme = lightColorScheme(
             primary = accentColor,
@@ -63,13 +58,9 @@ object Rewards {
             outline = primaryTextColor,
             outlineVariant = secondaryTextColor,
         )
-        this.fontFamily = fontFamily
-
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
     }
-
-
 
     /**
      * Grants a license.
@@ -205,7 +196,6 @@ object Rewards {
     }
 
     private const val terms =
-        // (long text representing terms and conditions)
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lobortis risus ac ultrices faucibus. Nullam vel pulvinar neque. Morbi ultrices maximus est, quis blandit urna vestibulum nec. Morbi et finibus nisi. Vestibulum dignissim rutrum mi sit amet sagittis. Aenean id ligula eget enim feugiat luctus vitae vitae orci. Maecenas aliquam semper nunc vel pellentesque. Ut cursus neque non est mattis consequat. Duis posuere odio et tellus aliquam, et tristique erat pharetra. Mauris sollicitudin lorem ligula. Ut lacinia, neque ac ornare gravida, libero turpis fermentum nibh, eget sodales diam magna sit amet lacus. Aliquam pretium suscipit mi eget luctus. Aliquam ut velit ut magna elementum sollicitudin in et magna. Ut a elementum tellus, eu cursus lacus. Pellentesque neque nisi, semper ac mi vel, fringilla semper nisl. Morbi at vulputate lectus, non ornare nulla." +
                 "Vestibulum convallis rutrum tellus sed vulputate. Suspendisse condimentum mauris quis odio aliquet, at posuere augue egestas. Nulla finibus nibh ac placerat pretium. Mauris volutpat urna sit amet vehicula fermentum. Praesent semper est diam, sit amet elementum orci luctus ac. Quisque condimentum ipsum in venenatis rutrum. Donec rutrum nisl id elit porttitor, vel scelerisque quam ultricies. Donec vulputate, mi at tempor hendrerit, risus tortor consequat neque, non laoreet orci ante tempor dolor. Curabitur placerat convallis risus, a facilisis diam mollis in." +
                 "Mauris in ex dolor. Nunc eu mollis mi. Integer ut nulla egestas, finibus tellus in, congue sem. Vestibulum sit amet velit cursus, consequat purus id, porttitor ligula. Aliquam pellentesque non augue quis tincidunt. Duis a pulvinar odio, non ultrices metus. Sed eu risus quam. Nam vehicula ligula id aliquet aliquet. Quisque faucibus odio pulvinar tellus tristique, eget tempus tellus accumsan. Nulla vehicula nunc quis dapibus lobortis. Sed urna magna, commodo vitae enim eget, scelerisque hendrerit mi. Pellentesque lobortis lectus vitae convallis facilisis." +

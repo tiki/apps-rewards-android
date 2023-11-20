@@ -23,9 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
+import com.mytiki.apps_receipt_rewards.utils.theme.SpaceGrotesk
+
 @Composable
 fun AccountDisplay(accountCommon: AccountCommon, height: Dp, body: String) {
     DisplayCard(height = height, horizontalPadding = 24.dp) {
@@ -49,7 +50,7 @@ fun AccountDisplay(accountCommon: AccountCommon, height: Dp, body: String) {
             Text(
                 text = accountCommon.accountName,
                 style = TextStyle(
-                    fontFamily = Rewards.fontFamily,
+                    fontFamily = SpaceGrotesk,
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
                     lineHeight = (40.83).sp,
