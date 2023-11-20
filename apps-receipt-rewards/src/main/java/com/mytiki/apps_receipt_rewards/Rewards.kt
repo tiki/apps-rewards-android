@@ -98,7 +98,7 @@ object Rewards {
      * @return The estimated offer.
      */
     fun estimate(): OfferEstimate {
-        return OfferEstimate(5, 15)
+        return OfferEstimate(10, 25)
     }
 
     /**

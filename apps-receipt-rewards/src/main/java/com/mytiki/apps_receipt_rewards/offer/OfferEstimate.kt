@@ -1,6 +1,6 @@
 package com.mytiki.apps_receipt_rewards.offer
 
-class OfferEstimate(
-    min: Int,
-    max: Int
+data class OfferEstimate(
+    val min: Int,
+    val max: Int
 )
