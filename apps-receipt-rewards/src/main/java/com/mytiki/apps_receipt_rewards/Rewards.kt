@@ -81,7 +81,7 @@ object Rewards {
     /**
      * Grants a license.
      */
-    fun acceptLicense() {
+    fun createLicense() {
         isLicensed = true
     }
 

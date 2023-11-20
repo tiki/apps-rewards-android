@@ -1,6 +1,5 @@
 package com.mytiki.apps_receipt_rewards.ui
 
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -21,9 +20,9 @@ class RewardsSharedViewModel(): ViewModel() {
         colorScheme.value = Rewards.colorScheme
     }
 
-    fun acceptLicense() {
+    fun createLicense() {
         _isLicensed.value = true
-        Rewards.acceptLicense()
+        Rewards.createLicense()
     }
 
     fun declineLicense() {
