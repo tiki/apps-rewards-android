@@ -111,7 +111,7 @@ fun RewardsNavigation(
             composable(
                 route = RewardsRoute.HomeScreen.name,
             ) {
-                HomeScreen(navController, onDismissBottomSheet)
+                HomeScreen(rewardsSharedViewModel, navController, onDismissBottomSheet)
             }
 
             composable(
@@ -141,7 +141,7 @@ fun RewardsNavigation(
                     )
                 }
             ) { backStackEntry ->
-                EmailScreen(navController)
+                EmailScreen(rewardsSharedViewModel, navController)
             }
 
             composable(
@@ -171,7 +171,7 @@ fun RewardsNavigation(
                     )
                 }
             ) { backStackEntry ->
-                RetailerScreen(navController)
+                RetailerScreen(rewardsSharedViewModel, navController)
             }
             composable(
                 route = RewardsRoute.MoreScreen.name,

@@ -18,17 +18,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) -> Unit) {
+fun HomeExpanded(homeViewModel: HomeViewModel, navigateTo: (AccountCommon) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Spacer(modifier = Modifier.height(49.dp))
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
-            Spacer(modifier = Modifier.height(24.dp))
             Text(
                 modifier = Modifier.padding(horizontal = 24.dp),
                 text = "Increase Earnings",
@@ -45,11 +44,12 @@ fun HomeExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 maxItemsInEachRow = 3
             ) {
-                homeViewModel.accountLists.forEach { account ->
+                homeViewModel.alertAccountList.value.forEach { accountCommon ->
                     AccountTile(
-                        account = account,
-                        padding = PaddingValues(vertical = 12.dp),
-                        onClick = { navigateTo(account) }
+                        accountCommon = accountCommon,
+                        isConnected = true,
+                        padding = PaddingValues(horizontal = 10.dp),
+                        onClick = { navigateTo(accountCommon) }
                     ) {
                         Column(
                             verticalArrangement = Arrangement.Center,
@@ -60,7 +60,29 @@ fun HomeExpanded(homeViewModel: HomeViewModel, navigateTo: (Account) -> Unit) {
                                 style = MaterialTheme.typography.labelSmall,
                             )
                             Text(
-                                text = account.accountCommon.accountName,
+                                text = accountCommon.accountName,
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                        }
+                    }
+                }
+                homeViewModel.addAccountList.value.forEach { accountCommon ->
+                    AccountTile(
+                        accountCommon = accountCommon,
+                        isConnected = false,
+                        padding = PaddingValues(horizontal = 10.dp),
+                        onClick = { navigateTo(accountCommon) }
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "Add",
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                            Text(
+                                text = accountCommon.accountName,
                                 style = MaterialTheme.typography.labelSmall,
                             )
                         }

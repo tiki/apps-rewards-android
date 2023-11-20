@@ -4,6 +4,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.mytiki.apps_receipt_rewards.Rewards
+import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -13,6 +14,8 @@ class RewardsSharedViewModel(): ViewModel() {
 
     private val _isLicensed = MutableStateFlow(false)
     val isLicensed = _isLicensed.asStateFlow()
+
+    val selectedAccount = mutableStateOf<AccountCommon>(AccountCommon.GMAIL)
 
 
     init {
@@ -28,5 +31,9 @@ class RewardsSharedViewModel(): ViewModel() {
     fun declineLicense() {
         _isLicensed.value = false
         Rewards.declineLicense()
+    }
+
+    fun selectAccount(accountCommon: AccountCommon){
+        selectedAccount.value = accountCommon
     }
 }

@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
 import com.mytiki.apps_receipt_rewards.email.EmailViewModel
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.Input
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
@@ -32,11 +33,12 @@ import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun EmailScreen(
+    rewardsSharedViewModel: RewardsSharedViewModel,
     navController: NavHostController,
     emailViewModel: EmailViewModel = viewModel(),
 ) {
-    val accountList = emailViewModel.accountLists
-    val accountCommon = emailViewModel.accountCommon.value
+    val accountCommon = rewardsSharedViewModel.selectedAccount.value
+    emailViewModel.getAccountList(accountCommon)
 
     Surface(
         modifier = Modifier
@@ -76,7 +78,7 @@ fun EmailScreen(
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            items(accountList) {
+            items(emailViewModel.accountLists.value) {
                 Spacer(modifier = Modifier.height(32.dp))
                 AccountCard(it) {}
             }

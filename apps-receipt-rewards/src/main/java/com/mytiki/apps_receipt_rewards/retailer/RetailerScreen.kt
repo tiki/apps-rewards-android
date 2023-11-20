@@ -19,17 +19,20 @@ import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
 import com.mytiki.apps_receipt_rewards.offer.ui.OfferCard
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.Input
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 
 @Composable
 fun RetailerScreen(
+    rewardsSharedViewModel: RewardsSharedViewModel,
     navController: NavHostController,
     retailerViewModel: RetailerViewModel = viewModel(),
 ) {
-    val accountList = retailerViewModel.accountLists
-    val accountCommon = retailerViewModel.accountCommon.value
+    val accountCommon = rewardsSharedViewModel.selectedAccount.value
+    retailerViewModel.getAccountList(accountCommon)
+    retailerViewModel.getOffers(accountCommon)
 
     Surface(
         modifier = Modifier
@@ -69,7 +72,7 @@ fun RetailerScreen(
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            if (retailerViewModel.accountLists.isEmpty()) {
+            if (retailerViewModel.accountLists.value.isEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Input(
@@ -91,7 +94,7 @@ fun RetailerScreen(
                     ) {}
                 }
             } else {
-                items(retailerViewModel.accountLists) {
+                items(retailerViewModel.accountLists.value) {
                     Spacer(modifier = Modifier.height(32.dp))
                     AccountCard(it, false) {}
                     Spacer(modifier = Modifier.height(8.dp))
@@ -112,7 +115,7 @@ fun RetailerScreen(
                 )
                 Spacer(modifier = Modifier.height(32.dp))
             }
-            items(retailerViewModel.offerLists.toList()) {
+            items(retailerViewModel.offerList.value.toList()) {
                 OfferCard(it) {}
                 Spacer(modifier = Modifier.height(40.dp))
             }

@@ -11,7 +11,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
-import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.home.HomeEarnings
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
@@ -21,7 +20,15 @@ import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
  */
 object Rewards {
 
-    private var accounts: MutableList<Account> = mutableListOf()
+    private var accounts: MutableList<Account> = mutableListOf(
+        Account(true, AccountCommon.GMAIL, "email1@gmail.com"),
+        Account(false, AccountCommon.WALMART, "email@gmail.com"),
+        Account(true, AccountCommon.UBER_EATS, "email@gmail.com"),
+        Account(false, AccountCommon.TACO_BELL, "email@gmail.com"),
+        Account(true, AccountCommon.UBER_EATS, "email@gmail.com"),
+        Account(false, AccountCommon.GMAIL, "email2@gmail.com"),
+
+    )
     var isLicensed: Boolean = false
         private set
     lateinit var colorScheme: ColorScheme
@@ -75,7 +82,7 @@ object Rewards {
      * check if there is a valid license for the user
      */
     fun checkLicense(): Boolean{
-        return false
+        return true
     }
 
     /**
@@ -142,8 +149,8 @@ object Rewards {
      * @param provider The account provider.
      * @return A list of offers for the provider.
      */
-    fun offers(provider: AccountCommon): MutableList<Offer> {
-        return mutableListOf<Offer>(
+    fun offers(provider: AccountCommon): List<Offer> {
+        return listOf(
             Offer(provider, "4% cashback on electronics"),
             Offer(provider, "10% off on electronics")
         )
@@ -159,21 +166,30 @@ object Rewards {
     }
 
     /**
+     * Retrieves a list of accounts.
+     *
+     * @return A list of accounts.
+     */
+    fun accounts(accountCommon: AccountCommon): List<Account> {
+        return accounts().filter{it.accountCommon == accountCommon}
+    }
+
+    /**
      * Retrieves a list of available accounts.
      *
      * @return A list of available accounts.
      */
-    fun availableAccounts(): List<AccountCommon> {
-        val availableAccounts = mutableListOf<AccountCommon>()
-        val connectedAccts = accounts()
+    fun uncAccounts(): List<AccountCommon> {
+        val uncAccounts = mutableListOf<AccountCommon>()
+        val connectedAccounts = accounts()
         for (accountCommon in AccountCommon.values()) {
-            if (connectedAccts.find { account ->
+            if (connectedAccounts.find { account ->
                     account.accountCommon == accountCommon
                 } == null) {
-                availableAccounts.add(accountCommon)
+                uncAccounts.add(accountCommon)
             }
         }
-        return availableAccounts
+        return uncAccounts
     }
 
     /**
@@ -189,7 +205,7 @@ object Rewards {
                         connectedAcct.username == account.username
             } == null
         ) {
-            account.accountStatus = AccountStatus.LINKED
+            account.isVerified = true
             accounts.add(account)
         }
     }
