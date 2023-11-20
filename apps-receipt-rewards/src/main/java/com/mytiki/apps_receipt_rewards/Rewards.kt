@@ -64,24 +64,31 @@ object Rewards {
             outlineVariant = secondaryTextColor,
         )
         this.fontFamily = fontFamily
+        isLicensed = checkLicense()
+
 
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
     }
 
-
+    /**
+     * check if there is a valid license for the user
+     */
+    fun checkLicense(): Boolean{
+        return false
+    }
 
     /**
      * Grants a license.
      */
-    fun license() {
+    fun acceptLicense() {
         isLicensed = true
     }
 
     /**
      * Declines a license.
      */
-    fun decline() {
+    fun declineLicense() {
         isLicensed = false
     }
 
