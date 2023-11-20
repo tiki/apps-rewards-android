@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mytiki.rewards"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,7 +53,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.8.1")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.8.1")
 
 //    SDK
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
