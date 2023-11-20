@@ -46,4 +46,4 @@
        }
    }
 ```
-Adjust the color and font settings within the start function according to your app's design preferences.
+   Adjust the color and font settings within the start function according to your app's design preferences.
