@@ -80,7 +80,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 )
                 Text(
                     modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
-                    text = account.username,
+                    text = account.username!!,
                     style = MaterialTheme.typography.bodyLarge,
                     color = if (account.isVerified == false) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
                     maxLines = 1,
@@ -98,7 +98,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 contentDescription = "Remove Account",
                 modifier = Modifier
                     .size(36.dp)
-                    .clickable { },
+                    .clickable { onClick() },
                 tint = Color.Unspecified,
             )
         }

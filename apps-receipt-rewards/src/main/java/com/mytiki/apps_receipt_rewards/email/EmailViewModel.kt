@@ -12,8 +12,23 @@ class EmailViewModel() : ViewModel() {
     val password = mutableStateOf<String>("")
     val accountLists = mutableStateOf<List<Account>>(listOf())
 
-
     fun getAccountList(accountCommon: AccountCommon){
         accountLists.value = Rewards.accounts(accountCommon)
+    }
+
+    fun googleSignIn(){
+        Rewards.login(Account(null,AccountCommon.GMAIL,null,null))
+        getAccountList(AccountCommon.GMAIL)
+    }
+    fun accountLogin(accountCommon: AccountCommon){
+        Rewards.login(
+            Account(null,accountCommon,username.value,password.value)
+        )
+        getAccountList(accountCommon)
+    }
+
+    fun accountLogout(account: Account){
+        Rewards.logout(account)
+        getAccountList(account.accountCommon)
     }
 }
