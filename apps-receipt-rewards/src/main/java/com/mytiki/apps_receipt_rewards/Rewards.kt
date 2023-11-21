@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.home.HomeEarnings
+import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
 
@@ -105,7 +106,16 @@ object Rewards {
      * @return The estimated offer.
      */
     fun estimate(): OfferEstimate {
-        return OfferEstimate(10, 25)
+        return OfferEstimate(5, 15)
+    }
+
+    fun monthlyEarnings(): List<MoreContributor> {
+        return listOf(
+            MoreContributor(AccountCommon.WALMART.accountName, 0.4f),
+            MoreContributor(AccountCommon.DOLLAR_GENERAL.accountName, 0.2f),
+            MoreContributor(AccountCommon.TACO_BELL.accountName, 0.3f),
+
+        )
     }
 
     /**

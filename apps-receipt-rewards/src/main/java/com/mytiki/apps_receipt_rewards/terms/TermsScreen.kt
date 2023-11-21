@@ -43,7 +43,6 @@ fun TermsScreen(
                 Column {
                     Spacer(modifier = Modifier.height(60.dp))
                     Header(text = "PROGRAM TERMS") {
-                        rewardsSharedViewModel.declineLicense()
                         navController.popBackStack()
                     }
                 }
@@ -52,7 +51,7 @@ fun TermsScreen(
                 Column {
                     Divider(color = MaterialTheme.colorScheme.primary, thickness = 1.dp)
                     Spacer(modifier = Modifier.height(42.dp))
-                    if (!rewardsSharedViewModel.isLicensed.collectAsState().value) {
+                    if (!rewardsSharedViewModel.isLicensed.value) {
                         MainButton(
                             text = "I agree", isfFilled = true
                         ) {

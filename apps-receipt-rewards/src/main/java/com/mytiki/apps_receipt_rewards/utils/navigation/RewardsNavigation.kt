@@ -45,7 +45,7 @@ fun RewardsNavigation(
     RewardsTheme (rewardsSharedViewModel.colorScheme.value){
         NavHost(
             navController = navController,
-            startDestination = if (!rewardsSharedViewModel.isLicensed.collectAsState().value) RewardsRoute.OfferScreen.name else RewardsRoute.HomeScreen.name
+            startDestination = if (!rewardsSharedViewModel.isLicensed.value) RewardsRoute.OfferScreen.name else RewardsRoute.HomeScreen.name
         ) {
 
             composable(
@@ -200,7 +200,7 @@ fun RewardsNavigation(
                     )
                 }
             ) { backStackEntry ->
-                MoreScreen(navController)
+                MoreScreen(rewardsSharedViewModel, navController)
             }
         }
     }
