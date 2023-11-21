@@ -160,8 +160,16 @@ object Rewards {
      */
     fun offers(provider: AccountCommon): List<Offer> {
         return listOf(
-            Offer(provider, "4% cashback on electronics"),
-            Offer(provider, "10% off on electronics")
+            Offer(
+                provider,
+                "4% cashback on electronics",
+                "https://www.walmart.com/"
+            ),
+            Offer(
+                provider,
+                "10% off on electronics", 
+                "https://www.walmart.com/"
+            )
         )
     }
 

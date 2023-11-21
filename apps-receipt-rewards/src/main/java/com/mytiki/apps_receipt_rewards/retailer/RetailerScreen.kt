@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -32,9 +33,10 @@ fun RetailerScreen(
     retailerViewModel: RetailerViewModel = viewModel(),
 ) {
     val accountCommon = rewardsSharedViewModel.selectedAccount.value
+    val context = LocalContext.current
+    val handler = LocalUriHandler.current
     retailerViewModel.getAccountList(accountCommon)
     retailerViewModel.getOffers(accountCommon)
-    val context = LocalContext.current
 
     Surface(
         modifier = Modifier
@@ -93,12 +95,12 @@ fun RetailerScreen(
                         modifier = Modifier.padding(horizontal = 21.dp),
                         text = "Sign In",
                         isfFilled = true
-                    ) {}
+                    ) {retailerViewModel.accountLogin(accountCommon)}
                 }
             } else {
                 items(retailerViewModel.accountLists.value) {
                     Spacer(modifier = Modifier.height(32.dp))
-                    AccountCard(it, false) {}
+                    AccountCard(it, false) {retailerViewModel.accountLogout(it)}
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
@@ -118,7 +120,7 @@ fun RetailerScreen(
                 Spacer(modifier = Modifier.height(32.dp))
             }
             items(retailerViewModel.offerList.value.toList()) {
-                OfferCard(it) {}
+                OfferCard(it) {retailerViewModel.openLink(handler, it.offerLink)}
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

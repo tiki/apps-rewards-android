@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.UriHandler
 import androidx.lifecycle.ViewModel
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.Account
@@ -24,5 +25,19 @@ class RetailerViewModel() : ViewModel() {
     }
     fun scanReceipt(context: Context){
         Rewards.scan(context)
+    }
+    fun accountLogin(accountCommon: AccountCommon){
+        Rewards.login(
+            Account(null,accountCommon,username.value,password.value)
+        )
+        getAccountList(accountCommon)
+    }
+    fun accountLogout(account: Account){
+        Rewards.logout(account)
+        getAccountList(account.accountCommon)
+    }
+
+    fun openLink(handler: UriHandler, uri: String){
+        handler.openUri(uri)
     }
 }
