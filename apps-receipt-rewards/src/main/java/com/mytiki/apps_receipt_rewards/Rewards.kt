@@ -86,14 +86,14 @@ object Rewards {
     }
 
     /**
-     * Grants a license.
+     * Create a new license for the user.
      */
     fun createLicense() {
         isLicensed = true
     }
 
     /**
-     * Declines a license.
+     * Remove the existent user license.
      */
     fun declineLicense() {
         isLicensed = false
@@ -108,6 +108,11 @@ object Rewards {
         return OfferEstimate(5, 15)
     }
 
+    /**
+     * Retrieves monthly earnings details.
+     *
+     * @return The list of monthly earnings contributors.
+     */
     fun monthlyEarnings(): List<MoreContributor> {
         return listOf(
             MoreContributor(AccountCommon.WALMART.accountName, 0.4f),
@@ -167,7 +172,7 @@ object Rewards {
             ),
             Offer(
                 provider,
-                "10% off on electronics", 
+                "10% off on electronics",
                 "https://www.walmart.com/"
             )
         )
@@ -183,16 +188,17 @@ object Rewards {
     }
 
     /**
-     * Retrieves a list of accounts.
+     * Retrieves a list of accounts for a specific account provider.
      *
-     * @return A list of accounts.
+     * @param accountCommon The account provider.
+     * @return A list of accounts for the provider.
      */
     fun accounts(accountCommon: AccountCommon): List<Account> {
         return accounts().filter{it.accountCommon == accountCommon}
     }
 
     /**
-     * Retrieves a list of available accounts.
+     * Retrieves a list of available accounts not currently connected.
      *
      * @return A list of available accounts.
      */
