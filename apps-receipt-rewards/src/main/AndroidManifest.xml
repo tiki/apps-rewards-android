@@ -3,10 +3,10 @@
 
     <application>
         <activity
-            android:name=".ui.activities.RewardsActivity"
+            android:name=".RewardsActivity"
             android:exported="false"
             android:label="@string/title_activity_rewards"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+            android:theme="@style/Theme.AppCompat.Translucent" />
     </application>
 
 </manifest>
