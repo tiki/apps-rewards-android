@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mytiki.apps_receipt_rewards.Rewards
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
+
 @Composable
-fun AccountDisplay(accountCommon: AccountCommon, height: Dp, body: String) {
+fun AccountDisplay(accountProvider: AccountProvider, height: Dp, body: String) {
     DisplayCard(height = height, horizontalPadding = 24.dp) {
         Column(
             modifier = Modifier
@@ -37,8 +38,8 @@ fun AccountDisplay(accountCommon: AccountCommon, height: Dp, body: String) {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = accountCommon.imageId),
-                contentDescription = "${accountCommon.accountName} logo",
+                painter = painterResource(id = accountProvider.imageId),
+                contentDescription = "${accountProvider.accountName} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(100.dp)
@@ -47,7 +48,7 @@ fun AccountDisplay(accountCommon: AccountCommon, height: Dp, body: String) {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = accountCommon.accountName,
+                text = accountProvider.accountName,
                 style = TextStyle(
                     fontFamily = Rewards.fontFamily,
                     fontWeight = FontWeight.Bold,

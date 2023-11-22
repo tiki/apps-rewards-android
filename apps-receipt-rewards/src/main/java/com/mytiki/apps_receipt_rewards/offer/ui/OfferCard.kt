@@ -1,14 +1,11 @@
 package com.mytiki.apps_receipt_rewards.offer.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -36,17 +33,17 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal =  29.dp),
+            .padding(horizontal = 29.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row (verticalAlignment = Alignment.CenterVertically){
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Box(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = offer.accountCommon.imageId),
-                    contentDescription = "${offer.accountCommon.name} logo",
+                    painter = painterResource(id = offer.accountProvider.imageId),
+                    contentDescription = "${offer.accountProvider.name} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(56.dp)

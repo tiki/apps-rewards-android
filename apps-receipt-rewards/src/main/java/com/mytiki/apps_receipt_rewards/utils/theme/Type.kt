@@ -9,7 +9,6 @@ import com.mytiki.apps_receipt_rewards.Rewards
 // Set of Material typography styles to start with
 
 
-
 val Typography = Typography(
     displayLarge = TextStyle(
         fontFamily = Rewards.fontFamily,

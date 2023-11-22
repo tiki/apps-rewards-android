@@ -44,8 +44,8 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = account.accountCommon.imageId),
-                    contentDescription = "${account.accountCommon.name} logo",
+                    painter = painterResource(id = account.accountProvider.imageId),
+                    contentDescription = "${account.accountProvider.name} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(56.dp)
@@ -74,7 +74,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
             Spacer(modifier = Modifier.width(24.dp))
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
-                    text = account.accountCommon.accountName,
+                    text = account.accountProvider.accountName,
                     style = MaterialTheme.typography.headlineMedium,
                     color = if (account.isVerified == false) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
                 )

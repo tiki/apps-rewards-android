@@ -56,7 +56,7 @@ fun MoreScreen(
             MoreAccounts(
                 accountsList = moreViewModel.accountLists.value,
                 alertAccountsList = moreViewModel.alertAccountLists.value
-            ){accountCommon ->
+            ) { accountCommon ->
                 rewardsSharedViewModel.selectAccount(accountCommon)
                 if (accountCommon.accountType == AccountType.EMAIL) {
                     navController.navigate(RewardsRoute.EmailScreen.name)

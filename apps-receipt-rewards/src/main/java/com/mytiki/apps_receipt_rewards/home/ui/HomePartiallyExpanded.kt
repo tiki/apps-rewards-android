@@ -18,8 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
@@ -30,10 +29,10 @@ import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 fun HomePartiallyExpanded(
     homeViewModel: HomeViewModel,
     showMoreOnClick: () -> Unit,
-    navigateTo: (AccountCommon) -> Unit,
+    navigateTo: (AccountProvider) -> Unit,
     close: () -> Unit
 ) {
-    Column (modifier = Modifier.fillMaxSize()){
+    Column(modifier = Modifier.fillMaxSize()) {
         BottomSheetHeader(
             title = "CASHBACK CONNECTIONS",
             subTitle = "Share data. Earn cash."
@@ -74,12 +73,12 @@ fun HomePartiallyExpanded(
                     Text(
                         text = "Show More",
                         modifier = Modifier
-                            .clickable {showMoreOnClick()},
+                            .clickable { showMoreOnClick() },
                         style = MaterialTheme.typography.displayMedium
                     )
 
                 }
-                RewardsChart(values = listOf( homeViewModel.chartData.value))
+                RewardsChart(values = listOf(homeViewModel.chartData.value))
             }
         }
         Spacer(modifier = Modifier.height(48.dp))
@@ -93,7 +92,7 @@ fun HomePartiallyExpanded(
         LazyRow {
             items(homeViewModel.alertAccountList.value) { accountCommon ->
                 AccountTile(
-                    accountCommon = accountCommon,
+                    accountProvider = accountCommon,
                     isConnected = true,
                     padding = PaddingValues(horizontal = 10.dp),
                     onClick = { navigateTo(accountCommon) }
@@ -115,7 +114,7 @@ fun HomePartiallyExpanded(
             }
             items(homeViewModel.addAccountList.value) { accountCommon ->
                 AccountTile(
-                    accountCommon = accountCommon,
+                    accountProvider = accountCommon,
                     isConnected = false,
                     padding = PaddingValues(horizontal = 10.dp),
                     onClick = { navigateTo(accountCommon) }

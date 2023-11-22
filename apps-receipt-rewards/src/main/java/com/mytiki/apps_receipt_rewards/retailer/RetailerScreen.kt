@@ -95,12 +95,12 @@ fun RetailerScreen(
                         modifier = Modifier.padding(horizontal = 21.dp),
                         text = "Sign In",
                         isfFilled = true
-                    ) {retailerViewModel.accountLogin(accountCommon)}
+                    ) { retailerViewModel.accountLogin(accountCommon) }
                 }
             } else {
                 items(retailerViewModel.accountLists.value) {
                     Spacer(modifier = Modifier.height(32.dp))
-                    AccountCard(it, false) {retailerViewModel.accountLogout(it)}
+                    AccountCard(it, false) { retailerViewModel.accountLogout(it) }
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
@@ -110,17 +110,19 @@ fun RetailerScreen(
                     modifier = Modifier.padding(horizontal = 21.dp),
                     text = "Scan receipt",
                     isfFilled = false
-                ) {retailerViewModel.scanReceipt(context)}
+                ) { retailerViewModel.scanReceipt(context) }
                 Spacer(modifier = Modifier.height(30.dp))
                 Text(
                     text = "More Offers",
-                    modifier = Modifier.padding(horizontal = 21.dp).height(36.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 21.dp)
+                        .height(36.dp),
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(32.dp))
             }
             items(retailerViewModel.offerList.value.toList()) {
-                OfferCard(it) {retailerViewModel.openLink(handler, it.offerLink)}
+                OfferCard(it) { retailerViewModel.openLink(handler, it.offerLink) }
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

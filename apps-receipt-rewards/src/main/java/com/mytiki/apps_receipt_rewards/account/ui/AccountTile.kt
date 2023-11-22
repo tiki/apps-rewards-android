@@ -24,34 +24,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.AccountProvider
 
 
 @Composable
 fun AccountTile(
-    accountCommon: AccountCommon,
+    accountProvider: AccountProvider,
     isConnected: Boolean,
     isIcon: Boolean = true,
     size: Dp = 80.dp,
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
-    onClick: (AccountCommon) -> Unit,
+    onClick: (AccountProvider) -> Unit,
     text: @Composable () -> Unit
 ) {
     Column(
         modifier = Modifier
             .padding(padding)
             .requiredWidth(size)
-            .clickable { onClick(accountCommon) },
+            .clickable { onClick(accountProvider) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             contentAlignment = Alignment.Center
         ) {
             Image(
-                painter = painterResource(id = accountCommon.imageId),
-                contentDescription = "${accountCommon.name} logo",
+                painter = painterResource(id = accountProvider.imageId),
+                contentDescription = "${accountProvider.name} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .requiredSize(size)

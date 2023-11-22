@@ -40,13 +40,17 @@ fun ProgramDetails(
     moreViewModel: MoreViewModel
 ) {
     val handler = LocalUriHandler.current
-    Text("Program Details", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+    Text(
+        "Program Details",
+        modifier = Modifier.padding(horizontal = 21.dp),
+        style = MaterialTheme.typography.headlineLarge
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 
     Box(
         modifier = Modifier
-            .padding(21.dp, 0.dp, 17.dp, 0.dp,)
+            .padding(21.dp, 0.dp, 17.dp, 0.dp)
     ) {
         Card(
             modifier = Modifier
@@ -93,10 +97,10 @@ fun ProgramDetails(
 
                 Row(
                     modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 49.dp),
+                        .fillMaxWidth()
+                        .padding(horizontal = 49.dp),
                     horizontalArrangement = Arrangement.Center
-                    ) {
+                ) {
                     Column {
                         IconTitle(
                             Modifier
@@ -151,7 +155,11 @@ fun ProgramDetails(
                 )
 
                 Spacer(modifier = Modifier.height(48.dp))
-                Divider( modifier = Modifier.padding(bottom = 16.dp),color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                Divider(
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    thickness = 1.dp
+                )
 
                 Row(
                     modifier = Modifier
@@ -161,10 +169,18 @@ fun ProgramDetails(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Report an issue", style = MaterialTheme.typography.labelLarge)
-                    Image(painter = painterResource(id = R.drawable.ic_issue), contentDescription = "", modifier = Modifier.size(18.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_issue),
+                        contentDescription = "",
+                        modifier = Modifier.size(18.dp)
+                    )
                 }
 
-                Divider( modifier = Modifier.padding(vertical = 16.dp),color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                Divider(
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    thickness = 1.dp
+                )
 
                 Row(
                     modifier = Modifier
@@ -174,10 +190,18 @@ fun ProgramDetails(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Data licensing agreement", style = MaterialTheme.typography.labelLarge)
-                    Image(painter = painterResource(id = R.drawable.ic_union), contentDescription = "", modifier = Modifier.size(18.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_union),
+                        contentDescription = "",
+                        modifier = Modifier.size(18.dp)
+                    )
                 }
 
-                Divider( modifier = Modifier.padding(vertical = 16.dp),color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                Divider(
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    thickness = 1.dp
+                )
 
                 Row(
                     modifier = Modifier
@@ -189,8 +213,16 @@ fun ProgramDetails(
                         },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Opt out of cashback connections", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error)
-                    Image(painter = painterResource(id = R.drawable.ic_block), contentDescription = "", modifier = Modifier.size(18.dp))
+                    Text(
+                        "Opt out of cashback connections",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_block),
+                        contentDescription = "",
+                        modifier = Modifier.size(18.dp)
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }

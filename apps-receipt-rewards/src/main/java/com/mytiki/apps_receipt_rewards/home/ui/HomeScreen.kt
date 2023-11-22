@@ -1,36 +1,24 @@
 package com.mytiki.apps_receipt_rewards.home.ui
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
-import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsNavigation
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 import kotlinx.coroutines.launch
 
@@ -44,7 +32,7 @@ fun HomeScreen(
 ) {
     val configuration = LocalConfiguration.current
 
-    val sheetState = rememberModalBottomSheetState() {
+    val sheetState = rememberModalBottomSheetState {
         homeViewModel.isExpanded.value = it == SheetValue.Expanded
         return@rememberModalBottomSheetState true
     }
@@ -57,9 +45,9 @@ fun HomeScreen(
         }
     }
 
-    fun toAccount(accountCommon: AccountCommon) {
-        rewardsSharedViewModel.selectAccount(accountCommon)
-        if (accountCommon.accountType == AccountType.EMAIL) {
+    fun toAccount(accountProvider: AccountProvider) {
+        rewardsSharedViewModel.selectAccount(accountProvider)
+        if (accountProvider.accountType == AccountType.EMAIL) {
             navController.navigate(RewardsRoute.EmailScreen.name)
         } else {
             navController.navigate(RewardsRoute.RetailerScreen.name)
@@ -88,7 +76,10 @@ fun HomeScreen(
             if (targetExpanded) {
                 HomeExpanded(homeViewModel) { toAccount(it) }
             } else {
-                HomePartiallyExpanded(homeViewModel, {navController.navigate(RewardsRoute.MoreScreen.name)},{ toAccount(it) }) { close() }
+                HomePartiallyExpanded(
+                    homeViewModel,
+                    { navController.navigate(RewardsRoute.MoreScreen.name) },
+                    { toAccount(it) }) { close() }
 
             }
         }
