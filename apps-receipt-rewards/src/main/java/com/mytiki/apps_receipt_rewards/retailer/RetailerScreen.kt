@@ -86,7 +86,7 @@ class RetailerScreen(
                                 .padding(horizontal = 15.dp)
                         ) {
                             Spacer(modifier = Modifier.height(64.dp))
-                            Header(text = Rewards.currentProvider().accountName) {
+                            Header(text = Rewards.currentProvider.accountName) {
                                 navController.popBackStack()
                             }
                         }

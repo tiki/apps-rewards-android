@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.ui.more
+package com.mytiki.apps_receipt_rewards.more.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -22,24 +22,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.more.MoreViewModel
-import com.mytiki.apps_receipt_rewards.more.ui.IconTitle
-import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
 fun ProgramDetails(
-    rewardsSharedViewModel: RewardsSharedViewModel,
-    navController: NavHostController,
-    moreViewModel: MoreViewModel
+    navController: NavController,
 ) {
-    val handler = LocalUriHandler.current
     Text(
         "Program Details",
         modifier = Modifier.padding(horizontal = 21.dp),
@@ -165,7 +160,7 @@ fun ProgramDetails(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp)
-                        .clickable { moreViewModel.openLink(handler) },
+                        .clickable { },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Report an issue", style = MaterialTheme.typography.labelLarge)
@@ -208,7 +203,7 @@ fun ProgramDetails(
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp)
                         .clickable {
-                            rewardsSharedViewModel.declineLicense()
+                            Rewards.decline()
                             navController.navigate(RewardsRoute.OfferScreen.name)
                         },
                     horizontalArrangement = Arrangement.SpaceBetween

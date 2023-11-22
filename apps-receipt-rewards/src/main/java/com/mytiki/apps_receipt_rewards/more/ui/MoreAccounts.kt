@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.ui.more
+package com.mytiki.apps_receipt_rewards.more.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +26,6 @@ import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 @Composable
 fun MoreAccounts(
     accountsList: List<AccountProvider>,
-    alertAccountsList: List<AccountProvider>,
     onClick: (AccountProvider) -> Unit
 ) {
     Text(
@@ -64,21 +63,6 @@ fun MoreAccounts(
                     AccountTile(
                         accountProvider = accountCommon,
                         isConnected = true, isIcon = false,
-                        padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
-                        onClick = { onClick(accountCommon) }
-                    ) {
-                        Text(
-                            text = accountCommon.accountName,
-                            style = MaterialTheme.typography.labelSmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                }
-                alertAccountsList.forEach { accountCommon ->
-                    AccountTile(
-                        accountProvider = accountCommon,
-                        isConnected = true,
                         padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
                         onClick = { onClick(accountCommon) }
                     ) {

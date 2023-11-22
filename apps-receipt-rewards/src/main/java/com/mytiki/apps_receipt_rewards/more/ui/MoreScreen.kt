@@ -13,23 +13,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountType
-import com.mytiki.apps_receipt_rewards.more.MoreViewModel
-import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.ui.more.EstimateCard
-import com.mytiki.apps_receipt_rewards.ui.more.MoreAccounts
-import com.mytiki.apps_receipt_rewards.ui.more.ProgramDetails
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
@@ -67,7 +60,7 @@ class MoreScreen(
                     animationSpec = springSpec
                 )
             }
-        ) { backStackEntry ->
+        ) {
             Surface(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -87,16 +80,14 @@ class MoreScreen(
 
                     Spacer(modifier = Modifier.height(34.dp))
 
-                    EstimateCard(moreViewModel.monthlyEarnings.value)
+                    EstimateCard(Rewards.monthlyEarnings())
 
                     Spacer(modifier = Modifier.height(24.dp))
 
                     MoreAccounts(
-                        accountsList = moreViewModel.accountLists.value,
-                        alertAccountsList = moreViewModel.alertAccountLists.value
-                    ) { accountCommon ->
-                        rewardsSharedViewModel.selectAccount(accountCommon)
-                        if (accountCommon.accountType == AccountType.EMAIL) {
+                        accountsList = Rewards.accounts().map { account -> account.accountProvider },
+                    ) { provider ->
+                        if (provider.accountType == AccountType.EMAIL) {
                             navController.navigate(RewardsRoute.EmailScreen.name)
                         } else {
                             navController.navigate(RewardsRoute.RetailerScreen.name)
@@ -105,7 +96,7 @@ class MoreScreen(
 
                     Spacer(modifier = Modifier.height(30.dp))
 
-                    ProgramDetails(rewardsSharedViewModel, navController, moreViewModel)
+                    ProgramDetails( navController )
 
                     Spacer(modifier = Modifier.height(56.dp))
                 }
