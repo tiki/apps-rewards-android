@@ -80,7 +80,7 @@ fun EmailScreen(
             }
             items(emailViewModel.accountLists.value) {
                 Spacer(modifier = Modifier.height(32.dp))
-                AccountCard(it) {}
+                AccountCard(it) {emailViewModel.accountLogout(it)}
             }
             item {
                 Spacer(modifier = Modifier.height(38.dp))
@@ -91,7 +91,7 @@ fun EmailScreen(
                 )
                 Spacer(modifier = Modifier.height(46.dp))
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    GoogleSignIn {}
+                    GoogleSignIn {emailViewModel.googleSignIn()}
                 }
                 Spacer(modifier = Modifier.height(38.dp))
                 Row(
@@ -135,7 +135,7 @@ fun EmailScreen(
                     modifier = Modifier.padding(horizontal = 21.dp),
                     text = "Sign In",
                     isfFilled = true
-                ) {}
+                ) {emailViewModel.accountLogin(accountCommon)}
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

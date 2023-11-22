@@ -75,7 +75,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
                 contentDescription = "Go to discount",
                 modifier = Modifier
                     .size(36.dp)
-                    .clickable { },
+                    .clickable { onClick() },
                 tint = Color.Unspecified,
             )
         }

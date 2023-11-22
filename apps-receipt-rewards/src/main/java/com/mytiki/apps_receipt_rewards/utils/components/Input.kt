@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -41,11 +44,13 @@ fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Uni
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .requiredHeight(50.dp)
                 .border(
                     BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
                     MaterialTheme.shapes.extraSmall
                 ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next,
+            ),
             colors = TextFieldDefaults.colors(
                 focusedTextColor = MaterialTheme.colorScheme.outline,
                 unfocusedTextColor = MaterialTheme.colorScheme.outline,
@@ -57,6 +62,7 @@ fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Uni
             ),
             value = text,
             onValueChange = { onChange(it) },
+            maxLines = 1,
             shape = MaterialTheme.shapes.extraSmall,
             textStyle = MaterialTheme.typography.titleLarge,
             visualTransformation = if (isShow) VisualTransformation.None else PasswordVisualTransformation()

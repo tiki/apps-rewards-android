@@ -30,7 +30,6 @@ object Rewards {
         Account(false, AccountCommon.TACO_BELL, "email@gmail.com"),
         Account(true, AccountCommon.UBER_EATS, "email@gmail.com"),
         Account(false, AccountCommon.GMAIL, "email2@gmail.com"),
-
     )
     var isLicensed: Boolean = false
         private set
@@ -154,8 +153,16 @@ object Rewards {
      */
     fun offers(provider: AccountCommon): List<Offer> {
         return listOf(
-            Offer(provider, "4% cashback on electronics"),
-            Offer(provider, "10% off on electronics")
+            Offer(
+                provider,
+                "4% cashback on electronics",
+                "https://www.walmart.com/"
+            ),
+            Offer(
+                provider,
+                "10% off on electronics", 
+                "https://www.walmart.com/"
+            )
         )
     }
 
@@ -201,7 +208,7 @@ object Rewards {
      * @param account The account to log in.
      */
     fun login(account: Account) {
-        if (account.username.isNotEmpty() &&
+        if (!account.username.isNullOrEmpty()  &&
             !account.password.isNullOrEmpty() &&
             accounts.find { connectedAcct ->
                 connectedAcct.accountCommon == account.accountCommon &&
@@ -219,13 +226,13 @@ object Rewards {
      * @param account The account to log out.
      */
     fun logout(account: Account) {
-        if (account.username.isNotEmpty()) {
+        if (!account.username.isNullOrEmpty()) {
             val connectedAccount = accounts.find { connectedAcct ->
                 connectedAcct.accountCommon == account.accountCommon &&
                         connectedAcct.username == account.username
             }
             if (connectedAccount != null) {
-                accounts.remove(connectedAccount)
+                accounts.remove(account)
             }
         }
     }
