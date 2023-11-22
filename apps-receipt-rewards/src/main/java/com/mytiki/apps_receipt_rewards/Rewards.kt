@@ -31,6 +31,8 @@ object Rewards {
 
     var showBottomSheet = false;
 
+    lateinit var currentProvider: AccountProvider
+
     /**
      * Is licensed
      *
@@ -229,10 +231,6 @@ object Rewards {
                 accounts.remove(account)
             }
         }
-    }
-
-    fun currentProvider(accountProvider: AccountProvider) {
-
     }
 
     private const val terms =

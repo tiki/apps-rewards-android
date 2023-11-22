@@ -16,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
-import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -42,12 +42,12 @@ fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 maxItemsInEachRow = 3
             ) {
-                homeViewModel.alertAccountList.value.forEach { accountCommon ->
+                Rewards.providers().forEach { provider ->
                     AccountTile(
-                        accountProvider = accountCommon,
+                        accountProvider = provider,
                         isConnected = true,
-                        padding = PaddingValues(horizontal = 10.dp),
-                        onClick = { navigateTo(accountCommon) }
+                        padding = PaddingValues( horizontal = 10.dp ),
+                        onClick = { navigateTo( provider) }
                     ) {
                         Column(
                             verticalArrangement = Arrangement.Center,
@@ -58,29 +58,7 @@ fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
                                 style = MaterialTheme.typography.labelSmall,
                             )
                             Text(
-                                text = accountCommon.accountName,
-                                style = MaterialTheme.typography.labelSmall,
-                            )
-                        }
-                    }
-                }
-                homeViewModel.addAccountList.value.forEach { accountCommon ->
-                    AccountTile(
-                        accountProvider = accountCommon,
-                        isConnected = false,
-                        padding = PaddingValues(horizontal = 10.dp),
-                        onClick = { navigateTo(accountCommon) }
-                    ) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = "Add",
-                                style = MaterialTheme.typography.labelSmall,
-                            )
-                            Text(
-                                text = accountCommon.accountName,
+                                text = provider.accountName,
                                 style = MaterialTheme.typography.labelSmall,
                             )
                         }

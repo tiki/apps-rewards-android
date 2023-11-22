@@ -24,129 +24,32 @@ import com.mytiki.apps_receipt_rewards.more.ui.MoreScreen
 import com.mytiki.apps_receipt_rewards.offer.ui.OfferContent
 import com.mytiki.apps_receipt_rewards.offer.ui.OfferScreen
 import com.mytiki.apps_receipt_rewards.retailer.RetailerScreen
-import com.mytiki.apps_receipt_rewards.terms.TermsScreen
-import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
-import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
+import com.mytiki.apps_receipt_rewards.terms.OfferTermsScreen
 import com.mytiki.apps_receipt_rewards.utils.theme.RewardsTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RewardsNavigation(
-    navController: NavHostController = rememberNavController(),
-    onDismissBottomSheet: () -> Unit
-) {
+fun RewardsNavigation(onDismiss: () -> Unit) {
+    val navController: NavHostController = rememberNavController()
     val springSpec = spring<IntOffset>(dampingRatio = Spring.DampingRatioNoBouncy)
     val configuration = LocalConfiguration.current
-    val sheetState = rememberModalBottomSheetState(true)
 
     RewardsTheme(Rewards.colorScheme) {
         NavHost(
             navController = navController,
-            startDestination = if (!Rewards.isLicensed){
+            startDestination = if (!Rewards.isLicensed) {
                 RewardsRoute.OfferScreen.name
             } else {
                 RewardsRoute.HomeScreen.name
             }
         ) {
-            OfferScreen(this, navController, springSpec, configuration, sheetState).route()
-
-            TermsScreen(rewardsSharedViewModel = , navController = )
-
-            composable(
-                route = RewardsRoute.HomeScreen.name,
-            ) {
-                HomeScreen(navController, onDismissBottomSheet)
-            }
-
-            composable(
-                route = RewardsRoute.EmailScreen.name,
-                enterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                exitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { -configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                popEnterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { -configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                popExitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                }
-            ) { backStackEntry ->
-                EmailScreen(navController)
-            }
-
-            composable(
-                route = RewardsRoute.RetailerScreen.name,
-                enterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                exitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { -configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                popEnterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { -configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                popExitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                }
-            ) { backStackEntry ->
-                RetailerScreen(navController)
-            }
-            composable(
-                route = RewardsRoute.MoreScreen.name,
-                enterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                exitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { -configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                popEnterTransition = {
-                    slideInHorizontally(
-                        initialOffsetX = { -configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                },
-                popExitTransition = {
-                    slideOutHorizontally(
-                        targetOffsetX = { configuration.screenWidthDp / 2 },
-                        animationSpec = springSpec
-                    )
-                }
-            ) { backStackEntry ->
-                MoreScreen(navController)
-            }
+            OfferScreen(this, navController, springSpec, configuration){ onDismiss() }.route()
+            OfferTermsScreen(this, navController, springSpec, configuration).route()
+            HomeScreen(this, navController, springSpec, configuration) { onDismiss() }.route()
+            RetailerScreen(this, navController, springSpec, configuration).route()
+            EmailScreen(this, navController, springSpec, configuration).route()
+            MoreScreen(this, navController, springSpec, configuration).route()
         }
     }
 }
