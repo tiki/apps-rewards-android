@@ -12,24 +12,22 @@ class RewardsSharedViewModel(): ViewModel() {
 
     val colorScheme = mutableStateOf(lightColorScheme())
 
-    private val _isLicensed = MutableStateFlow(false)
-    val isLicensed = _isLicensed.asStateFlow()
+    val isLicensed = mutableStateOf(false)
 
     val selectedAccount = mutableStateOf<AccountCommon>(AccountCommon.GMAIL)
 
-
     init {
-        _isLicensed.value = Rewards.isLicensed
+        isLicensed.value = Rewards.isLicensed
         colorScheme.value = Rewards.colorScheme
     }
 
     fun createLicense() {
-        _isLicensed.value = true
+        isLicensed.value = true
         Rewards.createLicense()
     }
 
     fun declineLicense() {
-        _isLicensed.value = false
+        isLicensed.value = false
         Rewards.declineLicense()
     }
 

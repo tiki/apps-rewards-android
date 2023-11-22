@@ -22,14 +22,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.R
+import com.mytiki.apps_receipt_rewards.more.MoreViewModel
 import com.mytiki.apps_receipt_rewards.more.ui.IconTitle
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
+import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun ProgramDetails() {
+fun ProgramDetails(
+    rewardsSharedViewModel: RewardsSharedViewModel,
+    navController: NavHostController,
+    moreViewModel: MoreViewModel
+) {
+    val handler = LocalUriHandler.current
     Text("Program Details", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
 
     Spacer(modifier = Modifier.height(16.dp))
@@ -147,7 +157,7 @@ fun ProgramDetails() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp)
-                        .clickable { },
+                        .clickable { moreViewModel.openLink(handler) },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Report an issue", style = MaterialTheme.typography.labelLarge)
@@ -160,7 +170,7 @@ fun ProgramDetails() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp)
-                        .clickable { },
+                        .clickable { navController.navigate(RewardsRoute.TermsScreen.name) },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Data licensing agreement", style = MaterialTheme.typography.labelLarge)
@@ -173,7 +183,10 @@ fun ProgramDetails() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp)
-                        .clickable { },
+                        .clickable {
+                            rewardsSharedViewModel.declineLicense()
+                            navController.navigate(RewardsRoute.OfferScreen.name)
+                        },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Opt out of cashback connections", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error)
