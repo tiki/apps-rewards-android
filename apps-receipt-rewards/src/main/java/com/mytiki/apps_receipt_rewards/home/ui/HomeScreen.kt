@@ -12,7 +12,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -21,8 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.mytiki.apps_receipt_rewards.Rewards
-import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
@@ -96,10 +93,10 @@ class HomeScreen(
                             }
                         }
                     } else {
-                        HomeView( navController ){
-                           scope.launch {
+                        HomeView(navController) {
+                            scope.launch {
                                 sheetState.hide()
-                           }.invokeOnCompletion { onDismiss }
+                            }.invokeOnCompletion { onDismiss }
                         }
                     }
                 }

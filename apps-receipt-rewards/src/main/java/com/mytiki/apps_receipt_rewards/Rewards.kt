@@ -21,12 +21,12 @@ import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
 object Rewards {
 
     private var accounts: MutableList<Account> = mutableListOf(
-        Account("email1@gmail.com", AccountProviderEnum.GMAIL.provider, true ),
-        Account("email@gmail.com", AccountProviderEnum.WALMART.provider, false ),
-        Account("email@gmail.com", AccountProviderEnum.UBER_EATS.provider, true ),
-        Account("email@gmail.com", AccountProviderEnum.TACO_BELL.provider, false ),
-        Account("email@gmail.com", AccountProviderEnum.UBER_EATS.provider, true ),
-        Account("email2@gmail.com", AccountProviderEnum.GMAIL.provider, false ),
+        Account("email1@gmail.com", AccountProviderEnum.GMAIL.provider, true),
+        Account("email@gmail.com", AccountProviderEnum.WALMART.provider, false),
+        Account("email@gmail.com", AccountProviderEnum.UBER_EATS.provider, true),
+        Account("email@gmail.com", AccountProviderEnum.TACO_BELL.provider, false),
+        Account("email@gmail.com", AccountProviderEnum.UBER_EATS.provider, true),
+        Account("email2@gmail.com", AccountProviderEnum.GMAIL.provider, false),
     )
 
     var showBottomSheet = false;

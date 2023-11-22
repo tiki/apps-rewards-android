@@ -11,8 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.mytiki.apps_receipt_rewards.Rewards
-import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
@@ -37,7 +35,7 @@ fun HomeView(
             color = MaterialTheme.colorScheme.outline
         )
         Spacer(modifier = Modifier.height(24.dp))
-        HomeCarousel{ accountProvider ->
+        HomeCarousel { accountProvider ->
             if (accountProvider.accountType == AccountType.EMAIL) {
                 navController.navigate(RewardsRoute.EmailScreen.name)
             } else {

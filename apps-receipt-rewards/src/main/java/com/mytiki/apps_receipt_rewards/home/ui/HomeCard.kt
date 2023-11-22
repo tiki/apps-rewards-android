@@ -22,7 +22,7 @@ import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun HomeCard(navController: NavController){
+fun HomeCard(navController: NavController) {
     val earnings = Rewards.earnings()
     DisplayCard(height = 183.dp, horizontalPadding = 24.dp) {
         Row(
@@ -64,7 +64,7 @@ fun HomeCard(navController: NavController){
                 )
 
             }
-            RewardsChart(listOf((earnings.monthCurrent/earnings.monthTotal).toFloat()))
+            RewardsChart(listOf((earnings.monthCurrent / earnings.monthTotal).toFloat()))
         }
     }
 }

@@ -17,27 +17,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
-import com.mytiki.apps_receipt_rewards.email.EmailViewModel
-import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
-import com.mytiki.apps_receipt_rewards.utils.components.Input
-import com.mytiki.apps_receipt_rewards.utils.components.MainButton
+import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -93,7 +87,7 @@ class EmailScreen(
                                 .padding(horizontal = 15.dp)
                         ) {
                             Spacer(modifier = Modifier.height(64.dp))
-                            Header(text = accountCommon.accountName) {
+                            Header(text = Rewards.currentProvider.accountName) {
                                 navController.popBackStack()
                             }
                         }
@@ -101,7 +95,7 @@ class EmailScreen(
                     item {
                         Spacer(modifier = Modifier.height(28.dp))
                         AccountDisplay(
-                            accountCommon,
+                            Rewards.currentProvider,
                             275.dp,
                             "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
                         )
@@ -114,9 +108,12 @@ class EmailScreen(
                             style = MaterialTheme.typography.headlineLarge
                         )
                     }
-                    items(emailViewModel.accountLists.value) {
+                    val accounts = Rewards.accounts(Rewards.currentProvider)
+
+                    items(accounts) {
                         Spacer(modifier = Modifier.height(32.dp))
-                        AccountCard(it) { emailViewModel.accountLogout(it) }
+                        AccountCard(it, false) { Rewards.logout(it) }
+                        Spacer(modifier = Modifier.height(8.dp))
                     }
                     item {
                         Spacer(modifier = Modifier.height(38.dp))
@@ -130,7 +127,7 @@ class EmailScreen(
                             modifier = Modifier.fillMaxWidth(),
                             contentAlignment = Alignment.Center
                         ) {
-                            GoogleSignIn { emailViewModel.googleSignIn() }
+                            GoogleSignIn { }
                         }
                         Spacer(modifier = Modifier.height(38.dp))
                         Row(
@@ -158,24 +155,9 @@ class EmailScreen(
                             ) {}
                         }
                         Spacer(modifier = Modifier.height(32.dp))
-                        Input(
-                            tile = "Email",
-                            text = emailViewModel.username.value,
-                            isShow = true,
-                            onChange = { emailViewModel.username.value = it })
-                        Spacer(modifier = Modifier.height(32.dp))
-                        Input(
-                            tile = "Password",
-                            text = emailViewModel.password.value,
-                            isShow = false,
-                            onChange = { emailViewModel.password.value = it })
-                        Spacer(modifier = Modifier.height(48.dp))
-                        MainButton(
-                            modifier = Modifier.padding(horizontal = 21.dp),
-                            text = "Sign In",
-                            isfFilled = true
-                        ) { emailViewModel.accountLogin(accountCommon) }
-                        Spacer(modifier = Modifier.height(40.dp))
+
+                        LoginForm()
+
                     }
                 }
             }

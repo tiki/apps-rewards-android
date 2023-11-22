@@ -6,19 +6,17 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
-import kotlinx.coroutines.launch
 import androidx.navigation.compose.composable
+import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 class OfferScreen(
@@ -28,7 +26,7 @@ class OfferScreen(
     private val configuration: Configuration,
     private val onDismiss: () -> Unit
 ) {
-    fun route(){
+    fun route() {
         navGraphBuilder.composable(
             route = RewardsRoute.OfferScreen.name,
             enterTransition = {
@@ -61,7 +59,7 @@ class OfferScreen(
             BottomSheet(
                 sheetState = sheetState,
                 modifier = Modifier.requiredHeight(538.dp),
-                onDismiss =  {
+                onDismiss = {
                     scope.launch {
                         sheetState.hide()
                     }.invokeOnCompletion { onDismiss }

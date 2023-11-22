@@ -23,7 +23,7 @@ import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun OfferTerms(navController: NavController){
+fun OfferTerms(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background

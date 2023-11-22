@@ -15,23 +15,19 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
 import com.mytiki.apps_receipt_rewards.offer.ui.OfferCard
 import com.mytiki.apps_receipt_rewards.utils.components.Header
-import com.mytiki.apps_receipt_rewards.utils.components.Input
+import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
@@ -69,6 +65,7 @@ class RetailerScreen(
                 )
             }
         ) {
+            val context = LocalContext.current
             Surface(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -94,7 +91,7 @@ class RetailerScreen(
                     item {
                         Spacer(modifier = Modifier.height(28.dp))
                         AccountDisplay(
-                            accountCommon,
+                            Rewards.currentProvider,
                             239.dp,
                             "3% cashback on all purchases",
                         )
@@ -107,31 +104,15 @@ class RetailerScreen(
                             style = MaterialTheme.typography.headlineLarge
                         )
                     }
-                    if (retailerViewModel.accountLists.value.isEmpty()) {
+                    val accounts = Rewards.accounts(Rewards.currentProvider)
+                    if (accounts.isEmpty()) {
                         item {
-                            Spacer(modifier = Modifier.height(24.dp))
-                            Input(
-                                tile = "Email",
-                                text = retailerViewModel.username.value,
-                                isShow = true,
-                                onChange = { retailerViewModel.username.value = it })
-                            Spacer(modifier = Modifier.height(32.dp))
-                            Input(
-                                tile = "Password",
-                                text = retailerViewModel.password.value,
-                                isShow = false,
-                                onChange = { retailerViewModel.password.value = it })
-                            Spacer(modifier = Modifier.height(32.dp))
-                            MainButton(
-                                modifier = Modifier.padding(horizontal = 21.dp),
-                                text = "Sign In",
-                                isfFilled = true
-                            ) { retailerViewModel.accountLogin(accountCommon) }
+                            LoginForm()
                         }
                     } else {
-                        items(retailerViewModel.accountLists.value) {
+                        items(accounts) {
                             Spacer(modifier = Modifier.height(32.dp))
-                            AccountCard(it, false) { retailerViewModel.accountLogout(it) }
+                            AccountCard(it, false) { Rewards.logout(it) }
                             Spacer(modifier = Modifier.height(8.dp))
                         }
                     }
@@ -141,7 +122,7 @@ class RetailerScreen(
                             modifier = Modifier.padding(horizontal = 21.dp),
                             text = "Scan receipt",
                             isfFilled = false
-                        ) { retailerViewModel.scanReceipt(context) }
+                        ) { Rewards.scan(context) }
                         Spacer(modifier = Modifier.height(30.dp))
                         Text(
                             text = "More Offers",
@@ -152,8 +133,8 @@ class RetailerScreen(
                         )
                         Spacer(modifier = Modifier.height(32.dp))
                     }
-                    items(retailerViewModel.offerList.value.toList()) {
-                        OfferCard(it) { retailerViewModel.openLink(handler, it.offerLink) }
+                    items(Rewards.offers(Rewards.currentProvider)) {
+                        OfferCard(it) { }
                         Spacer(modifier = Modifier.height(40.dp))
                     }
                 }

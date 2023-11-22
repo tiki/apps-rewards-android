@@ -85,7 +85,8 @@ class MoreScreen(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     MoreAccounts(
-                        accountsList = Rewards.accounts().map { account -> account.accountProvider },
+                        accountsList = Rewards.accounts()
+                            .map { account -> account.accountProvider },
                     ) { provider ->
                         if (provider.accountType == AccountType.EMAIL) {
                             navController.navigate(RewardsRoute.EmailScreen.name)
@@ -96,7 +97,7 @@ class MoreScreen(
 
                     Spacer(modifier = Modifier.height(30.dp))
 
-                    ProgramDetails( navController )
+                    ProgramDetails(navController)
 
                     Spacer(modifier = Modifier.height(56.dp))
                 }

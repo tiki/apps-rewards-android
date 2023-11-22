@@ -46,8 +46,8 @@ fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
                     AccountTile(
                         accountProvider = provider,
                         isConnected = true,
-                        padding = PaddingValues( horizontal = 10.dp ),
-                        onClick = { navigateTo( provider) }
+                        padding = PaddingValues(horizontal = 10.dp),
+                        onClick = { navigateTo(provider) }
                     ) {
                         Column(
                             verticalArrangement = Arrangement.Center,
