@@ -50,7 +50,7 @@ fun AccountTile(
         ) {
             Image(
                 painter = painterResource(id = accountProvider.imageId),
-                contentDescription = "${accountProvider.name} logo",
+                contentDescription = "${accountProvider.toString()} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .requiredSize(size)

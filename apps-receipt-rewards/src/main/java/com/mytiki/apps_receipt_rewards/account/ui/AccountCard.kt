@@ -45,7 +45,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
             ) {
                 Image(
                     painter = painterResource(id = account.accountProvider.imageId),
-                    contentDescription = "${account.accountProvider.name} logo",
+                    contentDescription = "${account.accountProvider.toString()} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(56.dp)
@@ -54,7 +54,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
 
                 )
                 if (isicons) {
-                    if (account.isVerified == true) {
+                    if (account.isVerified) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_sync),
                             contentDescription = "Sync Account",
@@ -76,13 +76,13 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 Text(
                     text = account.accountProvider.accountName,
                     style = MaterialTheme.typography.headlineMedium,
-                    color = if (account.isVerified == false) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
+                    color = if (!account.isVerified) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
                 )
                 Text(
                     modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
                     text = account.username!!,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = if (account.isVerified == false) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
+                    color = if (!account.isVerified) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )

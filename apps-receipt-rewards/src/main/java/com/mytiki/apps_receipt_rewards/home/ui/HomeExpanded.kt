@@ -22,7 +22,7 @@ import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeExpanded(homeViewModel: HomeViewModel, navigateTo: (AccountProvider) -> Unit) {
+fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Spacer(modifier = Modifier.height(49.dp))

@@ -33,13 +33,8 @@ import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun EmailScreen(
-    rewardsSharedViewModel: RewardsSharedViewModel,
-    navController: NavHostController,
-    emailViewModel: EmailViewModel = viewModel(),
+    navController: NavHostController
 ) {
-    val accountCommon = rewardsSharedViewModel.selectedAccount.value
-    emailViewModel.getAccountList(accountCommon)
-
     Surface(
         modifier = Modifier
             .fillMaxSize(),

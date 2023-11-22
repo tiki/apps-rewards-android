@@ -43,7 +43,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
             ) {
                 Image(
                     painter = painterResource(id = offer.accountProvider.imageId),
-                    contentDescription = "${offer.accountProvider.name} logo",
+                    contentDescription = "${offer.accountProvider} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(56.dp)

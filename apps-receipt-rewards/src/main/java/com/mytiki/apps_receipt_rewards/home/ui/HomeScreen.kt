@@ -14,6 +14,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
@@ -25,19 +26,16 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    rewardsSharedViewModel: RewardsSharedViewModel,
     navController: NavHostController,
     onDismissBottomSheet: () -> Unit,
-    homeViewModel: HomeViewModel = viewModel(),
 ) {
     val configuration = LocalConfiguration.current
 
     val sheetState = rememberModalBottomSheetState {
-        homeViewModel.isExpanded.value = it == SheetValue.Expanded
+        Rewards.showBottomSheet = it == SheetValue.Expanded
         return@rememberModalBottomSheetState true
     }
     val scope = rememberCoroutineScope()
-
 
     fun close() {
         scope.launch { sheetState.hide() }.invokeOnCompletion {
@@ -46,7 +44,7 @@ fun HomeScreen(
     }
 
     fun toAccount(accountProvider: AccountProvider) {
-        rewardsSharedViewModel.selectAccount(accountProvider)
+        Rewards.currentProvider(accountProvider)
         if (accountProvider.accountType == AccountType.EMAIL) {
             navController.navigate(RewardsRoute.EmailScreen.name)
         } else {
@@ -54,11 +52,10 @@ fun HomeScreen(
         }
     }
 
-
     BottomSheet(
         sheetState = sheetState,
         onDismiss = {
-            homeViewModel.showBottomSheet.value = false
+            Rewards.showBottomSheet = false
             onDismissBottomSheet()
         }
     ) {

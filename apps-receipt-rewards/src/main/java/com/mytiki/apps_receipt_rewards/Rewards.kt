@@ -29,6 +29,8 @@ object Rewards {
         Account("email2@gmail.com", AccountProviderEnum.GMAIL.provider, false ),
     )
 
+    var showBottomSheet = false;
+
     /**
      * Is licensed
      *
@@ -227,6 +229,10 @@ object Rewards {
                 accounts.remove(account)
             }
         }
+    }
+
+    fun currentProvider(accountProvider: AccountProvider) {
+
     }
 
     private const val terms =
