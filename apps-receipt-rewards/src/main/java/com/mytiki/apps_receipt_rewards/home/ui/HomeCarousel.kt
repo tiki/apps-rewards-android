@@ -18,9 +18,10 @@ import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 fun HomeCarousel(navigateTo: (AccountProvider) -> Unit) {
     LazyRow {
         val providers = Rewards.providers()
-        providers.forEach {
+        items(providers.size) { index ->
+            val provider = providers[index]
             AccountTile(
-                accountProvider = it,
+                accountProvider = provider,
                 isConnected = true,
                 padding = PaddingValues(horizontal = 10.dp),
                 onClick = { navigateTo(it) }
@@ -34,7 +35,7 @@ fun HomeCarousel(navigateTo: (AccountProvider) -> Unit) {
                         style = MaterialTheme.typography.labelSmall,
                     )
                     Text(
-                        text = it.accountName,
+                        text = provider.accountName,
                         style = MaterialTheme.typography.labelSmall,
                     )
                 }

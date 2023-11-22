@@ -88,9 +88,15 @@ class HomeScreen(
                     }, label = ""
                 ) { targetExpanded ->
                     if (targetExpanded) {
-                        HomeExpanded { toAccount(it) }
+                        HomeExpanded { accountProvider ->
+                            if (accountProvider.accountType == AccountType.EMAIL) {
+                                navController.navigate(RewardsRoute.EmailScreen.name)
+                            } else {
+                                navController.navigate(RewardsRoute.RetailerScreen.name)
+                            }
+                        }
                     } else {
-                        HomeView( toAccount(it) ){
+                        HomeView( navController ){
                            scope.launch {
                                 sheetState.hide()
                            }.invokeOnCompletion { onDismiss }
@@ -98,15 +104,6 @@ class HomeScreen(
                     }
                 }
             }
-        }
-    }
-
-    private fun toAccount(accountProvider: AccountProvider) {
-        Rewards.currentProvider = accountProvider
-        if (accountProvider.accountType == AccountType.EMAIL) {
-            navController.navigate(RewardsRoute.EmailScreen.name)
-        } else {
-            navController.navigate(RewardsRoute.RetailerScreen.name)
         }
     }
 }

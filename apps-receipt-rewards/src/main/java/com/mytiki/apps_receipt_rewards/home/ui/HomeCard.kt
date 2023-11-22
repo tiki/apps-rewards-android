@@ -11,13 +11,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
+import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
-fun HomeCard{
+@Composable
+fun HomeCard(navController: NavController){
+    val earnings = Rewards.earnings()
     DisplayCard(height = 183.dp, horizontalPadding = 24.dp) {
         Row(
             modifier = Modifier
@@ -34,7 +40,7 @@ fun HomeCard{
                     Text(text = "Month", style = MaterialTheme.typography.titleSmall)
                     Spacer(modifier = Modifier.height(3.dp))
                     Text(
-                        text = "$${homeViewModel.earnings.value.monthCurrent} / $${homeViewModel.earnings.value.monthTotal}",
+                        text = "$${earnings.monthCurrent} / $${earnings.monthTotal}",
                         style = MaterialTheme.typography.displayMedium
                     )
                 }
@@ -43,7 +49,7 @@ fun HomeCard{
                     Text(text = "Lifetime", style = MaterialTheme.typography.titleSmall)
                     Spacer(modifier = Modifier.height(3.dp))
                     Text(
-                        text = "$${homeViewModel.earnings.value.lifetime}",
+                        text = "$${earnings.lifetime}",
                         style = MaterialTheme.typography.displayMedium,
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
@@ -53,12 +59,12 @@ fun HomeCard{
                 Text(
                     text = "Show More",
                     modifier = Modifier
-                        .clickable { showMoreOnClick() },
+                        .clickable { navController.navigate(RewardsRoute.MoreScreen.name) },
                     style = MaterialTheme.typography.displayMedium
                 )
 
             }
-            RewardsChart(values = listOf(homeViewModel.chartData.value))
+            RewardsChart(listOf((earnings.monthCurrent/earnings.monthTotal).toFloat()))
         }
     }
 }
