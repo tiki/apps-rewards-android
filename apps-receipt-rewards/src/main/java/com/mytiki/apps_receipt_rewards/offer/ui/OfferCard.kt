@@ -1,12 +1,14 @@
 package com.mytiki.apps_receipt_rewards.offer.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -38,7 +40,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row {
+        Row (verticalAlignment = Alignment.CenterVertically){
             Box(
                 contentAlignment = Alignment.Center
             ) {
@@ -54,15 +56,14 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
                 )
             }
             Spacer(modifier = Modifier.width(24.dp))
-            Column(verticalArrangement = Arrangement.Center) {
-                Text(
-                    modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
-                    text = offer.discount,
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.outlineVariant,
-                    softWrap = true
-                )
-            }
+            Text(
+                modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
+                text = offer.discount,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.outlineVariant,
+                softWrap = true
+            )
+
         }
         Spacer(modifier = Modifier.width(20.dp))
 

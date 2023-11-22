@@ -28,7 +28,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountStatus
 
 @Composable
 fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) {
@@ -55,25 +54,20 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
 
                 )
                 if (isicons) {
-                    when (account.accountStatus) {
-                        AccountStatus.NOT_LINKED -> {}
-                        AccountStatus.LINKED -> {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_sync),
-                                contentDescription = "Sync Account",
-                                modifier = Modifier.size(32.dp),
-                                tint = Color.Unspecified
-                            )
-                        }
-
-                        AccountStatus.UNVERIFIED -> {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_alert),
-                                contentDescription = "Account needs to be reconnected",
-                                modifier = Modifier.size(32.dp),
-                                tint = Color.Unspecified
-                            )
-                        }
+                    if (account.isVerified == true) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_sync),
+                            contentDescription = "Sync Account",
+                            modifier = Modifier.size(32.dp),
+                            tint = Color.Unspecified
+                        )
+                    } else {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_alert),
+                            contentDescription = "Account needs to be reconnected",
+                            modifier = Modifier.size(32.dp),
+                            tint = Color.Unspecified
+                        )
                     }
                 }
             }
@@ -82,13 +76,13 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 Text(
                     text = account.accountCommon.accountName,
                     style = MaterialTheme.typography.headlineMedium,
-                    color = if (account.accountStatus == AccountStatus.UNVERIFIED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
+                    color = if (account.isVerified == false) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
                 )
                 Text(
                     modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
                     text = account.username,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = if (account.accountStatus == AccountStatus.UNVERIFIED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
+                    color = if (account.isVerified == false) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )

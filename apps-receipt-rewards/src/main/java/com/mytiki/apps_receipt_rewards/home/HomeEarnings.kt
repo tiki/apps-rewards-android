@@ -1,7 +1,7 @@
 package com.mytiki.apps_receipt_rewards.home
 
-class HomeEarnings(
-    lifetime: Double,
-    monthCurrent: Double,
-    monthTotal: Double
+data class HomeEarnings(
+    val lifetime: Double,
+    val monthCurrent: Double,
+    val monthTotal: Double
 )

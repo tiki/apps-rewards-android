@@ -54,7 +54,7 @@ fun MoreAccounts(accountsList: List<Account>) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 accountsList.forEach{account ->
-                    AccountTile(account = account, padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp), onClick = {}) {
+                    AccountTile(accountCommon = account.accountCommon, isConnected = true, isIcon = false, padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp), onClick = {}) {
                         Text(
                             text = if(account.accountCommon == AccountCommon.GMAIL) account.username else account.accountCommon.accountName,
                             style = MaterialTheme.typography.labelSmall,
