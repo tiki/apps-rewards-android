@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -48,7 +49,7 @@ fun OfferScreen(
     if (offerViewModel.showBottomSheet.value) {
         BottomSheet(
             sheetState,
-            modifier = Modifier.height(538.dp),
+            modifier = Modifier.requiredHeight(538.dp),
             onDismiss = {
                 offerViewModel.showBottomSheet.value = false
                 onDismissBottomSheet()
@@ -58,9 +59,7 @@ fun OfferScreen(
                     rewardsSharedViewModel,
                     offerViewModel,
                     { route ->
-                        scope.launch { sheetState.hide() }.invokeOnCompletion {
-                            navController.navigate(route)
-                        }
+                        navController.navigate(route)
                     }
                 ) { close() }
             }
@@ -103,7 +102,7 @@ fun OfferContent(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "\$5 - \$15",
+                        text = "\$${offerViewModel.getEstimate().min} - \$${offerViewModel.getEstimate().max}",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.displayLarge,
                     )

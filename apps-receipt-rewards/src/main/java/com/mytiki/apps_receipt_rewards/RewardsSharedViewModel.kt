@@ -15,6 +15,7 @@ class RewardsSharedViewModel(): ViewModel() {
     private val _isLicensed = MutableStateFlow(false)
     val isLicensed = _isLicensed.asStateFlow()
 
+
     init {
         _isLicensed.value = Rewards.isLicensed
         colorScheme.value = Rewards.colorScheme
@@ -22,11 +23,11 @@ class RewardsSharedViewModel(): ViewModel() {
 
     fun acceptLicense() {
         _isLicensed.value = true
-        Rewards.license()
+        Rewards.acceptLicense()
     }
 
     fun declineLicense() {
         _isLicensed.value = false
-        Rewards.decline()
+        Rewards.declineLicense()
     }
 }
