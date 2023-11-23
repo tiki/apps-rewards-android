@@ -10,12 +10,12 @@ import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.ui.RewardsViewModel
 
 class RetailerViewModel() : ViewModel() {
-    val accountLists = mutableStateListOf(
-        Account(AccountStatus.LINKED, AccountCommon.WALMART, "gabrielschuler6@gmail.com"),
-    )
+//    val accountLists = mutableStateListOf(
+//        Account(AccountStatus.LINKED, AccountCommon.WALMART, "gabrielschuler6@gmail.com"),
+//    )
 
 
-//    val  accountLists = mutableStateListOf<Account>()
+    val  accountLists = mutableStateListOf<Account>()
     val accountCommon = mutableStateOf(AccountCommon.WALMART)
 
     val offerLists = mutableStateListOf<Offer>(

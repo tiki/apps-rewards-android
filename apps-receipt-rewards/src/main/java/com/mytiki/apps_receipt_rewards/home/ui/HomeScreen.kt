@@ -34,7 +34,7 @@ fun HomeScreen(
 ) {
     val configuration = LocalConfiguration.current
 
-    val sheetState = rememberModalBottomSheetState(true) {
+    val sheetState = rememberModalBottomSheetState() {
         homeViewModel.isExpanded.value = it == SheetValue.Expanded
         return@rememberModalBottomSheetState true
     }
@@ -58,7 +58,7 @@ fun HomeScreen(
 
     BottomSheet(
         sheetState = sheetState,
-        modifier = Modifier.height(538.dp),
+//        modifier = Modifier.height(538.dp),
         onDismiss = {
             homeViewModel.showBottomSheet.value = false
             onDismissBottomSheet()

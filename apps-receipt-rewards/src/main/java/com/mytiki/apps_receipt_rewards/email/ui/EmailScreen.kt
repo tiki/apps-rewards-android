@@ -103,7 +103,8 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                         text = "or",
                         modifier = Modifier.padding(horizontal = 15.dp),
                         style = MaterialTheme.typography.displaySmall,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.outlineVariant
                     )
                     Box(
                         modifier = Modifier

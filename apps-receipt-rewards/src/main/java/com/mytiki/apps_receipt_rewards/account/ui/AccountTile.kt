@@ -45,7 +45,7 @@ fun AccountTile(
             .padding(
                 padding.calculateLeftPadding(LayoutDirection.Ltr),
                 padding.calculateTopPadding(),
-                (padding.calculateRightPadding(LayoutDirection.Ltr).value -4).dp,
+                (if (padding.calculateRightPadding(LayoutDirection.Ltr).value > 0) padding.calculateRightPadding(LayoutDirection.Ltr).value -4 else 0).toInt().dp,
                 padding.calculateBottomPadding()
             )
             .requiredWidth(size)
@@ -55,7 +55,7 @@ fun AccountTile(
         Card(
             shape = MaterialTheme.shapes.extraSmall,
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-
+            modifier = Modifier.padding(end = 4.dp),
             ) {
             Box(
                 contentAlignment = Alignment.Center

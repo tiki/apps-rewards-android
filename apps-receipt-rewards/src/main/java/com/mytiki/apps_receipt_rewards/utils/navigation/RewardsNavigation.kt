@@ -44,7 +44,7 @@ fun RewardsNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = RewardsRoute.OfferScreen.name
+        startDestination = RewardsRoute.RetailerScreen.name
     ) {
         composable(
             route = RewardsRoute.OfferScreen.name,
