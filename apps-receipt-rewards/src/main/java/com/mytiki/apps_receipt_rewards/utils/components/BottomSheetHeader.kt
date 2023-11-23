@@ -24,7 +24,7 @@ fun BottomSheetHeader(title: String, subTitle: String, onClose: () -> Unit) {
         verticalAlignment = Alignment.Top
     ) {
         Column {
-            Text(text = title, style = MaterialTheme.typography.headlineSmall)
+            Text(text = title.uppercase(), style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = subTitle, style = MaterialTheme.typography.titleMedium)
         }
