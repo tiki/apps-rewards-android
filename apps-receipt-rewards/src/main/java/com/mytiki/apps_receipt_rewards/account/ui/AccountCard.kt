@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,38 +42,46 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row {
-            Box(
-                contentAlignment = Alignment.Center
+            Card(
+                shape = MaterialTheme.shapes.extraSmall,
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                modifier = Modifier.padding(end = 4.dp),
             ) {
-                Image(
-                    painter = painterResource(id = account.accountCommon.imageId),
-                    contentDescription = "${account.accountCommon.name} logo",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(56.dp)
-                        .clip(MaterialTheme.shapes.extraSmall)
-                        .shadow(elevation = 4.dp)
-
-                )
-                if (isicons) {
-                    if (account.isVerified == true) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_sync),
-                            contentDescription = "Sync Account",
-                            modifier = Modifier.size(32.dp),
-                            tint = Color.Unspecified
-                        )
-                    } else {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_alert),
-                            contentDescription = "Account needs to be reconnected",
-                            modifier = Modifier.size(32.dp),
-                            tint = Color.Unspecified
-                        )
+                Box(
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = account.accountCommon.imageId),
+                        contentDescription = "${account.accountCommon.name} logo",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(56.dp)
+                            .clip(MaterialTheme.shapes.extraSmall)
+                    )
+                    if (isicons) {
+                        when (account.accountStatus) {
+                            AccountStatus.NOT_LINKED -> {}
+                            AccountStatus.LINKED -> {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_sync),
+                                    contentDescription = "Sync Account",
+                                    modifier = Modifier.size(32.dp),
+                                    tint = Color.Unspecified
+                                )
+                            }
+                            AccountStatus.UNVERIFIED -> {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_alert),
+                                    contentDescription = "Account needs to be reconnected",
+                                    modifier = Modifier.size(32.dp),
+                                    tint = Color.Unspecified
+                                )
+                            }
+                        }
                     }
                 }
             }
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
                     text = account.accountCommon.accountName,

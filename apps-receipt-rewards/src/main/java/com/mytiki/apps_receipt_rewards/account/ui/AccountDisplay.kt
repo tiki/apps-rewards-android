@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,15 +39,19 @@ fun AccountDisplay(accountCommon: AccountCommon, height: Dp, body: String) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = accountCommon.imageId),
-                contentDescription = "${accountCommon.accountName} logo",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(MaterialTheme.shapes.extraSmall)
-                    .shadow(elevation = 4.dp)
-            )
+            Card(
+                shape = MaterialTheme.shapes.extraSmall,
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            ) {
+                Image(
+                    painter = painterResource(id = accountCommon.imageId),
+                    contentDescription = "${accountCommon.accountName} logo",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = accountCommon.accountName,

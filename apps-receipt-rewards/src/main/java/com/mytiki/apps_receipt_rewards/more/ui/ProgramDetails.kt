@@ -189,7 +189,7 @@ fun ProgramDetails(
                         },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Opt out of cashback connections", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error)
+                    Text("Opt out of Cashback Connections", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error)
                     Image(painter = painterResource(id = R.drawable.ic_block), contentDescription = "", modifier = Modifier.size(18.dp))
                 }
                 Spacer(modifier = Modifier.height(16.dp))

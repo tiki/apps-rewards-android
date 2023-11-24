@@ -12,6 +12,13 @@ import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.offer.Offer
 
 class RetailerViewModel() : ViewModel() {
+    val  accountLists = mutableStateListOf<Account>()
+    val accountCommon = mutableStateOf(AccountCommon.WALMART)
+
+    val offerLists = mutableStateListOf<Offer>(
+        Offer(AccountCommon.WALMART, "4% cashback on electronics"),
+        Offer(AccountCommon.WALMART, "4% cashback on electronics"),
+    )
     val username = mutableStateOf<String>("")
     val password = mutableStateOf<String>("")
     val accountLists = mutableStateOf<List<Account>>(listOf())

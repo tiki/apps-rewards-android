@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,7 +38,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal =  29.dp),
+            .padding(horizontal = 29.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -44,18 +46,22 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
             Box(
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = offer.accountCommon.imageId),
-                    contentDescription = "${offer.accountCommon.name} logo",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(56.dp)
-                        .clip(MaterialTheme.shapes.extraSmall)
-                        .shadow(elevation = 4.dp)
-
-                )
+                Card(
+                    shape = MaterialTheme.shapes.extraSmall,
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                    modifier = Modifier.padding(end = 4.dp),
+                ) {
+                    Image(
+                        painter = painterResource(id = offer.accountCommon.imageId),
+                        contentDescription = "${offer.accountCommon.name} logo",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(56.dp)
+                            .clip(MaterialTheme.shapes.extraSmall)
+                    )
+                }
             }
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Text(
                 modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
                 text = offer.discount,

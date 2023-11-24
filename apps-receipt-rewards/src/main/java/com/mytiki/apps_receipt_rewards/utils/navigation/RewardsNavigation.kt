@@ -40,12 +40,12 @@ fun RewardsNavigation(
     val fadeSpec: FiniteAnimationSpec<Float> = spring(stiffness = Spring.StiffnessVeryLow)
     val springSpec = spring<IntOffset>(dampingRatio = Spring.DampingRatioNoBouncy)
     val configuration = LocalConfiguration.current
-
-    val rewardsSharedViewModel: RewardsSharedViewModel = viewModel()
-    RewardsTheme (rewardsSharedViewModel.colorScheme.value){
-        NavHost(
-            navController = navController,
-            startDestination = if (!rewardsSharedViewModel.isLicensed.value) RewardsRoute.OfferScreen.name else RewardsRoute.HomeScreen.name
+    NavHost(
+        navController = navController,
+        startDestination = RewardsRoute.RetailerScreen.name
+    ) {
+        composable(
+            route = RewardsRoute.OfferScreen.name,
         ) {
 
             composable(
