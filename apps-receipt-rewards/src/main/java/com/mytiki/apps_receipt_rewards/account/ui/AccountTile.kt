@@ -28,16 +28,18 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountStatus
+import com.mytiki.apps_receipt_rewards.account.AccountCommon
 
 
 @Composable
 fun AccountTile(
-    account: Account,
+    accountCommon: AccountCommon,
+    isConnected: Boolean,
+    isIcon: Boolean = true,
     size: Dp = 80.dp,
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
-    onClick: (Account) -> Unit,
+    onClick: (AccountCommon) -> Unit,
     text: @Composable () -> Unit
 ) {
     Column(
@@ -49,7 +51,7 @@ fun AccountTile(
                 padding.calculateBottomPadding()
             )
             .requiredWidth(size)
-            .clickable { onClick(account) },
+            .clickable { onClick(accountCommon) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
@@ -94,5 +96,5 @@ fun AccountTile(
         Spacer(modifier = Modifier.height(10.dp))
         text()
     }
-
 }
+

@@ -20,19 +20,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
 import com.mytiki.apps_receipt_rewards.email.EmailViewModel
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.Input
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController) {
-    val accountList = emailViewModel.accountLists
-    val accountCommon = emailViewModel.accountCommon.value
+fun EmailScreen(
+    rewardsSharedViewModel: RewardsSharedViewModel,
+    navController: NavHostController,
+    emailViewModel: EmailViewModel = viewModel(),
+) {
+    val accountCommon = rewardsSharedViewModel.selectedAccount.value
+    emailViewModel.getAccountList(accountCommon)
 
     Surface(
         modifier = Modifier
@@ -72,9 +78,9 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            items(accountList) {
+            items(emailViewModel.accountLists.value) {
                 Spacer(modifier = Modifier.height(32.dp))
-                AccountCard(it) {}
+                AccountCard(it) {emailViewModel.accountLogout(it)}
             }
             item {
                 Spacer(modifier = Modifier.height(38.dp))
@@ -85,7 +91,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                 )
                 Spacer(modifier = Modifier.height(46.dp))
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    GoogleSignIn {}
+                    GoogleSignIn {emailViewModel.googleSignIn()}
                 }
                 Spacer(modifier = Modifier.height(38.dp))
                 Row(
@@ -130,7 +136,7 @@ fun EmailScreen(emailViewModel: EmailViewModel, navController: NavHostController
                     modifier = Modifier.padding(horizontal = 21.dp),
                     text = "Sign In",
                     isfFilled = true
-                ) {}
+                ) {emailViewModel.accountLogin(accountCommon)}
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

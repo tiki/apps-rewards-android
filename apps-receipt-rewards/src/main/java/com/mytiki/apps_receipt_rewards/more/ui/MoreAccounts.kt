@@ -1,5 +1,6 @@
 package com.mytiki.apps_receipt_rewards.ui.more
 
+import android.service.autofill.OnClickAction
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,7 +26,11 @@ import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MoreAccounts(accountsList: List<Account>) {
+fun MoreAccounts(
+    accountsList: List<AccountCommon>,
+    alertAccountsList: List<AccountCommon>,
+    onClick: (AccountCommon) -> Unit
+) {
     Text("Accounts", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
 
     Spacer(modifier = Modifier.height(16.dp))
@@ -53,10 +58,30 @@ fun MoreAccounts(accountsList: List<Account>) {
                     .padding(horizontal = 32.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                accountsList.forEach{account ->
-                    AccountTile(account = account, padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp), onClick = {}) {
+                accountsList.forEach{accountCommon ->
+                    AccountTile(
+                        accountCommon = accountCommon,
+                        isConnected = true, isIcon = false,
+                        padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
+                        onClick = {onClick(accountCommon)}
+                    ) {
                         Text(
-                            text = if(account.accountCommon == AccountCommon.GMAIL) account.username else account.accountCommon.accountName,
+                            text = accountCommon.accountName,
+                            style = MaterialTheme.typography.labelSmall,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+                alertAccountsList.forEach{accountCommon ->
+                    AccountTile(
+                        accountCommon = accountCommon,
+                        isConnected = true,
+                        padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
+                        onClick = {onClick(accountCommon)}
+                    ) {
+                        Text(
+                            text = accountCommon.accountName,
                             style = MaterialTheme.typography.labelSmall,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis

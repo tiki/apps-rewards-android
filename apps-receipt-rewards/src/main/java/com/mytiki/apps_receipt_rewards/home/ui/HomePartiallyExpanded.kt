@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.AccountCommon
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 import com.mytiki.apps_receipt_rewards.home.HomeViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
@@ -29,10 +30,10 @@ import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 fun HomePartiallyExpanded(
     homeViewModel: HomeViewModel,
     showMoreOnClick: () -> Unit,
-    navigateTo: (Account) -> Unit,
+    navigateTo: (AccountCommon) -> Unit,
     close: () -> Unit
 ) {
-    Column {
+    Column (modifier = Modifier.fillMaxSize()){
         BottomSheetHeader(
             title = "CASHBACK CONNECTIONS",
             subTitle = "Share data. Earn cash."
@@ -54,7 +55,7 @@ fun HomePartiallyExpanded(
                         Text(text = "Month", style = MaterialTheme.typography.titleSmall)
                         Spacer(modifier = Modifier.height(3.dp))
                         Text(
-                            text = "$4.80 / $12.00",
+                            text = "$${homeViewModel.earnings.value.monthCurrent} / $${homeViewModel.earnings.value.monthTotal}",
                             style = MaterialTheme.typography.displayMedium
                         )
                     }
@@ -63,7 +64,7 @@ fun HomePartiallyExpanded(
                         Text(text = "Lifetime", style = MaterialTheme.typography.titleSmall)
                         Spacer(modifier = Modifier.height(3.dp))
                         Text(
-                            text = "$34.30",
+                            text = "$${homeViewModel.earnings.value.lifetime}",
                             style = MaterialTheme.typography.displayMedium,
                             color = MaterialTheme.colorScheme.outlineVariant
                         )
@@ -78,7 +79,7 @@ fun HomePartiallyExpanded(
                     )
 
                 }
-                RewardsChart(values = homeViewModel.chartData)
+                RewardsChart(values = listOf( homeViewModel.chartData.value))
             }
         }
         Spacer(modifier = Modifier.height(48.dp))
@@ -90,11 +91,12 @@ fun HomePartiallyExpanded(
         )
         Spacer(modifier = Modifier.height(24.dp))
         LazyRow {
-            items(homeViewModel.accountLists.toList()) { account ->
+            items(homeViewModel.alertAccountList.value) { accountCommon ->
                 AccountTile(
-                    account = account,
+                    accountCommon = accountCommon,
+                    isConnected = true,
                     padding = PaddingValues(horizontal = 10.dp),
-                    onClick = { navigateTo(account) }
+                    onClick = { navigateTo(accountCommon) }
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
@@ -105,7 +107,29 @@ fun HomePartiallyExpanded(
                             style = MaterialTheme.typography.labelSmall,
                         )
                         Text(
-                            text = account.accountCommon.accountName,
+                            text = accountCommon.accountName,
+                            style = MaterialTheme.typography.labelSmall,
+                        )
+                    }
+                }
+            }
+            items(homeViewModel.addAccountList.value) { accountCommon ->
+                AccountTile(
+                    accountCommon = accountCommon,
+                    isConnected = false,
+                    padding = PaddingValues(horizontal = 10.dp),
+                    onClick = { navigateTo(accountCommon) }
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Add",
+                            style = MaterialTheme.typography.labelSmall,
+                        )
+                        Text(
+                            text = accountCommon.accountName,
                             style = MaterialTheme.typography.labelSmall,
                         )
                     }

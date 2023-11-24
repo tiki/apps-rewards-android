@@ -6,18 +6,22 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.offer.OfferViewModel
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
@@ -28,9 +32,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OfferScreen(
-    offerViewModel: OfferViewModel,
+    rewardsSharedViewModel: RewardsSharedViewModel,
     navController: NavHostController,
-    onDismissBottomSheet: () -> Unit
+    onDismissBottomSheet: () -> Unit,
+    offerViewModel: OfferViewModel = viewModel(),
 ) {
 
     val sheetState = rememberModalBottomSheetState(true)
@@ -44,18 +49,17 @@ fun OfferScreen(
     if (offerViewModel.showBottomSheet.value) {
         BottomSheet(
             sheetState,
-            modifier = Modifier.height(538.dp),
+            modifier = Modifier.requiredHeight(538.dp),
             onDismiss = {
                 offerViewModel.showBottomSheet.value = false
                 onDismissBottomSheet()
             },
             content = {
                 OfferContent(
+                    rewardsSharedViewModel,
                     offerViewModel,
                     { route ->
-                        scope.launch { sheetState.hide() }.invokeOnCompletion {
-                            navController.navigate(route)
-                        }
+                        navController.navigate(route)
                     }
                 ) { close() }
             }
@@ -66,6 +70,7 @@ fun OfferScreen(
 
 @Composable
 fun OfferContent(
+    rewardsSharedViewModel: RewardsSharedViewModel,
     offerViewModel: OfferViewModel,
     navigateTo: (String) -> Unit,
     onClose: () -> Unit
@@ -97,7 +102,7 @@ fun OfferContent(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "\$5 - \$15",
+                        text = "\$${offerViewModel.getEstimate().min} - \$${offerViewModel.getEstimate().max}",
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.displayLarge,
                     )

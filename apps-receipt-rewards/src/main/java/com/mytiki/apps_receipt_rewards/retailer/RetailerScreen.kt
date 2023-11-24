@@ -13,19 +13,30 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
 import com.mytiki.apps_receipt_rewards.offer.ui.OfferCard
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.Input
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 
 @Composable
-fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostController) {
-    val accountList = retailerViewModel.accountLists
-    val accountCommon = retailerViewModel.accountCommon.value
+fun RetailerScreen(
+    rewardsSharedViewModel: RewardsSharedViewModel,
+    navController: NavHostController,
+    retailerViewModel: RetailerViewModel = viewModel(),
+) {
+    val accountCommon = rewardsSharedViewModel.selectedAccount.value
+    val context = LocalContext.current
+    val handler = LocalUriHandler.current
+    retailerViewModel.getAccountList(accountCommon)
+    retailerViewModel.getOffers(accountCommon)
 
     Surface(
         modifier = Modifier
@@ -65,7 +76,7 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            if (retailerViewModel.accountLists.isEmpty()) {
+            if (retailerViewModel.accountLists.value.isEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Input(
@@ -84,12 +95,12 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                         modifier = Modifier.padding(horizontal = 21.dp),
                         text = "Sign In",
                         isfFilled = true
-                    ) {}
+                    ) {retailerViewModel.accountLogin(accountCommon)}
                 }
             } else {
-                items(retailerViewModel.accountLists) {
+                items(retailerViewModel.accountLists.value) {
                     Spacer(modifier = Modifier.height(32.dp))
-                    AccountCard(it, false) {}
+                    AccountCard(it, false) {retailerViewModel.accountLogout(it)}
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
@@ -99,7 +110,7 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                     modifier = Modifier.padding(horizontal = 21.dp),
                     text = "Scan receipt",
                     isfFilled = false
-                ) {}
+                ) {retailerViewModel.scanReceipt(context)}
                 Spacer(modifier = Modifier.height(30.dp))
                 Text(
                     text = "More Offers",
@@ -108,8 +119,8 @@ fun RetailerScreen(retailerViewModel: RetailerViewModel, navController: NavHostC
                 )
                 Spacer(modifier = Modifier.height(32.dp))
             }
-            items(retailerViewModel.offerLists.toList()) {
-                OfferCard(it) {}
+            items(retailerViewModel.offerList.value.toList()) {
+                OfferCard(it) {retailerViewModel.openLink(handler, it.offerLink)}
                 Spacer(modifier = Modifier.height(40.dp))
             }
         }

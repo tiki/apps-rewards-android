@@ -3,57 +3,117 @@ package com.mytiki.apps_receipt_rewards
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountCommon
-import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.home.HomeEarnings
+import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
+import com.mytiki.apps_receipt_rewards.utils.theme.Black
+import com.mytiki.apps_receipt_rewards.utils.theme.DarkGray
+import com.mytiki.apps_receipt_rewards.utils.theme.Green
+import com.mytiki.apps_receipt_rewards.utils.theme.Red
+import com.mytiki.apps_receipt_rewards.utils.theme.White
 
+/**
+ * This object provides functionalities and information related to rewards and accounts.
+ */
 object Rewards {
 
-    private var accounts: MutableList<Account> = mutableListOf()
-    private var isLicensed: Boolean = false
+    private var accounts: MutableList<Account> = mutableListOf(
+        Account(true, AccountCommon.GMAIL, "email1@gmail.com"),
+        Account(false, AccountCommon.WALMART, "email@gmail.com"),
+        Account(true, AccountCommon.UBER_EATS, "email@gmail.com"),
+        Account(false, AccountCommon.TACO_BELL, "email@gmail.com"),
+        Account(true, AccountCommon.UBER_EATS, "email@gmail.com"),
+        Account(false, AccountCommon.GMAIL, "email2@gmail.com"),
+    )
+    var isLicensed: Boolean = false
+        private set
+    var colorScheme: ColorScheme = lightColorScheme(
+        primary = Color(0xFF00B272),
+        error = Color(0xFFC73000),
+        background = Color(0xFFFFFFFF),
+        onBackground = Color(0x15000000),
+        outline = Color(0xFF000000),
+        outlineVariant = Color(0x99000000),
+    )
+        private set
+
 
     /**
-     * Start
+     * Starts the Rewards activity.
      *
-     * @param context
+     * @param context The context used to start the RewardsActivity.
      */
-    fun start(context: Context) {
+    fun start(
+        context: Context,
+        primaryTextColor: Color = Color(0xFF000000),
+        secondaryTextColor: Color = Color(0x99000000),
+        primaryBackgroundColor: Color = Color(0xFFFFFFFF),
+        secondaryBackgroundColor: Color = Color(0x15000000),
+        accentColor: Color = Color(0xFF00B272)
+    ) {
+        colorScheme = lightColorScheme(
+            primary = accentColor,
+            error = Color(0xFFC73000),
+            background = primaryBackgroundColor,
+            onBackground = secondaryBackgroundColor,
+            outline = primaryTextColor,
+            outlineVariant = secondaryTextColor,
+        )
+        this.fontFamily = fontFamily
+        isLicensed = checkLicense()
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
     }
 
     /**
-     * License
-     *
+     * check if there is a valid license for the user
      */
-    fun license() {
+    fun checkLicense(): Boolean{
+        return true
+    }
+
+    /**
+     * Grants a license.
+     */
+    fun createLicense() {
         isLicensed = true
     }
 
     /**
-     * Decline
-     *
+     * Declines a license.
      */
-    fun decline() {
+    fun declineLicense() {
         isLicensed = false
     }
 
     /**
-     * Estimate
+     * Provides an estimate of an offer.
      *
-     * @return
+     * @return The estimated offer.
      */
     fun estimate(): OfferEstimate {
         return OfferEstimate(5, 15)
     }
 
+    fun monthlyEarnings(): List<MoreContributor> {
+        return listOf(
+            MoreContributor(AccountCommon.WALMART.accountName, 0.4f),
+            MoreContributor(AccountCommon.DOLLAR_GENERAL.accountName, 0.2f),
+            MoreContributor(AccountCommon.TACO_BELL.accountName, 0.3f),
+
+        )
+    }
+
     /**
-     * Earnings
+     * Retrieves the earnings details.
      *
-     * @return
+     * @return The earnings details.
      */
     fun earnings(): HomeEarnings {
         return HomeEarnings(
@@ -64,18 +124,18 @@ object Rewards {
     }
 
     /**
-     * Terms
+     * Retrieves the terms and conditions.
      *
-     * @return
+     * @return The terms and conditions.
      */
     fun terms(): String {
         return terms
     }
 
     /**
-     * Scan
+     * Scans receipts.
      *
-     * @param context
+     * @param context The context used for scanning.
      */
     fun scan(context: Context) {
         Toast.makeText(
@@ -86,76 +146,93 @@ object Rewards {
     }
 
     /**
-     * Offers
+     * Retrieves a list of offers for a given account provider.
      *
-     * @param provider
-     * @return
+     * @param provider The account provider.
+     * @return A list of offers for the provider.
      */
-    fun offers(provider: AccountCommon): MutableList<Offer> {
-        return mutableListOf<Offer>(
-            Offer(provider, "4% cashback on electronics"),
-            Offer(provider, "10% off on electronics")
+    fun offers(provider: AccountCommon): List<Offer> {
+        return listOf(
+            Offer(
+                provider,
+                "4% cashback on electronics",
+                "https://www.walmart.com/"
+            ),
+            Offer(
+                provider,
+                "10% off on electronics", 
+                "https://www.walmart.com/"
+            )
         )
     }
 
     /**
-     * Accounts
+     * Retrieves a list of accounts.
      *
-     * @return
+     * @return A list of accounts.
      */
     fun accounts(): List<Account> {
         return accounts
     }
 
     /**
-     * Available accounts
+     * Retrieves a list of accounts.
      *
-     * @return
+     * @return A list of accounts.
      */
-    fun availableAccounts(): List<AccountCommon> {
-        val availableAccounts = mutableListOf<AccountCommon>()
-        val connectedAccts = accounts()
-        for (accountCommon in AccountCommon.values()) {
-            if (connectedAccts.find { account ->
-                    account.accountCommon == accountCommon
-                } == null) {
-                availableAccounts.add(accountCommon)
-            }
-        }
-        return availableAccounts
+    fun accounts(accountCommon: AccountCommon): List<Account> {
+        return accounts().filter{it.accountCommon == accountCommon}
     }
 
     /**
-     * Login
+     * Retrieves a list of available accounts.
      *
-     * @param account
+     * @return A list of available accounts.
+     */
+    fun uncAccounts(): List<AccountCommon> {
+        val uncAccounts = mutableListOf<AccountCommon>()
+        val connectedAccounts = accounts()
+        for (accountCommon in AccountCommon.values()) {
+            if (connectedAccounts.find { account ->
+                    account.accountCommon == accountCommon
+                } == null) {
+                uncAccounts.add(accountCommon)
+            }
+        }
+        return uncAccounts
+    }
+
+    /**
+     * Logs in to an account.
+     *
+     * @param account The account to log in.
      */
     fun login(account: Account) {
-        if (account.username.isNotEmpty() &&
+        if (!account.username.isNullOrEmpty()  &&
             !account.password.isNullOrEmpty() &&
             accounts.find { connectedAcct ->
                 connectedAcct.accountCommon == account.accountCommon &&
                         connectedAcct.username == account.username
             } == null
         ) {
-            account.accountStatus = AccountStatus.LINKED
+            account.isVerified = true
             accounts.add(account)
         }
     }
 
     /**
-     * Logout
+     * Logs out from an account.
      *
-     * @param account
+     * @param account The account to log out.
      */
     fun logout(account: Account) {
-        if (account.username.isNotEmpty()) {
+        if (!account.username.isNullOrEmpty()) {
             val connectedAccount = accounts.find { connectedAcct ->
                 connectedAcct.accountCommon == account.accountCommon &&
                         connectedAcct.username == account.username
             }
             if (connectedAccount != null) {
-                accounts.remove(connectedAccount)
+                accounts.remove(account)
             }
         }
     }

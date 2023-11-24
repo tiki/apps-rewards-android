@@ -13,15 +13,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.mytiki.apps_receipt_rewards.account.AccountType
 import com.mytiki.apps_receipt_rewards.more.MoreViewModel
+import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
 import com.mytiki.apps_receipt_rewards.ui.more.EstimateCard
 import com.mytiki.apps_receipt_rewards.ui.more.MoreAccounts
 import com.mytiki.apps_receipt_rewards.ui.more.ProgramDetails
 import com.mytiki.apps_receipt_rewards.utils.components.Header
+import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController) {
+fun MoreScreen(
+    rewardsSharedViewModel: RewardsSharedViewModel,
+    navController: NavHostController,
+    moreViewModel: MoreViewModel = viewModel(),
+) {
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -41,15 +49,25 @@ fun MoreScreen(moreViewModel: MoreViewModel, navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(34.dp))
 
-            EstimateCard(moreViewModel.chartData)
+            EstimateCard(moreViewModel.monthlyEarnings.value)
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            MoreAccounts(accountsList = moreViewModel.accountLists)
+            MoreAccounts(
+                accountsList = moreViewModel.accountLists.value,
+                alertAccountsList = moreViewModel.alertAccountLists.value
+            ){accountCommon ->
+                rewardsSharedViewModel.selectAccount(accountCommon)
+                if (accountCommon.accountType == AccountType.EMAIL) {
+                    navController.navigate(RewardsRoute.EmailScreen.name)
+                } else {
+                    navController.navigate(RewardsRoute.RetailerScreen.name)
+                }
+            }
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            ProgramDetails()
+            ProgramDetails(rewardsSharedViewModel, navController, moreViewModel)
 
             Spacer(modifier = Modifier.height(56.dp))
         }
