@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -40,8 +42,10 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row {
-            Box(
-                contentAlignment = Alignment.Center
+            Card(
+                shape = MaterialTheme.shapes.extraSmall,
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                modifier = Modifier.padding(end = 4.dp),
             ) {
                 Image(
                     painter = painterResource(id = account.accountProvider.imageId),
@@ -71,7 +75,7 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                     }
                 }
             }
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
                     text = account.accountProvider.accountName,

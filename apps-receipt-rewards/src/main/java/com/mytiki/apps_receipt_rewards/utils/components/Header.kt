@@ -33,6 +33,6 @@ fun Header(text: String, onClick: () -> Unit) {
             tint = MaterialTheme.colorScheme.outline
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = text, style = MaterialTheme.typography.titleLarge)
+        Text(text = text.uppercase(), style = MaterialTheme.typography.titleLarge)
     }
 }

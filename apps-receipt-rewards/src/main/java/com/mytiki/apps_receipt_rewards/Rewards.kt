@@ -14,6 +14,11 @@ import com.mytiki.apps_receipt_rewards.home.HomeEarnings
 import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.offer.Offer
 import com.mytiki.apps_receipt_rewards.offer.OfferEstimate
+import com.mytiki.apps_receipt_rewards.utils.theme.Black
+import com.mytiki.apps_receipt_rewards.utils.theme.DarkGray
+import com.mytiki.apps_receipt_rewards.utils.theme.Green
+import com.mytiki.apps_receipt_rewards.utils.theme.Red
+import com.mytiki.apps_receipt_rewards.utils.theme.White
 
 /**
  * This object provides functionalities and information related to rewards and accounts.
@@ -46,6 +51,7 @@ object Rewards {
 
     lateinit var fontFamily: FontFamily
         private set
+
 
     /**
      * Starts the Rewards activity.

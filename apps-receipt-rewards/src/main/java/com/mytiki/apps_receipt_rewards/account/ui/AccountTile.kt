@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
@@ -40,39 +43,52 @@ fun AccountTile(
 ) {
     Column(
         modifier = Modifier
-            .padding(padding)
+            .padding(
+                padding.calculateLeftPadding(LayoutDirection.Ltr),
+                padding.calculateTopPadding(),
+                (if (padding.calculateRightPadding(LayoutDirection.Ltr).value > 0) padding.calculateRightPadding(LayoutDirection.Ltr).value -4 else 0).toInt().dp,
+                padding.calculateBottomPadding()
+            )
             .requiredWidth(size)
             .clickable { onClick(accountProvider) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                painter = painterResource(id = accountProvider.imageId),
-                contentDescription = "${accountProvider.toString()} logo",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .requiredSize(size)
-                    .clip(MaterialTheme.shapes.extraSmall)
-                    .shadow(elevation = 4.dp)
+        Card(
+            shape = MaterialTheme.shapes.extraSmall,
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            modifier = Modifier.padding(end = 4.dp),
+            ) {
+            Box(
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = account.accountCommon.imageId),
+                    contentDescription = "${account.accountCommon.name} logo",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .requiredSize(size)
+                        .clip(MaterialTheme.shapes.extraSmall)
 
-            )
-            if (isIcon) {
-                if (!isConnected) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_add),
-                        contentDescription = "Add Account",
-                        modifier = Modifier.size(iconSize),
-                        tint = Color.Unspecified
-                    )
-                } else {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_alert),
-                        contentDescription = "Account needs to be reconnected",
-                        modifier = Modifier.size(iconSize),
-                        tint = Color.Unspecified
-                    )
+                )
+                when (account.accountStatus) {
+                    AccountStatus.NOT_LINKED -> {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_add),
+                            contentDescription = "Add Account",
+                            modifier = Modifier.size(iconSize),
+                            tint = Color.Unspecified
+                        )
+                    }
+
+                    AccountStatus.LINKED -> {}
+                    AccountStatus.UNVERIFIED -> {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_alert),
+                            contentDescription = "Account needs to be reconnected",
+                            modifier = Modifier.size(iconSize),
+                            tint = Color.Unspecified
+                        )
+                    }
                 }
             }
         }

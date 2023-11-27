@@ -3,11 +3,14 @@ package com.mytiki.apps_receipt_rewards
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.navigation.NavController
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsNavigation
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -69,7 +69,7 @@ Import the `Rewards` singleton and utilize the `start` function to trigger the b
            }
        }
    }
-```
+   ```
    Adjust the color and font settings within the start function according to your app's design preferences.
 
 ### Licenses
