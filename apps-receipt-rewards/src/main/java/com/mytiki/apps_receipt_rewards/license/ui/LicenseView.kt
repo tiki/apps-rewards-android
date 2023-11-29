@@ -15,10 +15,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
+
+val showTerms = mutableStateOf( false )
 
 @Composable
 fun LicenseView(
@@ -26,14 +29,7 @@ fun LicenseView(
     onAccept: () -> Unit
 ) {
     val estimate = Rewards.license.estimate()
-    val showTerms = mutableStateOf( false )
     Box {
-        if (showTerms.value) {
-            LicenseTerms(
-                onBackButton = { showTerms.value = false },
-                onAccept = onAccept
-            )
-        }
         BottomSheet {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -75,9 +71,17 @@ fun LicenseView(
                     modifier = Modifier.padding(horizontal = 15.dp),
                     text = "Get estimate", isfFilled = true
                 ) {
-                    onAccept()
+                    showTerms.value = true
                 }
                 Spacer(modifier = Modifier.height(40.dp))
+            }
+        }
+        if (showTerms.value) {
+            Popup {
+                LicenseTerms(
+                    onBackButton = { showTerms.value = false },
+                    onAccept = onAccept
+                )
             }
         }
     }
