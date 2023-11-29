@@ -1,5 +1,6 @@
 package com.mytiki.apps_receipt_rewards.home.ui
 
+import BottomSheet
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.Spring
@@ -21,7 +22,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.mytiki.apps_receipt_rewards.account.AccountType
-import com.mytiki.apps_receipt_rewards.utils.components.BottomSheet
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 import kotlinx.coroutines.launch
 
@@ -64,15 +64,7 @@ class HomeScreen(
         ) {
             val scope = rememberCoroutineScope()
             val sheetState = rememberModalBottomSheetState(true)
-            BottomSheet(
-                sheetState = sheetState,
-                modifier = Modifier.requiredHeight(538.dp),
-                onDismiss = {
-                    scope.launch {
-                        sheetState.hide()
-                    }
-                }
-            ) {
+            BottomSheet{
                 AnimatedContent(
                     targetState = sheetState.hasExpandedState,
                     transitionSpec = {

@@ -25,60 +25,47 @@ fun OfferContent(
     navController: NavController,
 ) {
     val estimate = Rewards.estimate()
-
-    Scaffold(
-        topBar = {
-            BottomSheetHeader(
-                title = "CASHBACK CONNECTIONS",
-                subTitle = "Share data. Earn cash."
-            ) { }
-        },
-        containerColor = MaterialTheme.colorScheme.background
-    ) { paddingValue ->
-        Column(
-            modifier = Modifier.padding(paddingValue),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(56.dp))
-            DisplayCard(height = 201.dp, horizontalPadding = 15.dp, verticalPadding = 0.dp) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Earn monthly",
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "\$${estimate.min} - \$${estimate.max}",
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.displayLarge,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "for your shopping habits",
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(40.dp))
-            Text(
-                modifier = Modifier.padding(horizontal = 30.dp),
-                text = "Estimate based on similar users spending habits and market price for shopping data. ",
-                style = MaterialTheme.typography.labelMedium
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            MainButton(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                text = "Get estimate", isfFilled = true
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+    ) {
+        Spacer(modifier = Modifier.height(56.dp))
+        DisplayCard(height = 201.dp, horizontalPadding = 15.dp, verticalPadding = 0.dp) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                navController.navigate(RewardsRoute.TermsScreen.name)
+                Text(
+                    text = "Earn monthly",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "\$${estimate.min} - \$${estimate.max}",
+                    color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.displayLarge,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "for your shopping habits",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
             }
-            Spacer(modifier = Modifier.height(40.dp))
-
         }
+        Spacer(modifier = Modifier.height(40.dp))
+        Text(
+            modifier = Modifier.padding(horizontal = 30.dp),
+            text = "Estimate based on similar users spending habits and market price for shopping data. ",
+            style = MaterialTheme.typography.labelMedium
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        MainButton(
+            modifier = Modifier.padding(horizontal = 15.dp),
+            text = "Get estimate", isfFilled = true
+        ) {
+            navController.navigate(RewardsRoute.TermsScreen.name)
+        }
+        Spacer(modifier = Modifier.height(40.dp))
     }
-
 }

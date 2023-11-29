@@ -52,7 +52,7 @@ fun AccountDisplay(accountProvider: AccountProvider, height: Dp, body: String) {
             Text(
                 text = accountProvider.accountName,
                 style = TextStyle(
-                    fontFamily = SpaceGrotesk,
+                    fontFamily = MaterialTheme.typography.labelMedium.fontFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
                     lineHeight = (40.83).sp,

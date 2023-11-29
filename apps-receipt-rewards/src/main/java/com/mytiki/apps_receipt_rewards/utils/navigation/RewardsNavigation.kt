@@ -34,7 +34,6 @@ fun RewardsNavigation(onDismiss: () -> Unit) {
                 RewardsRoute.HomeScreen.name
             }
         ) {
-            OfferScreen(this, navController, springSpec, configuration) { onDismiss() }.route()
             OfferTermsScreen(this, navController, springSpec, configuration).route()
             HomeScreen(this, navController, springSpec, configuration) { onDismiss() }.route()
             RetailerScreen(this, navController, springSpec, configuration).route()

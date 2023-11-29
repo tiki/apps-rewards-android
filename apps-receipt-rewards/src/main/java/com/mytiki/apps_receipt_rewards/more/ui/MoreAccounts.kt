@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
+import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -62,7 +63,7 @@ fun MoreAccounts(
                 accountsList.forEach { accountCommon ->
                     AccountTile(
                         accountProvider = accountCommon,
-                        isConnected = true, isIcon = false,
+                        accountStatus = AccountStatus.UNLINKED,
                         padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
                         onClick = { onClick(accountCommon) }
                     ) {

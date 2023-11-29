@@ -28,13 +28,13 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
+import com.mytiki.apps_receipt_rewards.account.AccountStatus
 
 
 @Composable
 fun AccountTile(
     accountProvider: AccountProvider,
-    isConnected: Boolean,
-    isIcon: Boolean = true,
+    accountStatus: AccountStatus,
     size: Dp = 80.dp,
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
@@ -62,16 +62,16 @@ fun AccountTile(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = account.accountCommon.imageId),
-                    contentDescription = "${account.accountCommon.name} logo",
+                    painter = painterResource(id = accountProvider.imageId),
+                    contentDescription = "${accountProvider.accountName} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .requiredSize(size)
                         .clip(MaterialTheme.shapes.extraSmall)
 
                 )
-                when (account.accountStatus) {
-                    AccountStatus.NOT_LINKED -> {
+                when (accountStatus) {
+                    AccountStatus.UNLINKED -> {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_add),
                             contentDescription = "Add Account",
@@ -79,8 +79,6 @@ fun AccountTile(
                             tint = Color.Unspecified
                         )
                     }
-
-                    AccountStatus.LINKED -> {}
                     AccountStatus.UNVERIFIED -> {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_alert),
@@ -89,6 +87,7 @@ fun AccountTile(
                             tint = Color.Unspecified
                         )
                     }
+                    else -> {}
                 }
             }
         }

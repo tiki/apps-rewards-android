@@ -1,31 +1,45 @@
-package com.mytiki.apps_receipt_rewards.utils.components
-
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
+import kotlinx.coroutines.launch
 
-@SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheet(
-    sheetState: SheetState,
-    modifier: Modifier = Modifier,
-    onDismiss: () -> Unit,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
+    var showSheet by mutableStateOf(true)
+    if( showSheet ) {
+        val coroutineScope = rememberCoroutineScope()
 
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        modifier = modifier,
-        sheetState = sheetState,
-        shape = MaterialTheme.shapes.large,
-        containerColor = MaterialTheme.colorScheme.background,
-        scrimColor = Color.Transparent,
-        dragHandle = {}
-    ) {
-        content()
+        val closeSheet: () -> Unit = {
+            coroutineScope.launch {
+                showSheet = false
+            }
+        }
+
+        Popup(
+            onDismissRequest = closeSheet,
+            properties = PopupProperties(focusable = true),
+            alignment = Alignment.BottomCenter
+        ) {
+            Surface(
+                shape = RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp),
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                content()
+            }
+        }
     }
 }

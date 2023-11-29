@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
+import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @Composable
@@ -21,7 +22,7 @@ fun HomeCarousel(navigateTo: (AccountProvider) -> Unit) {
             val provider = providers[index]
             AccountTile(
                 accountProvider = provider,
-                isConnected = true,
+                accountStatus = AccountStatus.VERIFIED,
                 padding = PaddingValues(horizontal = 10.dp),
                 onClick = { navigateTo(it) }
             ) {
