@@ -87,18 +87,18 @@ class EmailScreen(
                                 .padding(horizontal = 15.dp)
                         ) {
                             Spacer(modifier = Modifier.height(64.dp))
-                            Header(text = Rewards.currentProvider.accountName) {
+                            Header(text = "") {
                                 navController.popBackStack()
                             }
                         }
                     }
                     item {
                         Spacer(modifier = Modifier.height(28.dp))
-                        AccountDisplay(
-                            Rewards.currentProvider,
-                            275.dp,
-                            "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
-                        )
+//                        AccountDisplay(
+//                            Rewards.currentProvider,
+//                            275.dp,
+//                            "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
+//                        )
                     }
                     item {
                         Spacer(modifier = Modifier.height(24.dp))
@@ -108,13 +108,13 @@ class EmailScreen(
                             style = MaterialTheme.typography.headlineLarge
                         )
                     }
-                    val accounts = Rewards.accounts(Rewards.currentProvider)
+//                    val accounts = Rewards.accounts(Rewards.currentProvider)
 
-                    items(accounts) {
-                        Spacer(modifier = Modifier.height(32.dp))
-                        AccountCard(it, false) { Rewards.logout(it) }
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
+//                    items(accounts) {
+//                        Spacer(modifier = Modifier.height(32.dp))
+//                        AccountCard(it, false) { Rewards.logout(it) }
+//                        Spacer(modifier = Modifier.height(8.dp))
+//                    }
                     item {
                         Spacer(modifier = Modifier.height(38.dp))
                         Text(

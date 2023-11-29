@@ -43,28 +43,28 @@ fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 maxItemsInEachRow = 3
             ) {
-                Rewards.providers().forEach { provider ->
-                    AccountTile(
-                        accountProvider = provider,
-                        accountStatus = AccountStatus.VERIFIED,
-                        padding = PaddingValues(horizontal = 10.dp),
-                        onClick = { navigateTo(provider) }
-                    ) {
-                        Column(
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Text(
-                                text = "Add",
-                                style = MaterialTheme.typography.labelSmall,
-                            )
-                            Text(
-                                text = provider.accountName,
-                                style = MaterialTheme.typography.labelSmall,
-                            )
-                        }
-                    }
-                }
+//                Rewards.providers().forEach { provider ->
+//                    AccountTile(
+//                        accountProvider = provider,
+//                        accountStatus = AccountStatus.VERIFIED,
+//                        padding = PaddingValues(horizontal = 10.dp),
+//                        onClick = { navigateTo(provider) }
+//                    ) {
+//                        Column(
+//                            verticalArrangement = Arrangement.Center,
+//                            horizontalAlignment = Alignment.CenterHorizontally
+//                        ) {
+//                            Text(
+//                                text = "Add",
+//                                style = MaterialTheme.typography.labelSmall,
+//                            )
+//                            Text(
+//                                text = provider.accountName,
+//                                style = MaterialTheme.typography.labelSmall,
+//                            )
+//                        }
+//                    }
+//                }
             }
         }
     }

@@ -23,7 +23,7 @@ import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
 fun HomeCard(navController: NavController) {
-    val earnings = Rewards.earnings()
+    val earnings = Rewards.license.earnings()
     DisplayCard(height = 183.dp, horizontalPadding = 24.dp) {
         Row(
             modifier = Modifier

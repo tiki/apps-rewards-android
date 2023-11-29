@@ -17,29 +17,29 @@ import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 @Composable
 fun HomeCarousel(navigateTo: (AccountProvider) -> Unit) {
     LazyRow {
-        val providers = Rewards.providers()
-        items(providers.size) { index ->
-            val provider = providers[index]
-            AccountTile(
-                accountProvider = provider,
-                accountStatus = AccountStatus.VERIFIED,
-                padding = PaddingValues(horizontal = 10.dp),
-                onClick = { navigateTo(it) }
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Add",
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-                    Text(
-                        text = provider.accountName,
-                        style = MaterialTheme.typography.labelSmall,
-                    )
-                }
-            }
-        }
+//        val providers = Rewards.capture.providers()
+//        items(providers.size) { index ->
+//            val provider = providers[index]
+//            AccountTile(
+//                accountProvider = provider,
+//                accountStatus = AccountStatus.VERIFIED,
+//                padding = PaddingValues(horizontal = 10.dp),
+//                onClick = { navigateTo(it) }
+//            ) {
+//                Column(
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//                    Text(
+//                        text = "Add",
+//                        style = MaterialTheme.typography.labelSmall,
+//                    )
+//                    Text(
+//                        text = provider.accountName,
+//                        style = MaterialTheme.typography.labelSmall,
+//                    )
+//                }
+//            }
+//        }
     }
 }

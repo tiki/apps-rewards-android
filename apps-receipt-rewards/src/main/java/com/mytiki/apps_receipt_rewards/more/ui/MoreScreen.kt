@@ -80,20 +80,20 @@ class MoreScreen(
 
                     Spacer(modifier = Modifier.height(34.dp))
 
-                    EstimateCard(Rewards.monthlyEarnings())
+//                    EstimateCard(Rewards.license.earnings())
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    MoreAccounts(
-                        accountsList = Rewards.accounts()
-                            .map { account -> account.accountProvider },
-                    ) { provider ->
-                        if (provider.accountType == AccountType.EMAIL) {
-                            navController.navigate(RewardsRoute.EmailScreen.name)
-                        } else {
-                            navController.navigate(RewardsRoute.RetailerScreen.name)
-                        }
-                    }
+//                    MoreAccounts(
+//                        accountsList = Rewards.accounts()
+//                            .map { account -> account.accountProvider },
+//                    ) { provider ->
+//                        if (provider.accountType == AccountType.EMAIL) {
+//                            navController.navigate(RewardsRoute.EmailScreen.name)
+//                        } else {
+//                            navController.navigate(RewardsRoute.RetailerScreen.name)
+//                        }
+//                    }
 
                     Spacer(modifier = Modifier.height(30.dp))
 

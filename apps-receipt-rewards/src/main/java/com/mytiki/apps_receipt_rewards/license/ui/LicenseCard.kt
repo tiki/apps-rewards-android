@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.offer.ui
+package com.mytiki.apps_receipt_rewards.license.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -20,17 +20,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.offer.Offer
+import com.mytiki.apps_receipt_rewards.retailer.RetailerOffer
 
 @Composable
-fun OfferCard(offer: Offer, onClick: () -> Unit) {
+fun OfferCard(retailerOffer: RetailerOffer, onClick: () -> Unit) {
     val configuration = LocalConfiguration.current
     Row(
         modifier = Modifier
@@ -49,8 +48,8 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
                     modifier = Modifier.padding(end = 4.dp),
                 ) {
                     Image(
-                        painter = painterResource(id = offer.accountProvider.imageId),
-                        contentDescription = "${offer.accountProvider.accountName} logo",
+                        painter = painterResource(id = retailerOffer.accountProvider.imageId),
+                        contentDescription = "${retailerOffer.accountProvider.accountName} logo",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(56.dp)
@@ -61,7 +60,7 @@ fun OfferCard(offer: Offer, onClick: () -> Unit) {
             Spacer(modifier = Modifier.width(20.dp))
             Text(
                 modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
-                text = offer.discount,
+                text = retailerOffer.discount,
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.outlineVariant,
                 softWrap = true

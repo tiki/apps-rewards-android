@@ -45,7 +45,7 @@ class OfferTermsScreen(
                 )
             }
         ) {
-            OfferTerms(navController)
+
         }
     }
 }

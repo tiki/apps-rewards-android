@@ -1,4 +1,4 @@
-package com.mytiki.apps_receipt_rewards.terms
+package com.mytiki.apps_receipt_rewards.license.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +23,10 @@ import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun OfferTerms(navController: NavController) {
+fun LicenseTerms(
+    onBackButton: () -> Unit,
+    onAccept: () -> Unit = {}
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -37,7 +40,7 @@ fun OfferTerms(navController: NavController) {
                 Column {
                     Spacer(modifier = Modifier.height(60.dp))
                     Header(text = "PROGRAM TERMS") {
-                        navController.popBackStack()
+                        onBackButton()
                     }
                 }
             },
@@ -45,12 +48,12 @@ fun OfferTerms(navController: NavController) {
                 Column {
                     Divider(color = MaterialTheme.colorScheme.primary, thickness = 1.dp)
                     Spacer(modifier = Modifier.height(42.dp))
-                    if (!Rewards.isLicensed) {
+                    if (!Rewards.license.isLicensed()) {
                         MainButton(
                             text = "I agree", isfFilled = true
                         ) {
-                            Rewards.accept()
-                            navController.navigate(RewardsRoute.HomeScreen.name)
+                            Rewards.license.accept()
+                            onAccept()
                         }
                         Spacer(modifier = Modifier.height(40.dp))
                     }
@@ -68,7 +71,7 @@ fun OfferTerms(navController: NavController) {
                         .verticalScroll(rememberScrollState())
                 ) {
                     Text(
-                        text = Rewards.terms(),
+                        text = Rewards.license.terms(),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }

@@ -202,7 +202,7 @@ fun ProgramDetails(
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp)
                         .clickable {
-                            Rewards.decline()
+                            Rewards.license.decline()
                             navController.navigate(RewardsRoute.OfferScreen.name)
                         },
                     horizontalArrangement = Arrangement.SpaceBetween
