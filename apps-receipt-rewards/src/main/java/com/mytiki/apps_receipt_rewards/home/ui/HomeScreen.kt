@@ -78,11 +78,11 @@ class HomeScreen(
                 ) { targetExpanded ->
                     if (targetExpanded) {
                         HomeExpanded { accountProvider ->
-                            if (accountProvider.accountType == AccountType.EMAIL) {
-                                navController.navigate(RewardsRoute.EmailScreen.name)
-                            } else {
-                                navController.navigate(RewardsRoute.RetailerScreen.name)
-                            }
+//                            if (accountProvider.accountType == AccountType.EMAIL) {
+//                                navController.navigate(RewardsRoute.EmailScreen.name)
+//                            } else {
+//                                navController.navigate(RewardsRoute.RetailerScreen.name)
+//                            }
                         }
                     } else {
                         HomeView(navController) {

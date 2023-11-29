@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.account.Account
+import com.mytiki.apps_receipt_rewards.account.AccountStatus
 
 @Composable
 fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) {
@@ -47,18 +48,18 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 modifier = Modifier.padding(end = 4.dp),
             ) {
-                Image(
-                    painter = painterResource(id = account.accountProvider.imageId),
-                    contentDescription = "${account.accountProvider.toString()} logo",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(56.dp)
-                        .clip(MaterialTheme.shapes.extraSmall)
-                        .shadow(elevation = 4.dp)
-
-                )
+//                Image(
+//                    painter = painterResource(id = account.provider),
+//                    contentDescription = "${account.provider.name()} logo",
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier
+//                        .size(56.dp)
+//                        .clip(MaterialTheme.shapes.extraSmall)
+//                        .shadow(elevation = 4.dp)
+//
+//                )
                 if (isicons) {
-                    if (account.isVerified) {
+                    if (account.status == AccountStatus.SYNC) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_sync),
                             contentDescription = "Sync Account",
@@ -77,19 +78,19 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
             }
             Spacer(modifier = Modifier.width(20.dp))
             Column(verticalArrangement = Arrangement.Center) {
-                Text(
-                    text = account.accountProvider.accountName,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = if (!account.isVerified) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
-                )
-                Text(
-                    modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
-                    text = account.username!!,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = if (!account.isVerified) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
+//                Text(
+//                    text = account.accountProvider.accountName,
+//                    style = MaterialTheme.typography.headlineMedium,
+//                    color = if (!account.isVerified) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant
+//                )
+//                Text(
+//                    modifier = Modifier.widthIn(max = (configuration.screenWidthDp - 196).dp),
+//                    text = account.username!!,
+//                    style = MaterialTheme.typography.bodyLarge,
+//                    color = if (!account.isVerified) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.outlineVariant,
+//                    maxLines = 1,
+//                    overflow = TextOverflow.Ellipsis,
+//                )
             }
         }
         Spacer(modifier = Modifier.width(20.dp))

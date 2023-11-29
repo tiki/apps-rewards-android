@@ -47,14 +47,14 @@ fun OfferCard(retailerOffer: RetailerOffer, onClick: () -> Unit) {
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     modifier = Modifier.padding(end = 4.dp),
                 ) {
-                    Image(
-                        painter = painterResource(id = retailerOffer.accountProvider.imageId),
-                        contentDescription = "${retailerOffer.accountProvider.accountName} logo",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(56.dp)
-                            .clip(MaterialTheme.shapes.extraSmall)
-                    )
+//                    Image(
+//                        painter = painterResource(id = retailerOffer.accountProvider.imageId),
+//                        contentDescription = "${retailerOffer.accountProvider.accountName} logo",
+//                        contentScale = ContentScale.Crop,
+//                        modifier = Modifier
+//                            .size(56.dp)
+//                            .clip(MaterialTheme.shapes.extraSmall)
+//                    )
                 }
             }
             Spacer(modifier = Modifier.width(20.dp))

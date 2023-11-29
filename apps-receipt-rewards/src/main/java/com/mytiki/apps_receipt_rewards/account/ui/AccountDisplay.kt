@@ -39,26 +39,26 @@ fun AccountDisplay(accountProvider: AccountProvider, height: Dp, body: String) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = accountProvider.imageId),
-                contentDescription = "${accountProvider.accountName} logo",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(MaterialTheme.shapes.extraSmall)
-                    .shadow(elevation = 4.dp)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = accountProvider.accountName,
-                style = TextStyle(
-                    fontFamily = MaterialTheme.typography.labelMedium.fontFamily,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp,
-                    lineHeight = (40.83).sp,
-                    color = MaterialTheme.colorScheme.outline
-                )
-            )
+//            Image(
+//                painter = painterResource(id = accountProvider.imageId),
+//                contentDescription = "${accountProvider.accountName} logo",
+//                contentScale = ContentScale.Crop,
+//                modifier = Modifier
+//                    .size(100.dp)
+//                    .clip(MaterialTheme.shapes.extraSmall)
+//                    .shadow(elevation = 4.dp)
+//            )
+//            Spacer(modifier = Modifier.height(16.dp))
+//            Text(
+//                text = accountProvider.accountName,
+//                style = TextStyle(
+//                    fontFamily = MaterialTheme.typography.labelMedium.fontFamily,
+//                    fontWeight = FontWeight.Bold,
+//                    fontSize = 32.sp,
+//                    lineHeight = (40.83).sp,
+//                    color = MaterialTheme.colorScheme.outline
+//                )
+//            )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = body,

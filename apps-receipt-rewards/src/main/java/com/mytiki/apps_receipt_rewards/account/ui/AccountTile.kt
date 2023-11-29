@@ -61,15 +61,15 @@ fun AccountTile(
             Box(
                 contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(id = accountProvider.imageId),
-                    contentDescription = "${accountProvider.accountName} logo",
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .requiredSize(size)
-                        .clip(MaterialTheme.shapes.extraSmall)
-
-                )
+//                Image(
+//                    painter = painterResource(id = accountProvider.imageId),
+//                    contentDescription = "${accountProvider.accountName} logo",
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier
+//                        .requiredSize(size)
+//                        .clip(MaterialTheme.shapes.extraSmall)
+//
+//                )
                 when (accountStatus) {
                     AccountStatus.UNLINKED -> {
                         Icon(

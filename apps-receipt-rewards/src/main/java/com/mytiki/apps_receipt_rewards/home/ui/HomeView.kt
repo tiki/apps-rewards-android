@@ -36,11 +36,11 @@ fun HomeView(
         )
         Spacer(modifier = Modifier.height(24.dp))
         HomeCarousel { accountProvider ->
-            if (accountProvider.accountType == AccountType.EMAIL) {
-                navController.navigate(RewardsRoute.EmailScreen.name)
-            } else {
-                navController.navigate(RewardsRoute.RetailerScreen.name)
-            }
+//            if (accountProvider == AccountType.EMAIL) {
+//                navController.navigate(RewardsRoute.EmailScreen.name)
+//            } else {
+//                navController.navigate(RewardsRoute.RetailerScreen.name)
+//            }
         }
     }
 }
