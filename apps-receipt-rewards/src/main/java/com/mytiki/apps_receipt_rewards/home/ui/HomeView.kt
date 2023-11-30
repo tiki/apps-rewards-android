@@ -19,14 +19,29 @@ import com.mytiki.apps_receipt_rewards.email.ui.EmailView
 import com.mytiki.apps_receipt_rewards.retailer.RetailerView
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 
+val currentProvider = mutableStateOf<AccountProvider?>(null)
+val showEmail = mutableStateOf(false)
+val showRetailer = mutableStateOf(false)
+
 @Composable
 fun HomeView(
     close: () -> Unit
 ) {
-    val currentProvider = mutableStateOf<AccountProvider?>(null)
-    val showEmail = mutableStateOf(false)
-    val showRetailer = mutableStateOf(false)
     Box {
+        if(showEmail.value && currentProvider.value != null){
+            EmailView(currentProvider.value!!){
+                currentProvider.value = null
+                showEmail.value = false
+                showRetailer.value = false
+            }
+        }
+        if(showRetailer.value && currentProvider.value != null){
+            RetailerView(currentProvider.value!!){
+                currentProvider.value = null
+                showRetailer.value = false
+                showEmail.value = false
+            }
+        }
         BottomSheet {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,22 +64,10 @@ fun HomeView(
                 HomeCarousel { provider ->
                     currentProvider.value = provider
                     when (provider) {
-                        is AccountProvider.Email -> showRetailer.value = true
-                        is AccountProvider.Retailer -> showEmail.value = true
+                        is AccountProvider.Email -> showEmail.value = true
+                        is AccountProvider.Retailer -> showRetailer.value = true
                     }
                 }
-            }
-        }
-        if(showEmail.value && currentProvider.value != null){
-            EmailView(currentProvider.value!!){
-                currentProvider.value = null
-                showEmail.value = false
-            }
-        }
-        if(showRetailer.value && currentProvider.value != null){
-            RetailerView(currentProvider.value!!){
-                currentProvider.value = null
-                showRetailer.value = false
             }
         }
     }

@@ -25,7 +25,9 @@ fun HomeCarousel(navigateTo: (AccountProvider) -> Unit) {
                 accountProvider = provider,
                 accountStatus = AccountStatus.VERIFIED,
                 padding = PaddingValues(horizontal = 10.dp),
-                onClick = { navigateTo(it) }
+                onClick = {
+                    navigateTo(it)
+                }
             ) {
                 Column(
                     verticalArrangement = Arrangement.Center,

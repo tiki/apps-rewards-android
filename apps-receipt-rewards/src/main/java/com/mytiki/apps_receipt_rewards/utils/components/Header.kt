@@ -29,7 +29,9 @@ fun Header(text: String, onClick: () -> Unit) {
             contentDescription = "Arrow back",
             modifier = Modifier
                 .size((20).dp)
-                .clickable { onClick() },
+                .clickable {
+                    onClick()
+               },
             tint = MaterialTheme.colorScheme.outline
         )
         Spacer(modifier = Modifier.width(8.dp))
