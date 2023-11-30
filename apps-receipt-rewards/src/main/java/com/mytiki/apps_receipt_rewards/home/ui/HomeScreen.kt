@@ -79,13 +79,13 @@ class HomeScreen(
                     if (targetExpanded) {
                         HomeExpanded { accountProvider ->
 //                            if (accountProvider.accountType == AccountType.EMAIL) {
-//                                navController.navigate(RewardsRoute.EmailScreen.name)
+//                                navController.navigate(RewardsRoute.EmailView.name)
 //                            } else {
 //                                navController.navigate(RewardsRoute.RetailerScreen.name)
 //                            }
                         }
                     } else {
-                        HomeView(navController) {
+                        HomeView() {
                             scope.launch {
                                 sheetState.hide()
                             }.invokeOnCompletion { onDismiss }

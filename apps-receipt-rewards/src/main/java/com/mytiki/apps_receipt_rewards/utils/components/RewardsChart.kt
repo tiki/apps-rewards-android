@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RewardsChart(
-    values: List<Float>,
+    values: List<Double>,
     size: Dp = 100.dp,
     barWidth: Dp = 20.dp,
     animDuration: Int = 1500,
@@ -81,7 +81,7 @@ fun RewardsChart(
         }
 
         values.forEachIndexed { index, value ->
-            percent += value
+            percent += value.toFloat()
 
             val animateSize by animateFloatAsState(
                 targetValue = if (animationPlayed) (percent * 360f - extraDegrees) else 0f,

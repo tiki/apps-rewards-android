@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mytiki.apps_receipt_rewards.databinding.RewardsActivityBinding
+import com.mytiki.apps_receipt_rewards.home.ui.HomeView
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseTerms
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseView
 import com.mytiki.apps_receipt_rewards.utils.theme.RewardsTheme
@@ -34,7 +35,7 @@ class RewardsActivity : AppCompatActivity() {
                             }
                         )
                     }else{
-                        Text("ok")
+                        HomeView({})
                     }
                 }
             }

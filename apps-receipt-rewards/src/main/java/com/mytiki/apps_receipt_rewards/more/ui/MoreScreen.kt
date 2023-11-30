@@ -89,7 +89,7 @@ class MoreScreen(
 //                            .map { account -> account.accountProvider },
 //                    ) { provider ->
 //                        if (provider.accountType == AccountType.EMAIL) {
-//                            navController.navigate(RewardsRoute.EmailScreen.name)
+//                            navController.navigate(RewardsRoute.EmailView.name)
 //                        } else {
 //                            navController.navigate(RewardsRoute.RetailerScreen.name)
 //                        }

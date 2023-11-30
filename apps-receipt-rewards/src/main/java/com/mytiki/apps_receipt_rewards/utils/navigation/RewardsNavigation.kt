@@ -10,7 +10,7 @@
 //import androidx.navigation.compose.NavHost
 //import androidx.navigation.compose.rememberNavController
 //import com.mytiki.apps_receipt_rewards.Rewards
-//import com.mytiki.apps_receipt_rewards.email.ui.EmailScreen
+//import com.mytiki.apps_receipt_rewards.email.ui.EmailView
 //import com.mytiki.apps_receipt_rewards.home.ui.HomeScreen
 //import com.mytiki.apps_receipt_rewards.more.ui.MoreScreen
 //import com.mytiki.apps_receipt_rewards.terms.OfferTermsScreen
@@ -35,7 +35,7 @@
 //            OfferTermsScreen(this, navController, springSpec, configuration).route()
 //            HomeScreen(this, navController, springSpec, configuration) { onDismiss() }.route()
 //            RetailerScreen(this, navController, springSpec, configuration).route()
-//            EmailScreen(this, navController, springSpec, configuration).route()
+//            EmailView(this, navController, springSpec, configuration).route()
 //            MoreScreen(this, navController, springSpec, configuration).route()
 //        }
 //    }
