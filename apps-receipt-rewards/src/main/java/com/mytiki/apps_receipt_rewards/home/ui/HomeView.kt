@@ -16,18 +16,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.email.ui.EmailView
+import com.mytiki.apps_receipt_rewards.more.ui.MoreView
 import com.mytiki.apps_receipt_rewards.retailer.RetailerView
 import com.mytiki.apps_receipt_rewards.utils.components.BottomSheetHeader
 
 val currentProvider = mutableStateOf<AccountProvider?>(null)
 val showEmail = mutableStateOf(false)
 val showRetailer = mutableStateOf(false)
+val showMore = mutableStateOf(false)
 
 @Composable
 fun HomeView(
     close: () -> Unit
 ) {
     Box {
+        if(showMore.value){
+            MoreView{
+                showMore.value = false
+            }
+        }
         if(showEmail.value && currentProvider.value != null){
             EmailView(currentProvider.value!!){
                 currentProvider.value = null
@@ -52,7 +59,7 @@ fun HomeView(
                     subTitle = "Share data. Earn cash."
                 ) { close() }
                 Spacer(modifier = Modifier.height(48.dp))
-                HomeCard()
+                HomeCard(showMore)
                 Spacer(modifier = Modifier.height(48.dp))
                 Text(
                     modifier = Modifier.padding(horizontal = 24.dp),

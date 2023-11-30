@@ -28,11 +28,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.Rewards
+import com.mytiki.apps_receipt_rewards.license.ui.showTerms
 import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
 fun ProgramDetails(
-    navController: NavController,
+    onDecline: () -> Unit
 ) {
     Text(
         "Program Details",
@@ -178,9 +179,11 @@ fun ProgramDetails(
 
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp)
-                        .clickable { navController.navigate(RewardsRoute.TermsScreen.name) },
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp)
+                    .clickable {
+                        showTerms.value = true
+                    },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Data licensing agreement", style = MaterialTheme.typography.labelLarge)
@@ -203,7 +206,7 @@ fun ProgramDetails(
                         .padding(horizontal = 12.dp)
                         .clickable {
                             Rewards.license.decline()
-                            navController.navigate(RewardsRoute.OfferScreen.name)
+                            onDecline()
                         },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
