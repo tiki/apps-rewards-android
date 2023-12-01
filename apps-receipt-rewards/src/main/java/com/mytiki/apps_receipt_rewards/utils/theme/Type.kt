@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.utils.theme
 
 import androidx.compose.material3.Typography
@@ -29,7 +34,6 @@ val Typography = Typography(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
-        color = Green
     ),
     displaySmall = TextStyle(
         fontFamily = SpaceGrotesk,

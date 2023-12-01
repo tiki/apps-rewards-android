@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.more.ui
 
 import androidx.compose.foundation.Image
@@ -13,11 +18,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IconTitle(textModifier: Modifier = Modifier,
-    painter: Painter, text: String) {
+fun IconTitle(
+    textModifier: Modifier = Modifier,
+    painter: Painter, text: String
+) {
     Row {
         Image(painter = painter, contentDescription = "", modifier = Modifier.size(18.dp))
         Spacer(modifier = Modifier.width(10.dp))
-        Text(text, textModifier,style = MaterialTheme.typography.labelLarge)
+        Text(text, textModifier, style = MaterialTheme.typography.labelLarge)
     }
 }

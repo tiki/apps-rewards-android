@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.utils.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomSheetHeader(title: String, subTitle: String, onClose: () -> Unit) {
+fun BottomSheetHeader(title: String, subTitle: String, onDismiss: () -> Unit) {
     Row(
         modifier = Modifier
             .padding(top = 24.dp, start = 24.dp, end = 24.dp)
@@ -28,6 +33,8 @@ fun BottomSheetHeader(title: String, subTitle: String, onClose: () -> Unit) {
             Spacer(modifier = Modifier.height(5.dp))
             Text(text = subTitle, style = MaterialTheme.typography.titleMedium)
         }
-        CloseButton { onClose() }
+        CloseButton {
+            onDismiss()
+        }
     }
 }

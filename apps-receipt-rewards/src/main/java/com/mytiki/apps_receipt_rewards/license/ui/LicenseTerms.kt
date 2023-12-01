@@ -1,4 +1,9 @@
-package com.mytiki.apps_receipt_rewards.terms
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
+package com.mytiki.apps_receipt_rewards.license.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,21 +19,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
-import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun TermsScreen(
-    rewardsSharedViewModel: RewardsSharedViewModel,
-    navController: NavHostController,
-    termsViewModel: TermsViewModel = viewModel(),
+fun LicenseTerms(
+    onBackButton: () -> Unit,
+    onAccept: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -43,7 +43,7 @@ fun TermsScreen(
                 Column {
                     Spacer(modifier = Modifier.height(60.dp))
                     Header(text = "PROGRAM TERMS") {
-                        navController.popBackStack()
+                        onBackButton()
                     }
                 }
             },
@@ -51,13 +51,12 @@ fun TermsScreen(
                 Column {
                     Divider(color = MaterialTheme.colorScheme.primary, thickness = 1.dp)
                     Spacer(modifier = Modifier.height(42.dp))
-                    if (!rewardsSharedViewModel.isLicensed.value) {
+                    if (!Rewards.license.isLicensed()) {
                         MainButton(
                             text = "I agree", isfFilled = true
                         ) {
-
-                            rewardsSharedViewModel.createLicense()
-                            navController.navigate(RewardsRoute.HomeScreen.name)
+                            Rewards.license.accept()
+                            onAccept()
                         }
                         Spacer(modifier = Modifier.height(40.dp))
                     }
@@ -75,7 +74,7 @@ fun TermsScreen(
                         .verticalScroll(rememberScrollState())
                 ) {
                     Text(
-                        text = termsViewModel.getTerms(),
+                        text = Rewards.license.terms(),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
