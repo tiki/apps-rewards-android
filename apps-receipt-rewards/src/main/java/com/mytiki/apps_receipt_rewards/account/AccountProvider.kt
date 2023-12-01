@@ -1,7 +1,12 @@
-
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
 
 package com.mytiki.apps_receipt_rewards.account
 
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
 import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.retailer.RetailerEnum
 
@@ -16,15 +21,29 @@ sealed class AccountProvider {
     /**
      * Returns the name of the account provider.
      */
-    fun name(): String {
+    fun displayName(): String {
         return when (this) {
             is Email -> emailEnum.name
             is Retailer -> retailerEnum.name
-        }.replace("_", " ").replaceFirstChar(Char::titlecase)
+        }.replace("_", " ").lowercase().replaceFirstChar(Char::titlecase)
+    }
+
+    fun resId(context: Context): Int {
+        val id = when (this) {
+            is Email -> emailEnum.name
+            is Retailer -> retailerEnum.name
+        }.lowercase()
+        return context.resources.getIdentifier(id, "drawable", context.packageName)
+    }
+
+    fun type(): AccountType{
+        return when (this) {
+            is Email -> AccountType.EMAIL
+            is Retailer -> AccountType.RETAILER
+        }
     }
 
     companion object {
-
         /**
          * Returns a list of all account providers.
          */

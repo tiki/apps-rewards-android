@@ -1,9 +1,9 @@
-package com.mytiki.apps_receipt_rewards
-
 /*
  * Copyright (c) TIKI Inc.
  * MIT license. See LICENSE file in the root directory.
  */
+
+package com.mytiki.apps_receipt_rewards
 
 import android.content.Context
 import android.content.Intent

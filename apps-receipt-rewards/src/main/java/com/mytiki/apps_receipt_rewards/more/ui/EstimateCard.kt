@@ -1,4 +1,9 @@
-package com.mytiki.apps_receipt_rewards.ui.more
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
+package com.mytiki.apps_receipt_rewards.more.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement

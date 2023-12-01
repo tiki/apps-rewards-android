@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.account.ui
 
 import androidx.compose.foundation.Image
@@ -22,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -61,15 +67,15 @@ fun AccountTile(
             Box(
                 contentAlignment = Alignment.Center
             ) {
-//                Image(
-//                    painter = painterResource(id = accountProvider.imageId),
-//                    contentDescription = "${accountProvider.accountName} logo",
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier
-//                        .requiredSize(size)
-//                        .clip(MaterialTheme.shapes.extraSmall)
-//
-//                )
+                Image(
+                    painter = painterResource(id = accountProvider.resId(LocalContext.current)),
+                    contentDescription = "${accountProvider.displayName()} logo",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .requiredSize(size)
+                        .clip(MaterialTheme.shapes.extraSmall)
+
+                )
                 when (accountStatus) {
                     AccountStatus.UNLINKED -> {
                         Icon(

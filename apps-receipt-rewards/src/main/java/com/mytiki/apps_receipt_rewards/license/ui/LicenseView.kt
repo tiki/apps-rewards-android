@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.license.ui
 
 import BottomSheet
@@ -29,7 +34,7 @@ val showTerms = mutableStateOf( false )
 val open = true
 @Composable
 fun LicenseView(
-    onAccept: () -> Unit,
+    onGetEstimate: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val estimate = Rewards.license.estimate()

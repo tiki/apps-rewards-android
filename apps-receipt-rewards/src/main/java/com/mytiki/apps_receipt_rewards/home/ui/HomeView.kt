@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.home.ui
 
 import BottomSheet
@@ -30,6 +35,7 @@ val showMore = mutableStateOf(false)
 @Composable
 fun HomeView(
     onProvider: (AccountProvider) -> Unit,
+    onMore: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val configuration = LocalConfiguration.current

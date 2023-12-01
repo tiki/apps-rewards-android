@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.license.ui
 
 import androidx.compose.foundation.layout.Column
@@ -25,7 +30,7 @@ import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 @Composable
 fun LicenseTerms(
     onBackButton: () -> Unit,
-    onAccept: () -> Unit = {}
+    onAccept: () -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

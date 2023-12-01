@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.more.ui
 
 import androidx.compose.foundation.BorderStroke
@@ -33,7 +38,8 @@ import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
 fun ProgramDetails(
-    onDecline: () -> Unit
+    onTerms: () -> Unit,
+    onDecline: () -> Unit,
 ) {
     Text(
         "Program Details",

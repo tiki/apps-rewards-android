@@ -1,5 +1,11 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.account.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,12 +17,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,16 +29,17 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
 
+
 @Composable
-fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) {
-    val configuration = LocalConfiguration.current
+fun AccountCard(account: Account, addIcons: Boolean = true, onClick: () -> Unit) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,17 +53,17 @@ fun AccountCard(account: Account, isicons: Boolean = true, onClick: () -> Unit) 
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                 modifier = Modifier.padding(end = 4.dp),
             ) {
-//                Image(
-//                    painter = painterResource(id = account.provider),
-//                    contentDescription = "${account.provider.name()} logo",
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier
-//                        .size(56.dp)
-//                        .clip(MaterialTheme.shapes.extraSmall)
-//                        .shadow(elevation = 4.dp)
-//
-//                )
-                if (isicons) {
+                Image(
+                    painter = painterResource(id = account.provider.resId(context)),
+                    contentDescription = "${account.provider.displayName()} logo",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(56.dp)
+                        .clip(MaterialTheme.shapes.extraSmall)
+                        .shadow(elevation = 4.dp)
+
+                )
+                if (addIcons) {
                     if (account.status == AccountStatus.SYNC) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_sync),

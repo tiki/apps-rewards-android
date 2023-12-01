@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.retailer
 
 import androidx.compose.foundation.layout.Column
@@ -17,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import com.mytiki.apps_receipt_rewards.Rewards
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
@@ -26,6 +32,7 @@ import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 @Composable
 fun RetailerView(
+    provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
     val context = LocalContext.current
@@ -48,7 +55,7 @@ fun RetailerView(
                     ) {
                         Spacer(modifier = Modifier.height(64.dp))
                         Header(text = provider.name()) {
-                            onBack()
+                            onBackButton()
                         }
                     }
                 }

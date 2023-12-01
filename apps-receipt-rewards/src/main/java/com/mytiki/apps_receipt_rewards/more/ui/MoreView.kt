@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.more.ui
 
 import androidx.compose.foundation.layout.Box
@@ -25,6 +30,8 @@ import com.mytiki.apps_receipt_rewards.utils.components.Header
 @Composable
 fun MoreView(
     onProvider: (AccountProvider) -> Unit,
+    onTerms: () -> Unit,
+    onDecline: () -> Unit,
     onBackButton: () -> Unit
 ) {
     Popup {
