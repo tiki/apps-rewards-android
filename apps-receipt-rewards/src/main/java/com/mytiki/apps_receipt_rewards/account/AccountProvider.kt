@@ -7,6 +7,7 @@ package com.mytiki.apps_receipt_rewards.account
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.retailer.RetailerEnum
 
@@ -34,7 +35,8 @@ sealed class AccountProvider {
             is Email -> emailEnum.name
             is Retailer -> retailerEnum.name
         }.lowercase()
-        return context.resources.getIdentifier(id, "drawable", context.packageName)
+        //return context.resources.getIdentifier(id, "drawable", context.packageName)
+        return R.drawable.gmail
     }
 
     fun type(): AccountType {

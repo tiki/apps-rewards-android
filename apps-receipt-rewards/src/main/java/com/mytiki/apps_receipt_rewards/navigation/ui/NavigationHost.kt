@@ -48,7 +48,6 @@ fun NavigationHost() {
             LicenseTerms(
                 onBackButton = { navController.popBackStack() },
                 onAccept = {
-                    navController.popBackStack(startRoute.name, true)
                     navController.navigate(NavigationRoute.HOME.name)
                 }
             )
