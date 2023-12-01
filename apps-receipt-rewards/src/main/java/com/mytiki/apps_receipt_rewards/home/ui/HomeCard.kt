@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,7 +25,7 @@ import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.utils.components.RewardsChart
 
 @Composable
-fun HomeCard(showMore: MutableState<Boolean>) {
+fun HomeCard(onMore: () -> Unit) {
     val earnings = Rewards.license.earnings()
     DisplayCard(height = 183.dp, horizontalPadding = 24.dp) {
         Row(
@@ -64,7 +63,7 @@ fun HomeCard(showMore: MutableState<Boolean>) {
                 Text(
                     text = "Show More",
                     modifier = Modifier
-                        .clickable { showMore.value = true } ,
+                        .clickable { onMore() },
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.primary
                 )

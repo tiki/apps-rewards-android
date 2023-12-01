@@ -73,7 +73,7 @@ fun MoreAccounts(
                         onClick = { onClick(accountCommon) }
                     ) {
                         Text(
-                            text = accountCommon.name(),
+                            text = accountCommon.displayName(),
                             style = MaterialTheme.typography.labelSmall,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis

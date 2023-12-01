@@ -28,7 +28,7 @@ import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
+fun HomeGrid(onAccountProvider: (AccountProvider) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Spacer(modifier = Modifier.height(49.dp))
@@ -48,28 +48,28 @@ fun HomeExpanded(navigateTo: (AccountProvider) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 maxItemsInEachRow = 3
             ) {
-//                Rewards.providers().forEach { provider ->
-//                    AccountTile(
-//                        accountProvider = provider,
-//                        accountStatus = AccountStatus.VERIFIED,
-//                        padding = PaddingValues(horizontal = 10.dp),
-//                        onClick = { navigateTo(provider) }
-//                    ) {
-//                        Column(
-//                            verticalArrangement = Arrangement.Center,
-//                            horizontalAlignment = Alignment.CenterHorizontally
-//                        ) {
-//                            Text(
-//                                text = "Add",
-//                                style = MaterialTheme.typography.labelSmall,
-//                            )
-//                            Text(
-//                                text = provider.accountName,
-//                                style = MaterialTheme.typography.labelSmall,
-//                            )
-//                        }
-//                    }
-//                }
+                Rewards.account.providers().forEach { provider ->
+                    AccountTile(
+                        accountProvider = provider,
+                        accountStatus = AccountStatus.VERIFIED,
+                        padding = PaddingValues(horizontal = 10.dp),
+                        onClick = { onAccountProvider(provider) }
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = "Add",
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                            Text(
+                                text = provider.displayName(),
+                                style = MaterialTheme.typography.labelSmall,
+                            )
+                        }
+                    }
+                }
             }
         }
     }

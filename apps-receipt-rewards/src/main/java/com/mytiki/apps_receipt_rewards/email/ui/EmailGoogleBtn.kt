@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
 
 @Composable
-fun GoogleSignIn(onClick: () -> Unit) {
+fun EmailGoogleBtn(onClick: () -> Unit) {
     Box(
         contentAlignment = Alignment.Center
     ) {

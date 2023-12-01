@@ -30,14 +30,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.mytiki.apps_receipt_rewards.R
 import com.mytiki.apps_receipt_rewards.Rewards
-import com.mytiki.apps_receipt_rewards.license.ui.showTerms
-import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsRoute
 
 @Composable
-fun ProgramDetails(
+fun MoreDetails(
     onTerms: () -> Unit,
     onDecline: () -> Unit,
 ) {
@@ -185,11 +182,11 @@ fun ProgramDetails(
 
                 Row(
                     modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp)
-                    .clickable {
-                        showTerms.value = true
-                    },
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp)
+                        .clickable {
+                            onTerms()
+                        },
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Data licensing agreement", style = MaterialTheme.typography.labelLarge)
