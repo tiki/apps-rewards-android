@@ -36,14 +36,11 @@ package com.mytiki.apps_receipt_rewards.license
  * ```
  */
 class LicenseService {
-    // Properties
 
     /**
      * The current license status.
      */
     private var isLicensed: Boolean = false
-
-    // Public Methods
 
     /**
      * Retrieves the current license status.
@@ -97,10 +94,9 @@ class LicenseService {
         return terms
     }
 
-    // Private Properties
-
     /**
      * The terms and conditions associated with the license.
      */
-    private val terms = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ... (Your long terms and conditions string)"
+    private val terms =
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ... (Your long terms and conditions string)"
 }

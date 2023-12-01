@@ -43,7 +43,7 @@ fun HomeCarousel(navigateTo: (AccountProvider) -> Unit) {
                         style = MaterialTheme.typography.labelSmall,
                     )
                     Text(
-                        text = provider.name(),
+                        text = provider.displayName(),
                         style = MaterialTheme.typography.labelSmall,
                     )
                 }

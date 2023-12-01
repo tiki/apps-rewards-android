@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomSheet(
+    onDismiss: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     Column(
@@ -38,6 +39,7 @@ fun BottomSheet(
     ) {
         Spacer(
             modifier = Modifier.weight(1f).clickable {
+                onDismiss
             }
         )
         Surface(

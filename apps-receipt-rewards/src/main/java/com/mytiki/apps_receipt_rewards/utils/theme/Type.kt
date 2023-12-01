@@ -34,7 +34,6 @@ val Typography = Typography(
         fontFamily = SpaceGrotesk,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
-        color = Green
     ),
     displaySmall = TextStyle(
         fontFamily = SpaceGrotesk,

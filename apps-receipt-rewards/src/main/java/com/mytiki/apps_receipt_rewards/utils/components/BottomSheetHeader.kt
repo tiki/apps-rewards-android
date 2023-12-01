@@ -22,8 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomSheetHeader(title: String, subTitle: String) {
-    val activity = (LocalContext.current as? Activity)
+fun BottomSheetHeader(title: String, subTitle: String, onDismiss: () -> Unit) {
     Row(
         modifier = Modifier
             .padding(top = 24.dp, start = 24.dp, end = 24.dp)
@@ -37,7 +36,7 @@ fun BottomSheetHeader(title: String, subTitle: String) {
             Text(text = subTitle, style = MaterialTheme.typography.titleMedium)
         }
         CloseButton {
-            activity?.finish()
+            onDismiss()
         }
     }
 }

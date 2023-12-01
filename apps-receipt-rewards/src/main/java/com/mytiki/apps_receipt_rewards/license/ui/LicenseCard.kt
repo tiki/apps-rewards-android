@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
@@ -52,14 +53,18 @@ fun OfferCard(retailerOffer: RetailerOffer, onClick: () -> Unit) {
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     modifier = Modifier.padding(end = 4.dp),
                 ) {
-//                    Image(
-//                        painter = painterResource(id = retailerOffer.accountProvider.imageId),
-//                        contentDescription = "${retailerOffer.accountProvider.accountName} logo",
-//                        contentScale = ContentScale.Crop,
-//                        modifier = Modifier
-//                            .size(56.dp)
-//                            .clip(MaterialTheme.shapes.extraSmall)
-//                    )
+                    Image(
+                        painter = painterResource(
+                            id = retailerOffer.accountProvider.resId(
+                                LocalContext.current
+                            )
+                        ),
+                        contentDescription = "${retailerOffer.accountProvider.displayName()} logo",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(56.dp)
+                            .clip(MaterialTheme.shapes.extraSmall)
+                    )
                 }
             }
             Spacer(modifier = Modifier.width(20.dp))

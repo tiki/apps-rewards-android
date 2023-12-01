@@ -45,7 +45,8 @@ fun HomeCard(showMore: MutableState<Boolean>) {
                     Spacer(modifier = Modifier.height(3.dp))
                     Text(
                         text = "$${earnings.monthCurrent} / $${earnings.monthTotal}",
-                        style = MaterialTheme.typography.displayMedium
+                        style = MaterialTheme.typography.displayMedium,
+                        color = MaterialTheme.colorScheme.primary
                     )
                 }
 
@@ -64,7 +65,8 @@ fun HomeCard(showMore: MutableState<Boolean>) {
                     text = "Show More",
                     modifier = Modifier
                         .clickable { showMore.value = true } ,
-                    style = MaterialTheme.typography.displayMedium
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
             }
