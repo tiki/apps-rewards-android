@@ -26,8 +26,7 @@ import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 @Composable
 fun RetailerView(
-    provider: AccountProvider,
-    onBack: () -> Unit
+    onBackButton: () -> Unit
 ) {
     val context = LocalContext.current
     Popup {

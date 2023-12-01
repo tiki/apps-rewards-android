@@ -1,6 +1,7 @@
 package com.mytiki.apps_receipt_rewards.license.ui
 
 import BottomSheet
+import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,9 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import com.mytiki.apps_receipt_rewards.Rewards
@@ -22,20 +26,31 @@ import com.mytiki.apps_receipt_rewards.utils.components.DisplayCard
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 
 val showTerms = mutableStateOf( false )
-
+val open = true
 @Composable
 fun LicenseView(
-    onDismiss: () -> Unit,
-    onAccept: () -> Unit
+    onAccept: () -> Unit,
+    onDismiss: () -> Unit
 ) {
     val estimate = Rewards.license.estimate()
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp
+    val screenWidth = configuration.screenWidthDp.dp
+    val offset by animateIntOffsetAsState(
+        targetValue = if (!open) {
+            IntOffset(0, screenHeight)
+        } else {
+            IntOffset.Zero
+        },
+        label = "offset"
+    )
     Box {
         BottomSheet {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Bottom,
             ) {
-                BottomSheetHeader("CASHBACK CONNECTIONS", "Share data. Earn cash.", onDismiss)
+                BottomSheetHeader("CASHBACK CONNECTIONS", "Share data. Earn cash.")
                 Spacer(modifier = Modifier.height(56.dp))
                 DisplayCard(height = 201.dp, horizontalPadding = 15.dp, verticalPadding = 0.dp) {
                     Column(

@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.email.ui.EmailView
 import com.mytiki.apps_receipt_rewards.more.ui.MoreView
@@ -27,8 +29,13 @@ val showMore = mutableStateOf(false)
 
 @Composable
 fun HomeView(
-    close: () -> Unit
+    onProvider: (AccountProvider) -> Unit,
+    onDismiss: () -> Unit
 ) {
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp.dp
+    val screenWidth = configuration.screenWidthDp.dp
+
     Box {
         if(showMore.value){
             MoreView{
@@ -57,7 +64,7 @@ fun HomeView(
                 BottomSheetHeader(
                     title = "CASHBACK CONNECTIONS",
                     subTitle = "Share data. Earn cash."
-                ) { close() }
+                )
                 Spacer(modifier = Modifier.height(48.dp))
                 HomeCard(showMore)
                 Spacer(modifier = Modifier.height(48.dp))

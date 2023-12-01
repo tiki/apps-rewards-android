@@ -31,7 +31,8 @@ import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 @Composable
 fun EmailView(
     provider: AccountProvider,
-    onBack: () -> Unit) {
+    onBackButton: () -> Unit
+) {
 
     val context = LocalContext.current
     Popup {
@@ -53,7 +54,7 @@ fun EmailView(
                     ) {
                         Spacer(modifier = Modifier.height(64.dp))
                         Header(text = "") {
-                            onBack()
+                            onBackButton()
                         }
                     }
                 }
