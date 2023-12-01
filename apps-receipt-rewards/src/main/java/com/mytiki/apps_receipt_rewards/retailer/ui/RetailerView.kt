@@ -3,7 +3,7 @@
  * MIT license. See LICENSE file in the root directory.
  */
 
-package com.mytiki.apps_receipt_rewards.retailer
+package com.mytiki.apps_receipt_rewards.retailer.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import com.mytiki.apps_receipt_rewards.Rewards
-import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
@@ -30,6 +29,7 @@ import com.mytiki.apps_receipt_rewards.license.ui.OfferCard
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
+
 @Composable
 fun RetailerView(
     provider: AccountProvider,
@@ -54,7 +54,7 @@ fun RetailerView(
                             .padding(horizontal = 15.dp)
                     ) {
                         Spacer(modifier = Modifier.height(64.dp))
-                        Header(text = provider.name()) {
+                        Header(text = provider.displayName()) {
                             onBackButton()
                         }
                     }

@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -52,7 +51,9 @@ fun AccountTile(
             .padding(
                 padding.calculateLeftPadding(LayoutDirection.Ltr),
                 padding.calculateTopPadding(),
-                (if (padding.calculateRightPadding(LayoutDirection.Ltr).value > 0) padding.calculateRightPadding(LayoutDirection.Ltr).value -4 else 0).toInt().dp,
+                (if (padding.calculateRightPadding(LayoutDirection.Ltr).value > 0) padding.calculateRightPadding(
+                    LayoutDirection.Ltr
+                ).value - 4 else 0).toInt().dp,
                 padding.calculateBottomPadding()
             )
             .requiredWidth(size)
@@ -63,7 +64,7 @@ fun AccountTile(
             shape = MaterialTheme.shapes.extraSmall,
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             modifier = Modifier.padding(end = 4.dp),
-            ) {
+        ) {
             Box(
                 contentAlignment = Alignment.Center
             ) {
@@ -85,6 +86,7 @@ fun AccountTile(
                             tint = Color.Unspecified
                         )
                     }
+
                     AccountStatus.UNVERIFIED -> {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_alert),
@@ -93,6 +95,7 @@ fun AccountTile(
                             tint = Color.Unspecified
                         )
                     }
+
                     else -> {}
                 }
             }

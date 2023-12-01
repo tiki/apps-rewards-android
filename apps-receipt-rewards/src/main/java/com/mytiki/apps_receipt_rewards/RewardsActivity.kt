@@ -9,7 +9,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mytiki.apps_receipt_rewards.databinding.RewardsActivityBinding
-import com.mytiki.apps_receipt_rewards.navigation.NavigationHost
+import com.mytiki.apps_receipt_rewards.navigation.ui.NavigationHost
 import com.mytiki.apps_receipt_rewards.utils.theme.RewardsTheme
 
 class RewardsActivity : AppCompatActivity() {

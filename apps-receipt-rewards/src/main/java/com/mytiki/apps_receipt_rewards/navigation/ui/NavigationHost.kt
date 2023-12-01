@@ -3,7 +3,7 @@
  * MIT license. See LICENSE file in the root directory.
  */
 
-package com.mytiki.apps_receipt_rewards.navigation
+package com.mytiki.apps_receipt_rewards.navigation.ui
 
 import android.app.Activity
 import android.content.Context
@@ -23,12 +23,13 @@ import com.mytiki.apps_receipt_rewards.home.ui.HomeView
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseTerms
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseView
 import com.mytiki.apps_receipt_rewards.more.ui.MoreView
-import com.mytiki.apps_receipt_rewards.retailer.RetailerView
+import com.mytiki.apps_receipt_rewards.navigation.NavigationRoute
+import com.mytiki.apps_receipt_rewards.retailer.ui.RetailerView
 
 private val accountProvider = mutableStateOf<AccountProvider?>(null)
 
 @Composable
-fun NavigationHost(){
+fun NavigationHost() {
     val startRoute: NavigationRoute = if (Rewards.license.isLicensed()) {
         NavigationRoute.HOME
     } else {
@@ -54,7 +55,7 @@ fun NavigationHost(){
         }
         composable(NavigationRoute.HOME.name) {
             HomeView(
-                onProvider = {prov -> onProvider(prov, navController)},
+                onProvider = { prov -> onProvider(prov, navController) },
                 onMore = { navController.navigate(NavigationRoute.MORE.name) },
                 onDismiss = { dismiss(context, NavigationRoute.HOME.name, navController) }
             )
@@ -71,13 +72,13 @@ fun NavigationHost(){
             )
         }
         composable(NavigationRoute.RETAILER.name) {
-            RetailerView (
+            RetailerView(
                 provider = accountProvider.value!!,
                 onBackButton = { navController.popBackStack() }
             )
         }
         composable(NavigationRoute.EMAIL.name) {
-            EmailView (
+            EmailView(
                 provider = accountProvider.value!!,
                 onBackButton = { navController.popBackStack() }
             )
@@ -85,15 +86,15 @@ fun NavigationHost(){
     }
 }
 
-fun onProvider(prov: AccountProvider, navController: NavController){
+fun onProvider(prov: AccountProvider, navController: NavController) {
     accountProvider.value = prov
-    when(prov.type()){
+    when (prov.type()) {
         AccountType.RETAILER -> navController.navigate(NavigationRoute.RETAILER.name)
         AccountType.EMAIL -> navController.navigate(NavigationRoute.EMAIL.name)
     }
 }
 
-fun dismiss(context: Context, startDestination: String, navController: NavHostController){
+fun dismiss(context: Context, startDestination: String, navController: NavHostController) {
     navController.popBackStack(startDestination, true)
     (context as Activity).finish()
 }

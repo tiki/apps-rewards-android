@@ -36,7 +36,7 @@ fun Header(text: String, onClick: () -> Unit) {
                 .size((20).dp)
                 .clickable {
                     onClick()
-               },
+                },
             tint = MaterialTheme.colorScheme.outline
         )
         Spacer(modifier = Modifier.width(8.dp))
