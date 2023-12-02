@@ -43,7 +43,7 @@ fun AccountDisplay(accountProvider: AccountProvider, height: Dp, body: String) {
             verticalArrangement = Arrangement.Center
         ) {
             Image(
-                painter = painterResource(id = accountProvider.resId(LocalContext.current)),
+                painter = painterResource(id = accountProvider.resId()),
                 contentDescription = "${accountProvider.displayName()} logo",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

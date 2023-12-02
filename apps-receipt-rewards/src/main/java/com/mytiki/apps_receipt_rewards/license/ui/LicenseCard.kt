@@ -55,9 +55,7 @@ fun OfferCard(retailerOffer: RetailerOffer, onClick: () -> Unit) {
                 ) {
                     Image(
                         painter = painterResource(
-                            id = retailerOffer.accountProvider.resId(
-                                LocalContext.current
-                            )
+                            id = retailerOffer.accountProvider.resId()
                         ),
                         contentDescription = "${retailerOffer.accountProvider.displayName()} logo",
                         contentScale = ContentScale.Crop,
