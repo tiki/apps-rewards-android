@@ -52,7 +52,7 @@ fun AccountCard(account: Account, addIcons: Boolean = true, onClick: () -> Unit)
                 modifier = Modifier.padding(end = 4.dp),
             ) {
                 Image(
-                    painter = painterResource(id = account.provider.resId(context)),
+                    painter = painterResource(id = account.provider.resId()),
                     contentDescription = "${account.provider.displayName()} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

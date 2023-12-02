@@ -69,7 +69,7 @@ fun AccountTile(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = accountProvider.resId(LocalContext.current)),
+                    painter = painterResource(id = accountProvider.resId()),
                     contentDescription = "${accountProvider.displayName()} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
