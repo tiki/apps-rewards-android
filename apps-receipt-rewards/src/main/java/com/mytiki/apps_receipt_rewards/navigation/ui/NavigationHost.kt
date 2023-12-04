@@ -6,17 +6,16 @@
 package com.mytiki.apps_receipt_rewards.navigation.ui
 
 import android.app.Activity
-import android.content.Context
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -49,7 +48,31 @@ fun NavigationHost() {
     }
 
     NavHost(navController, startRoute.name) {
-        composable(NavigationRoute.LICENSE.name) {
+        composable(NavigationRoute.LICENSE.name,
+            enterTransition = {
+                slideInVertically(
+                    animationSpec = tween(700),
+                    initialOffsetY = { it }
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    animationSpec = tween(700),
+                    targetOffsetY = { it }
+                )
+            },
+            popEnterTransition = {
+                slideInVertically(
+                    animationSpec = tween(700),
+                    initialOffsetY = { it }
+                )
+            },
+            popExitTransition = {
+                slideOutVertically(
+                    animationSpec = tween(700),
+                    targetOffsetY = { it }
+                )
+            }) {
             LicenseView(
                 onGetEstimate = { navController.navigate(NavigationRoute.TERMS.name) },
                 onDismiss = {
@@ -91,7 +114,31 @@ fun NavigationHost() {
                 }
             )
         }
-        composable(NavigationRoute.HOME.name) {
+        composable(NavigationRoute.HOME.name,
+            enterTransition = {
+                slideInVertically(
+                    animationSpec = tween(700),
+                    initialOffsetY = { it }
+                )
+            },
+            exitTransition = {
+                slideOutVertically(
+                    animationSpec = tween(700),
+                    targetOffsetY = { it }
+                )
+            },
+            popEnterTransition = {
+                slideInVertically(
+                    animationSpec = tween(700),
+                    initialOffsetY = { it }
+                )
+            },
+            popExitTransition = {
+                slideOutVertically(
+                    animationSpec = tween(700),
+                    targetOffsetY = { it }
+                )
+            }){
             HomeView(
                 onProvider = { prov -> onProvider(prov, navController) },
                 onMore = { navController.navigate(NavigationRoute.MORE.name) },
