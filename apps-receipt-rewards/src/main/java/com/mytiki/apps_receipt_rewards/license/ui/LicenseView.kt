@@ -29,12 +29,12 @@ fun LicenseView(
     onDismiss: () -> Unit
 ) {
     val estimate = Rewards.license.estimate()
-    BottomSheet(onDismiss) {
+    BottomSheet {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom,
         ) {
-            BottomSheetHeader("CASHBACK CONNECTIONS", "Share data. Earn cash.", onDismiss)
+            BottomSheetHeader("CASHBACK CONNECTIONS", "Share data. Earn cash.")
             Spacer(modifier = Modifier.height(56.dp))
             DisplayCard(height = 201.dp, horizontalPadding = 15.dp, verticalPadding = 0.dp) {
                 Column(

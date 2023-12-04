@@ -5,6 +5,7 @@
 
 package com.mytiki.apps_receipt_rewards.utils.components
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,10 +18,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BottomSheetHeader(title: String, subTitle: String, onDismiss: () -> Unit) {
+fun BottomSheetHeader(title: String, subTitle: String) {
+    val activity = LocalContext.current as Activity
     Row(
         modifier = Modifier
             .padding(top = 24.dp, start = 24.dp, end = 24.dp)
@@ -34,7 +37,7 @@ fun BottomSheetHeader(title: String, subTitle: String, onDismiss: () -> Unit) {
             Text(text = subTitle, style = MaterialTheme.typography.titleMedium)
         }
         CloseButton {
-            onDismiss()
+            activity.finish()
         }
     }
 }
