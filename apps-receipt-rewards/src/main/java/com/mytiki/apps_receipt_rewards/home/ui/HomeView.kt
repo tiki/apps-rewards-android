@@ -29,7 +29,7 @@ fun HomeView(
     onMore: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    BottomSheet(onDismiss) {
+    BottomSheet {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom,
@@ -37,7 +37,6 @@ fun HomeView(
             BottomSheetHeader(
                 title = "CASHBACK CONNECTIONS",
                 subTitle = "Share data. Earn cash.",
-                onDismiss
             )
             Spacer(modifier = Modifier.height(48.dp))
             HomeCard(onMore)

@@ -3,6 +3,7 @@
  * MIT license. See LICENSE file in the root directory.
  */
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -15,13 +16,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomSheet(
-    onDismiss: () -> Unit,
     content: @Composable () -> Unit,
 ) {
+    val activity = LocalContext.current as Activity
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -29,9 +31,11 @@ fun BottomSheet(
     ) {
         Spacer(
             modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Transparent)
                 .weight(1f)
                 .clickable {
-                    onDismiss()
+                    activity.finish()
                 }
         )
         Surface(
