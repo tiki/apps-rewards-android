@@ -36,78 +36,76 @@ fun RetailerView(
     onBackButton: () -> Unit
 ) {
     val context = LocalContext.current
-    Popup {
-        Surface(
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        LazyColumn(
             modifier = Modifier
-                .fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
+                .fillMaxSize()
 
-            ) {
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 15.dp)
-                    ) {
-                        Spacer(modifier = Modifier.height(64.dp))
-                        Header(text = provider.displayName()) {
-                            onBackButton()
-                        }
+        ) {
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                ) {
+                    Spacer(modifier = Modifier.height(64.dp))
+                    Header(text = provider.displayName()) {
+                        onBackButton()
                     }
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(28.dp))
+                AccountDisplay(
+                    provider,
+                    239.dp,
+                    "3% cashback on all purchases",
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = "Account",
+                    modifier = Modifier.padding(horizontal = 21.dp),
+                    style = MaterialTheme.typography.headlineLarge
+                )
+            }
+            val accounts = Rewards.account.accounts()
+            if (accounts.isEmpty()) {
                 item {
-                    Spacer(modifier = Modifier.height(28.dp))
-                    AccountDisplay(
-                        provider,
-                        239.dp,
-                        "3% cashback on all purchases",
-                    )
+                    LoginForm()
                 }
-                item {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    Text(
-                        text = "Account",
-                        modifier = Modifier.padding(horizontal = 21.dp),
-                        style = MaterialTheme.typography.headlineLarge
-                    )
-                }
-                val accounts = Rewards.account.accounts()
-                if (accounts.isEmpty()) {
-                    item {
-                        LoginForm()
-                    }
-                } else {
-                    items(accounts) {
-                        Spacer(modifier = Modifier.height(32.dp))
-                        AccountCard(it, false) { Rewards.account.logout(it.username, it.provider) }
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-                }
-                item {
+            } else {
+                items(accounts) {
                     Spacer(modifier = Modifier.height(32.dp))
-                    MainButton(
-                        modifier = Modifier.padding(horizontal = 21.dp),
-                        text = "Scan receipt",
-                        isfFilled = false
-                    ) { Rewards.capture.scan(context) }
-                    Spacer(modifier = Modifier.height(30.dp))
-                    Text(
-                        text = "More Offers",
-                        modifier = Modifier
-                            .padding(horizontal = 21.dp)
-                            .height(36.dp),
-                        style = MaterialTheme.typography.headlineLarge
-                    )
-                    Spacer(modifier = Modifier.height(32.dp))
+                    AccountCard(it, false) { Rewards.account.logout(it.username, it.provider) }
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
-                items(Rewards.capture.offers(provider)) {
-                    OfferCard(it) { }
-                    Spacer(modifier = Modifier.height(40.dp))
-                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
+                MainButton(
+                    modifier = Modifier.padding(horizontal = 21.dp),
+                    text = "Scan receipt",
+                    isfFilled = false
+                ) { Rewards.capture.scan(context) }
+                Spacer(modifier = Modifier.height(30.dp))
+                Text(
+                    text = "More Offers",
+                    modifier = Modifier
+                        .padding(horizontal = 21.dp)
+                        .height(36.dp),
+                    style = MaterialTheme.typography.headlineLarge
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+            items(Rewards.capture.offers(provider)) {
+                OfferCard(it) { }
+                Spacer(modifier = Modifier.height(40.dp))
             }
         }
     }
