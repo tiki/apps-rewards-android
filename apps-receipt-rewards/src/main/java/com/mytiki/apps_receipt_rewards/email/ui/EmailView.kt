@@ -67,20 +67,16 @@ fun EmailView(
                     "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
                 )
             }
-            item {
-                Spacer(modifier = Modifier.height(24.dp))
-                Text(
-                    text = "Accounts",
-                    modifier = Modifier.padding(horizontal = 21.dp),
-                    style = MaterialTheme.typography.headlineLarge
-                )
-            }
             val accounts = Rewards.account.accounts()
-            if (accounts.isEmpty()) {
+            if (accounts.isNotEmpty()) {
                 item {
-                    LoginForm()
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(
+                        text = "Accounts",
+                        modifier = Modifier.padding(horizontal = 21.dp),
+                        style = MaterialTheme.typography.headlineLarge
+                    )
                 }
-            } else {
                 items(accounts) {
                     Spacer(modifier = Modifier.height(32.dp))
                     AccountCard(it, false) { Rewards.account.logout(it.username, it.provider) }
