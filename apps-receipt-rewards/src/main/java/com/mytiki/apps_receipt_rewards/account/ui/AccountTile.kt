@@ -44,7 +44,6 @@ fun AccountTile(
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
     onClick: (AccountProvider) -> Unit,
-    text: @Composable () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -95,13 +94,11 @@ fun AccountTile(
                             tint = Color.Unspecified
                         )
                     }
-
                     else -> {}
                 }
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        text()
     }
 }
 

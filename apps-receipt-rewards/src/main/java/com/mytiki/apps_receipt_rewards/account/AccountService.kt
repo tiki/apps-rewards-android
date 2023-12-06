@@ -81,20 +81,17 @@ class AccountService {
      * @throws Error An error indicating issues with the login process, such as empty credentials or an already linked account.
      */
     @Throws(Error::class)
-    fun login(username: String, password: String, provider: AccountProvider): Account {
+    fun login(username: String, password: String, provider: AccountProvider) {
         if (username.isEmpty() || password.isEmpty()) {
             throw Error("Username and password should not be empty.")
         } else {
-            if (accounts.any {
+            if (!accounts.any {
                     it.username == username &&
                             it.provider == provider &&
                             it.status == AccountStatus.VERIFIED
                 }) {
-                throw Error("Account already linked.")
-            } else {
                 val account = Account(username, provider, AccountStatus.VERIFIED)
                 accounts.add(account)
-                return account
             }
         }
     }
@@ -108,7 +105,7 @@ class AccountService {
      * @throws Error An error indicating issues with the logout process, such as an empty username or an account not found.
      */
     @Throws(Error::class)
-    fun logout(username: String, provider: AccountProvider): Account {
+    fun logout(username: String, provider: AccountProvider) {
         if (username.isEmpty()) {
             throw Error("Username should not be empty.")
         } else {
@@ -118,9 +115,6 @@ class AccountService {
             }
             if (account != null) {
                 accounts.remove(account)
-                return account
-            } else {
-                throw Error("Account not found.")
             }
         }
     }

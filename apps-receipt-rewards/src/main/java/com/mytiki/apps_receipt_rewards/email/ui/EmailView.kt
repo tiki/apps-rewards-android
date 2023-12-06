@@ -20,6 +20,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -29,6 +32,7 @@ import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
+import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 
@@ -37,6 +41,7 @@ fun EmailView(
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
+    var accounts by mutableStateOf(Rewards.account.accounts())
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -67,7 +72,7 @@ fun EmailView(
                     "When you connect your Gmail account, we auto-identify receipts and process available cashback rewards",
                 )
             }
-            val accounts = Rewards.account.accounts()
+
             if (accounts.isNotEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
@@ -91,11 +96,16 @@ fun EmailView(
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(46.dp))
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    EmailGoogleBtn { }
+                if(provider == AccountProvider.Email(EmailEnum.GMAIL) ) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EmailGoogleBtn {
+                            Rewards.account.login("oauth@gmail.com", "213", provider)
+                            accounts = Rewards.account.accounts(provider)
+                        }
+                    }
                 }
                 Spacer(modifier = Modifier.height(38.dp))
                 Row(
@@ -108,7 +118,7 @@ fun EmailView(
                             .height(1.dp)
                             .weight(1f)
                             .background(MaterialTheme.colorScheme.outlineVariant)
-                    ) {}
+                    )
                     Text(
                         text = "or",
                         modifier = Modifier.padding(horizontal = 15.dp),
@@ -120,11 +130,13 @@ fun EmailView(
                             .height(1.dp)
                             .weight(1f)
                             .background(MaterialTheme.colorScheme.outlineVariant)
-                    ) {}
+                    )
                 }
                 Spacer(modifier = Modifier.height(32.dp))
 
-                LoginForm()
+                LoginForm(provider){
+                    accounts = Rewards.account.accounts(provider)
+                }
 
             }
         }
