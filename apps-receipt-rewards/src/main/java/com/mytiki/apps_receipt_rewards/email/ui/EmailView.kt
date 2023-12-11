@@ -27,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
@@ -96,7 +95,7 @@ fun EmailView(
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(46.dp))
-                if(provider == AccountProvider.Email(EmailEnum.GMAIL) ) {
+                if (provider == AccountProvider.Email(EmailEnum.GMAIL)) {
                     Box(
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
@@ -134,7 +133,7 @@ fun EmailView(
                 }
                 Spacer(modifier = Modifier.height(32.dp))
 
-                LoginForm(provider){
+                LoginForm(provider) {
                     accounts = Rewards.account.accounts(provider)
                 }
 

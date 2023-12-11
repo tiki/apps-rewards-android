@@ -6,7 +6,6 @@
 package com.mytiki.apps_receipt_rewards.account
 
 import android.annotation.SuppressLint
-import android.content.Context
 import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.retailer.RetailerEnum
 

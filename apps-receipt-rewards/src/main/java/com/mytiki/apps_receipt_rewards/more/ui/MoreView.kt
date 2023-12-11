@@ -54,7 +54,7 @@ fun MoreView(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            if(accList.isNotEmpty()){
+            if (accList.isNotEmpty()) {
                 MoreAccounts(accList, onProvider)
                 Spacer(modifier = Modifier.height(30.dp))
             }
