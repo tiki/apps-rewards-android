@@ -5,7 +5,6 @@
 
 package com.mytiki.apps_receipt_rewards.email
 
-import android.graphics.drawable.Drawable
 import com.mytiki.apps_receipt_rewards.R
 
 /**
@@ -17,8 +16,8 @@ enum class EmailEnum {
      */
     GMAIL;
 
-    fun resId(): Int{
-        when(this){
+    fun resId(): Int {
+        when (this) {
             GMAIL -> return R.drawable.gmail
         }
     }

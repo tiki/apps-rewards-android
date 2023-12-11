@@ -54,9 +54,10 @@ fun MoreView(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            MoreAccounts(accList, onProvider)
-
-            Spacer(modifier = Modifier.height(30.dp))
+            if (accList.isNotEmpty()) {
+                MoreAccounts(accList, onProvider)
+                Spacer(modifier = Modifier.height(30.dp))
+            }
 
             MoreDetails(onTerms, onDecline)
 

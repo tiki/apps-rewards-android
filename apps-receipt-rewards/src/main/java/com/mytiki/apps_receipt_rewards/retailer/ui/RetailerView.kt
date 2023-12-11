@@ -17,10 +17,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Popup
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
@@ -35,6 +37,8 @@ fun RetailerView(
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
+
+    var accounts by mutableStateOf(Rewards.account.accounts())
     val context = LocalContext.current
     Surface(
         modifier = Modifier
@@ -74,10 +78,11 @@ fun RetailerView(
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            val accounts = Rewards.account.accounts()
             if (accounts.isEmpty()) {
                 item {
-                    LoginForm()
+                    LoginForm(provider) {
+                        accounts = Rewards.account.accounts(provider)
+                    }
                 }
             } else {
                 items(accounts) {

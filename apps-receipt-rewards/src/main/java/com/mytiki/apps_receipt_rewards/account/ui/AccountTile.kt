@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -44,7 +43,6 @@ fun AccountTile(
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
     onClick: (AccountProvider) -> Unit,
-    text: @Composable () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -101,7 +99,6 @@ fun AccountTile(
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        text()
     }
 }
 

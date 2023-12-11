@@ -7,11 +7,6 @@ package com.mytiki.apps_receipt_rewards
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.mytiki.apps_receipt_rewards.databinding.RewardsActivityBinding
 import com.mytiki.apps_receipt_rewards.navigation.ui.NavigationHost
@@ -34,7 +29,7 @@ class RewardsActivity : AppCompatActivity() {
             }
         }
         setContentView(binding.root)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }
 

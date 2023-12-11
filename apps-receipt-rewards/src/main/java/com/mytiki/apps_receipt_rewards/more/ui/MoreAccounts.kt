@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
@@ -71,14 +70,7 @@ fun MoreAccounts(
                         accountStatus = AccountStatus.UNLINKED,
                         padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
                         onClick = { onClick(accountCommon) }
-                    ) {
-                        Text(
-                            text = accountCommon.displayName(),
-                            style = MaterialTheme.typography.labelSmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                    )
                 }
             }
         }

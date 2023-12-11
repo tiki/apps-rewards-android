@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+    implementation(files("/Users/ricardo/dev/capture/receipt/capture-receipt-android/CaptureReceipt/build/outputs/aar/CaptureReceipt-release.aar"))
     val material3Version = "1.1.2"
     val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
 
