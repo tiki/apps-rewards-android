@@ -43,7 +43,7 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{NOTICE,LICENSE,DEPENDENCIES,LICENSE.md,NOTICE.txt,NOTICE.md}"
         }
     }
 }
@@ -79,6 +79,16 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.6.0-beta01")
     implementation("androidx.navigation:navigation-compose:2.7.5")
     androidTestImplementation("androidx.navigation:navigation-testing:2.7.5")
+
+
+    implementation(platform("com.microblink.blinkreceipt:blinkreceipt-bom:1.6.8"))
+    implementation("com.microblink.blinkreceipt:blinkreceipt-account-linking")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-camera")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-camera-ui")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-core")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-digital")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-recognizer")
+
 
     //GSON
     implementation("com.google.code.gson:gson:2.10.1")

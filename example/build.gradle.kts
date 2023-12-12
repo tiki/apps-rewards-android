@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mytiki.rewards"
+    namespace = "com.mytiki.sdk.capture.receipt.capacitor"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.mytiki.rewards"
+        applicationId = "com.mytiki.sdk.capture.receipt.capacitor"
         minSdk = 23
         targetSdk = 34
         versionCode = 1
@@ -40,6 +40,11 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.2"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{NOTICE,LICENSE,DEPENDENCIES,LICENSE.md,NOTICE.txt,NOTICE.md}"
+        }
     }
 }
 

@@ -7,108 +7,100 @@ package com.mytiki.apps_receipt_rewards.utils.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.mytiki.apps_receipt_rewards.R
+import com.mytiki.apps_receipt_rewards.Rewards
 
 // Set of Material typography styles to start with
 
-val SpaceGrotesk = FontFamily(
-    Font(R.font.space_grotesk_light, FontWeight.Light), //300
-    Font(R.font.space_grotesk_regular, FontWeight.Normal), //400
-    Font(R.font.space_grotesk_medium, FontWeight.Medium), //500
-    Font(R.font.space_grotesk_semi_bold, FontWeight.SemiBold), //600
-    Font(R.font.space_grotesk_bold, FontWeight.Bold), //700
-)
+
 
 val Typography = Typography(
     displayLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 42.sp,
-        color = Green
+        color = Rewards.colorScheme.primary
     ),
     displayMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
     ),
     displaySmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,
-        color = Green
+        color = Rewards.colorScheme.primary
     ),
 
     headlineLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
     headlineMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
     headlineSmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 22.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
     titleLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
     titleMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
-        color = DarkGray
+        color = Rewards.colorScheme.outlineVariant
     ),
     titleSmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
     bodyLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 20.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
 
     bodyMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        color = Black
+        color = Rewards.colorScheme.outline
     ),
 
     labelLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
-        color = DarkGray
+        color = Rewards.colorScheme.outlineVariant
     ),
     labelMedium = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
-        color = DarkGray
+        color = Rewards.colorScheme.outlineVariant
     ),
     labelSmall = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = Rewards.fontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
-        color = DarkGray
+        color = Rewards.colorScheme.outlineVariant
     ),
 
     )

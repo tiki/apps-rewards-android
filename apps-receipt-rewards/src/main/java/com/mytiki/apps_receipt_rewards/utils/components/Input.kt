@@ -27,8 +27,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mytiki.apps_receipt_rewards.utils.theme.DarkGray
-import com.mytiki.apps_receipt_rewards.utils.theme.SpaceGrotesk
+import com.mytiki.apps_receipt_rewards.Rewards
 
 @Composable
 fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Unit) {
@@ -36,11 +35,11 @@ fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Uni
         Text(
             text = tile,
             style = TextStyle(
-                fontFamily = SpaceGrotesk,
+                fontFamily = Rewards.fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
                 lineHeight = 18.sp,
-                color = DarkGray
+                color = Rewards.colorScheme.outlineVariant
             )
         )
         Spacer(modifier = Modifier.height(8.dp))

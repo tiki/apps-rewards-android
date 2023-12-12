@@ -7,6 +7,7 @@ package com.mytiki.apps_receipt_rewards
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
@@ -50,10 +51,17 @@ import com.mytiki.capture.receipt.Configuration
  * ```
  */
 object Rewards {
-    lateinit var colorScheme: ColorScheme
+    var fontFamily: FontFamily = Theme().fontFamily
         private set
 
-    lateinit var fontFamily: FontFamily
+    var colorScheme: ColorScheme = lightColorScheme(
+        primary = Theme().accentColor,
+        error = Color(0xFFC73000),
+        background = Theme().primaryBackgroundColor,
+        onBackground = Theme().secondaryBackgroundColor,
+        outline = Theme().primaryTextColor,
+        outlineVariant = Theme().secondaryTextColor,
+    )
         private set
 
     /**
@@ -85,17 +93,18 @@ object Rewards {
      */
     fun start(
         context: Context,
-        theme: Theme = Theme()
+        appTheme: Theme = Theme()
     ) {
+        theme = appTheme
         colorScheme = lightColorScheme(
-            primary = theme.accentColor,
+            primary = appTheme.accentColor,
             error = Color(0xFFC73000),
-            background = theme.primaryBackgroundColor,
-            onBackground = theme.secondaryBackgroundColor,
-            outline = theme.primaryTextColor,
-            outlineVariant = theme.secondaryTextColor,
+            background = appTheme.primaryBackgroundColor,
+            onBackground = appTheme.secondaryBackgroundColor,
+            outline = appTheme.primaryTextColor,
+            outlineVariant = appTheme.secondaryTextColor,
         )
-        this.fontFamily = theme.fontFamily
+        this.fontFamily = appTheme.fontFamily
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
         CaptureReceipt.config(
@@ -109,8 +118,8 @@ object Rewards {
                     "Phasellus lobortis purus sit amet sodales efficitur. Mauris sapien lorem, pretium id turpis eu, tristique maximus tellus. Donec porttitor, enim ut scelerisque dapibus, lectus tellus laoreet ante, a ornare dolor nisi sed risus. Vestibulum facilisis mollis urna in suscipit. Pellentesque sit amet lobortis nulla. Fusce semper rhoncus urna a gravida. In congue nec nisi eu hendrerit. Donec sed felis elementum lacus posuere porttitor eget quis dolor. Maecenas eu iaculis dolor. Nam venenatis tempor velit vel finibus. Phasellus purus nunc, condimentum sit amet porttitor nec, rhoncus et ante. Fusce tristique nibh quis sem varius ultricies. Maecenas egestas justo sed enim maximus consectetur." +
                     "Phasellus malesuada magna a ex mollis varius. Quisque a vulputate metus. Cras in nibh lorem. Proin in enim efficitur, pellentesque elit sed, dictum turpis. Duis sagittis lectus eu magna imperdiet maximus. Nullam condimentum scelerisque arcu ac auctor. Phasellus malesuada erat quis gravida mollis.",
         )
-        ){}
-        CaptureReceipt.initialize("User01", context){}
+        ){Log.e("*********************", it.message.toString())}
+        CaptureReceipt.initialize("User01", context){ Log.e("*********************", it.message.toString())}
     }
 }
 
