@@ -1,6 +1,10 @@
-package com.mytiki.apps_receipt_rewards.ui.more
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
 
-import android.service.autofill.OnClickAction
+package com.mytiki.apps_receipt_rewards.more.ui
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,26 +22,28 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.AccountProvider
+import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MoreAccounts(
-    accountsList: List<AccountCommon>,
-    alertAccountsList: List<AccountCommon>,
-    onClick: (AccountCommon) -> Unit
+    accountsList: List<AccountProvider>,
+    onClick: (AccountProvider) -> Unit
 ) {
-    Text("Accounts", modifier = Modifier.padding(horizontal = 21.dp), style = MaterialTheme.typography.headlineLarge)
+    Text(
+        "Accounts",
+        modifier = Modifier.padding(horizontal = 21.dp),
+        style = MaterialTheme.typography.headlineLarge
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 
     Box(
         modifier = Modifier
-            .padding(21.dp, 0.dp, 17.dp, 0.dp,)
+            .padding(21.dp, 0.dp, 17.dp, 0.dp)
     ) {
         Card(
             modifier = Modifier
@@ -58,35 +64,13 @@ fun MoreAccounts(
                     .padding(horizontal = 32.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                accountsList.forEach{accountCommon ->
+                accountsList.forEach { accountCommon ->
                     AccountTile(
-                        accountCommon = accountCommon,
-                        isConnected = true, isIcon = false,
+                        accountProvider = accountCommon,
+                        accountStatus = AccountStatus.UNLINKED,
                         padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
-                        onClick = {onClick(accountCommon)}
-                    ) {
-                        Text(
-                            text = accountCommon.accountName,
-                            style = MaterialTheme.typography.labelSmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                }
-                alertAccountsList.forEach{accountCommon ->
-                    AccountTile(
-                        accountCommon = accountCommon,
-                        isConnected = true,
-                        padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
-                        onClick = {onClick(accountCommon)}
-                    ) {
-                        Text(
-                            text = accountCommon.accountName,
-                            style = MaterialTheme.typography.labelSmall,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+                        onClick = { onClick(accountCommon) }
+                    )
                 }
             }
         }

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards.account.ui
 
 import androidx.compose.foundation.Image
@@ -19,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -27,52 +31,52 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.R
-import com.mytiki.apps_receipt_rewards.account.Account
-import com.mytiki.apps_receipt_rewards.account.AccountCommon
+import com.mytiki.apps_receipt_rewards.account.AccountProvider
+import com.mytiki.apps_receipt_rewards.account.AccountStatus
 
 
 @Composable
 fun AccountTile(
-    accountCommon: AccountCommon,
-    isConnected: Boolean,
-    isIcon: Boolean = true,
+    accountProvider: AccountProvider,
+    accountStatus: AccountStatus,
     size: Dp = 80.dp,
     padding: PaddingValues = PaddingValues(horizontal = 8.dp),
     iconSize: Dp = 32.dp,
-    onClick: (AccountCommon) -> Unit,
-    text: @Composable () -> Unit
+    onClick: (AccountProvider) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .padding(
                 padding.calculateLeftPadding(LayoutDirection.Ltr),
                 padding.calculateTopPadding(),
-                (if (padding.calculateRightPadding(LayoutDirection.Ltr).value > 0) padding.calculateRightPadding(LayoutDirection.Ltr).value -4 else 0).toInt().dp,
+                (if (padding.calculateRightPadding(LayoutDirection.Ltr).value > 0) padding.calculateRightPadding(
+                    LayoutDirection.Ltr
+                ).value - 4 else 0).toInt().dp,
                 padding.calculateBottomPadding()
             )
             .requiredWidth(size)
-            .clickable { onClick(accountCommon) },
+            .clickable { onClick(accountProvider) },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Card(
             shape = MaterialTheme.shapes.extraSmall,
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             modifier = Modifier.padding(end = 4.dp),
-            ) {
+        ) {
             Box(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = account.accountCommon.imageId),
-                    contentDescription = "${account.accountCommon.name} logo",
+                    painter = painterResource(id = accountProvider.resId()),
+                    contentDescription = "${accountProvider.displayName()} logo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .requiredSize(size)
                         .clip(MaterialTheme.shapes.extraSmall)
 
                 )
-                when (account.accountStatus) {
-                    AccountStatus.NOT_LINKED -> {
+                when (accountStatus) {
+                    AccountStatus.UNLINKED -> {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_add),
                             contentDescription = "Add Account",
@@ -81,7 +85,6 @@ fun AccountTile(
                         )
                     }
 
-                    AccountStatus.LINKED -> {}
                     AccountStatus.UNVERIFIED -> {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_alert),
@@ -90,11 +93,12 @@ fun AccountTile(
                             tint = Color.Unspecified
                         )
                     }
+
+                    else -> {}
                 }
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        text()
     }
 }
 

@@ -1,31 +1,49 @@
-package com.mytiki.apps_receipt_rewards.utils.components
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import android.app.Activity
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 
-@SuppressLint("CoroutineCreationDuringComposition")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheet(
-    sheetState: SheetState,
-    modifier: Modifier = Modifier,
-    onDismiss: () -> Unit,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        modifier = modifier,
-        sheetState = sheetState,
-        shape = MaterialTheme.shapes.large,
-        containerColor = MaterialTheme.colorScheme.background,
-        scrimColor = Color.Transparent,
-        dragHandle = {}
+    val activity = LocalContext.current as Activity
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .background(Color.Transparent)
     ) {
-        content()
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Transparent)
+                .weight(1f)
+                .clickable {
+                    activity.finish()
+                }
+        )
+        Surface(
+            shape = RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp),
+            color = MaterialTheme.colorScheme.background,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            content()
+        }
     }
 }

@@ -1,12 +1,15 @@
+/*
+ * Copyright (c) TIKI Inc.
+ * MIT license. See LICENSE file in the root directory.
+ */
+
 package com.mytiki.apps_receipt_rewards
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.lifecycle.ViewModelProvider
 import com.mytiki.apps_receipt_rewards.databinding.RewardsActivityBinding
-import com.mytiki.apps_receipt_rewards.ui.RewardsSharedViewModel
-import com.mytiki.apps_receipt_rewards.utils.navigation.RewardsNavigation
+import com.mytiki.apps_receipt_rewards.navigation.ui.NavigationHost
 import com.mytiki.apps_receipt_rewards.utils.theme.RewardsTheme
 
 class RewardsActivity : AppCompatActivity() {
@@ -17,17 +20,16 @@ class RewardsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = RewardsActivityBinding.inflate(layoutInflater)
-        val view = binding.root
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                RewardsNavigation() {
-                    this@RewardsActivity.finish()
-                    overridePendingTransition(0, R.anim.fade_out)
+                RewardsTheme(Rewards.colorScheme) {
+                    NavigationHost()
                 }
             }
-            setContentView(view)
         }
+        setContentView(binding.root)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }
 
