@@ -1,4 +1,4 @@
-package com.mytiki.rewards
+package com.mytiki.sdk.capture.receipt.capacitor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -43,13 +43,13 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{NOTICE,LICENSE,DEPENDENCIES,LICENSE.md,NOTICE.txt,NOTICE.md}"
         }
     }
 }
 
 dependencies {
-    implementation(files("/Users/ricardo/dev/capture/receipt/capture-receipt-android/CaptureReceipt/build/outputs/aar/CaptureReceipt-release.aar"))
+    implementation(files("/Users/gabrielschuler/Developer/GitHub/capture-receipt-android/CaptureReceipt/build/outputs/aar/CaptureReceipt-release.aar"))
     val material3Version = "1.1.2"
     val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
 
@@ -79,6 +79,16 @@ dependencies {
     implementation("androidx.compose.ui:ui:1.6.0-beta01")
     implementation("androidx.navigation:navigation-compose:2.7.5")
     androidTestImplementation("androidx.navigation:navigation-testing:2.7.5")
+
+
+    implementation(platform("com.microblink.blinkreceipt:blinkreceipt-bom:1.6.8"))
+    implementation("com.microblink.blinkreceipt:blinkreceipt-account-linking")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-camera")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-camera-ui")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-core")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-digital")
+    implementation("com.microblink.blinkreceipt:blinkreceipt-recognizer")
+
 
     //GSON
     implementation("com.google.code.gson:gson:2.10.1")

@@ -10,7 +10,6 @@ import android.content.Context
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.retailer.RetailerOffer
-import com.mytiki.sdk.capture.receipt.capacitor.CaptureReceipt
 
 /**
  * [CaptureService] class provides functionalities related to capturing and processing data,
