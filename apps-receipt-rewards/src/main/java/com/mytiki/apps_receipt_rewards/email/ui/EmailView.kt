@@ -5,6 +5,8 @@
 
 package com.mytiki.apps_receipt_rewards.email.ui
 
+import android.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,25 +24,41 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.Rewards
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
 import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
 
 @Composable
 fun EmailView(
+    activity: AppCompatActivity,
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
-    var accounts by mutableStateOf(Rewards.account.accounts())
+    val username = remember {
+        mutableStateOf("")
+    }
+    val password = remember {
+        mutableStateOf("")
+    }
+    val context = LocalContext.current
+    var accounts by mutableStateOf<List<Account>?>(null)
+    MainScope().async {
+        accounts = Rewards.account.accounts(context, provider).await()
+    }
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -72,7 +90,7 @@ fun EmailView(
                 )
             }
 
-            if (accounts.isNotEmpty()) {
+            if (!accounts.isNullOrEmpty()) {
                 item {
                     Spacer(modifier = Modifier.height(24.dp))
                     Text(
@@ -81,7 +99,7 @@ fun EmailView(
                         style = MaterialTheme.typography.headlineLarge
                     )
                 }
-                items(accounts) {
+                items(accounts!!) {
                     Spacer(modifier = Modifier.height(32.dp))
                     AccountCard(it, false) { Rewards.account.logout(it.username, it.provider) }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -101,8 +119,16 @@ fun EmailView(
                         contentAlignment = Alignment.Center
                     ) {
                         EmailGoogleBtn {
-                            Rewards.account.login("oauth@gmail.com", "213", provider)
-                            accounts = Rewards.account.accounts(provider)
+//                            Rewards.account.login(activity,"oauth@gmail.com", "213", provider)
+//                            MainScope().async {
+//                                accounts = Rewards.account.accounts(context, provider).await()
+//                            }
+                            val alertDialog = AlertDialog.Builder(activity)
+                                .setTitle(null)
+                                .setMessage("Functionalities not implemented yet")
+                                .setPositiveButton("OK", null)
+                                .create()
+                            alertDialog.show()
                         }
                     }
                 }
@@ -133,8 +159,10 @@ fun EmailView(
                 }
                 Spacer(modifier = Modifier.height(32.dp))
 
-                LoginForm(provider) {
-                    accounts = Rewards.account.accounts(provider)
+                LoginForm(activity, username, password, provider) {
+                    MainScope().async {
+                        accounts = Rewards.account.accounts(context, provider).await()
+                    }
                 }
 
             }

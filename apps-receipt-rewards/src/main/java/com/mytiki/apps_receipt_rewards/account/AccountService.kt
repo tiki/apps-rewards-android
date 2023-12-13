@@ -5,7 +5,6 @@
 
 package com.mytiki.apps_receipt_rewards.account
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -58,20 +57,21 @@ class AccountService {
      * @return An array of user accounts.
      */
     fun accounts(context: Context): CompletableDeferred<List<Account>> {
+
+        val onError = AlertDialog.Builder(context)
+            .setTitle(null)
+            .setMessage("It was not possible to retrieve the accounts list.")
+            .setPositiveButton("OK", null)
+            .create()
+
         val accountList = CompletableDeferred<List<Account>>()
         MainScope().async {
-            val list = CaptureReceipt.accounts(context) {
-                val message = "It was not possible to retrieve the accounts list."
-                val alertDialog = AlertDialog.Builder(context)
-                    .setTitle(null)
-                    .setMessage(message)
-                    .setPositiveButton("OK", null)
-                    .create()
-                alertDialog.show()
-            }.await()
+            val list = CaptureReceipt.accounts(context){onError.show()}.await().map{Account(it)}
+            accounts.removeAll(accounts.toList())
+            accounts.addAll(list)
             accountList.complete(list)
         }
-        return accounts.toList()
+        return accountList
     }
 
     /**
@@ -80,8 +80,13 @@ class AccountService {
      * @param provider The account provider for which accounts should be retrieved.
      * @return An array of user accounts for the specified provider.
      */
-    fun accounts(provider: AccountProvider): List<Account> {
-        return accounts.filter { it.provider == provider }
+    fun accounts(context: Context, provider: AccountProvider): CompletableDeferred<List<Account>> {
+        val accountList = CompletableDeferred<List<Account>>()
+        MainScope().async {
+            val list = accounts(context).await()
+            accountList.complete(list.filter { it.provider.toString() == provider.toString() })
+        }
+        return accountList
     }
 
     /**
