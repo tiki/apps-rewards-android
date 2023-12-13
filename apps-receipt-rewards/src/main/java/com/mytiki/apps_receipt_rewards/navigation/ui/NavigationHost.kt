@@ -33,7 +33,7 @@ import com.mytiki.apps_receipt_rewards.retailer.ui.RetailerView
 private val accountProvider = mutableStateOf<AccountProvider?>(null)
 
 @Composable
-fun NavigationHost() {
+fun NavigationHost(activity: Activity) {
     var finish by mutableStateOf(false)
     val navController = rememberNavController()
     val context = LocalContext.current
@@ -77,7 +77,7 @@ fun NavigationHost() {
                 onGetEstimate = { navController.navigate(NavigationRoute.TERMS.name) },
                 onDismiss = {
 
-                    (context as Activity).finish()
+                    (activity).finish()
                 }
             )
         }
@@ -209,6 +209,7 @@ fun NavigationHost() {
                 )
             }) {
             RetailerView(
+                activity,
                 provider = accountProvider.value!!,
                 onBackButton = { navController.popBackStack() }
             )

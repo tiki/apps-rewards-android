@@ -5,6 +5,10 @@
 
 package com.mytiki.apps_receipt_rewards.retailer.ui
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,15 +35,18 @@ import com.mytiki.apps_receipt_rewards.license.ui.OfferCard
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
 import com.mytiki.apps_receipt_rewards.utils.components.MainButton
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
 
 @Composable
 fun RetailerView(
+    activity: Activity,
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
 
     var accounts by mutableStateOf(Rewards.account.accounts())
-    val context = LocalContext.current
+
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -97,7 +104,12 @@ fun RetailerView(
                     modifier = Modifier.padding(horizontal = 21.dp),
                     text = "Scan receipt",
                     isfFilled = false
-                ) { Rewards.capture.scan(context) }
+                ) {
+                    MainScope().async {
+                        val receipt = Rewards.capture.scan(activity).await()
+                        Log.d("*********", receipt.toString())
+                    }
+                }
                 Spacer(modifier = Modifier.height(30.dp))
                 Text(
                     text = "More Offers",
