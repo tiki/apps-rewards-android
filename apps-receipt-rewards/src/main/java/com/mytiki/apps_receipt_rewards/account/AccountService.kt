@@ -5,6 +5,16 @@
 
 package com.mytiki.apps_receipt_rewards.account
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import com.mytiki.capture.receipt.CaptureReceipt
+import com.mytiki.capture.receipt.account.AccountCommon
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
+
 /**
  * [AccountService] class manages user accounts, providing methods for retrieving account
  * information, handling logins, and managing sessions.
@@ -47,7 +57,20 @@ class AccountService {
      *
      * @return An array of user accounts.
      */
-    fun accounts(): List<Account> {
+    fun accounts(context: Context): CompletableDeferred<List<Account>> {
+        val accountList = CompletableDeferred<List<Account>>()
+        MainScope().async {
+            val list = CaptureReceipt.accounts(context) {
+                val message = "It was not possible to retrieve the accounts list."
+                val alertDialog = AlertDialog.Builder(context)
+                    .setTitle(null)
+                    .setMessage(message)
+                    .setPositiveButton("OK", null)
+                    .create()
+                alertDialog.show()
+            }.await()
+            accountList.complete(list)
+        }
         return accounts.toList()
     }
 
@@ -81,7 +104,7 @@ class AccountService {
      * @throws Error An error indicating issues with the login process, such as empty credentials or an already linked account.
      */
     @Throws(Error::class)
-    fun login(username: String, password: String, provider: AccountProvider) {
+    fun login(activity: AppCompatActivity, username: String, password: String, provider: AccountProvider) {
         if (username.isEmpty() || password.isEmpty()) {
             throw Error("Username and password should not be empty.")
         } else {
@@ -90,8 +113,22 @@ class AccountService {
                             it.provider == provider &&
                             it.status == AccountStatus.VERIFIED
                 }) {
-                val account = Account(username, provider, AccountStatus.VERIFIED)
-                accounts.add(account)
+                CaptureReceipt.login(
+                    activity, username,
+                    password,
+                    AccountCommon.fromString(provider.toString())!!,
+                    {
+                        val account = Account(username, provider, AccountStatus.VERIFIED)
+                        accounts.add(account)
+                    }
+                ){
+                    val alertDialog = AlertDialog.Builder(activity)
+                        .setTitle(null)
+                        .setMessage(it)
+                        .setPositiveButton("OK", null)
+                        .create()
+                    alertDialog.show()
+                }
             }
         }
     }
