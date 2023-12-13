@@ -5,11 +5,17 @@
 
 package com.mytiki.apps_receipt_rewards.capture
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.retailer.RetailerOffer
+import com.mytiki.capture.receipt.CaptureReceipt
+import com.mytiki.capture.receipt.receipt.Receipt
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
 
 /**
  * [CaptureService] class provides functionalities related to capturing and processing data,
@@ -39,16 +45,16 @@ class CaptureService {
      *
      * Displays an alert indicating that the functionality is not implemented in the demo app.
      *
-     * @param context The context for displaying the alert.
+     * @param activity The activity for scanning the receipt.
      */
-    fun scan(context: Context) {
-        val message = "Receipt scanning functionality not implemented in demo app."
-        val alertDialog = AlertDialog.Builder(context)
-            .setTitle(null)
-            .setMessage(message)
-            .setPositiveButton("OK", null)
-            .create()
-        alertDialog.show()
+    fun scan(activity: Activity): CompletableDeferred<Receipt?>{
+        val receipt = CompletableDeferred<Receipt?>()
+        MainScope().async {
+            receipt.complete(
+                CaptureReceipt.scan(activity).await()
+            )
+        }
+        return receipt
     }
 
     /**
