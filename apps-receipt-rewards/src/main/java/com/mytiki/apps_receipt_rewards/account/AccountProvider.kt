@@ -19,16 +19,6 @@ sealed class AccountProvider {
     data class Email(val emailEnum: EmailEnum) : AccountProvider()
 
     /**
-     * Converts the [AccountProvider] object into a string representation.
-     *
-     * @return The name of the enum entry as a string.
-     */
-    override fun toString() = when (this) {
-        is Email -> emailEnum.name
-        is Retailer -> retailerEnum.name
-    }
-
-    /**
      * Returns the name of the account provider.
      */
     fun displayName(): String {
@@ -37,6 +27,13 @@ sealed class AccountProvider {
             is Retailer -> retailerEnum.name
         }.replace("_", " ").lowercase().replaceFirstChar(Char::titlecase)
     }
+
+    /**
+     * Converts the [AccountProvider] object into a string representation.
+     *
+     * @return The name of the enum entry as a string.
+     */
+    fun name(): String = displayName().replace(" ", "_").uppercase()
 
     @SuppressLint("DiscouragedApi")
     fun resId(): Int {

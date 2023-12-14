@@ -7,6 +7,7 @@ package com.mytiki.apps_receipt_rewards.account
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.account.AccountCommon
@@ -47,7 +48,7 @@ class AccountService {
     /**
      * An array containing the user accounts managed by the service.
      */
-    private val accounts: MutableList<Account> = mutableListOf()
+    val accounts: MutableList<Account> = mutableListOf()
 
     // Public Methods
 
@@ -111,7 +112,12 @@ class AccountService {
     @Throws(Error::class)
     fun login(activity: AppCompatActivity, username: String, password: String, provider: AccountProvider) {
         if (username.isEmpty() || password.isEmpty()) {
-            throw Error("Username and password should not be empty.")
+            val alertDialog = AlertDialog.Builder(activity)
+                .setTitle(null)
+                .setMessage("Username and password should not be empty.")
+                .setPositiveButton("OK", null)
+                .create()
+            alertDialog.show()
         } else {
             if (!accounts.any {
                     it.username == username &&
@@ -121,7 +127,7 @@ class AccountService {
                 CaptureReceipt.login(
                     activity, username,
                     password,
-                    AccountCommon.fromString(provider.toString())!!,
+                    AccountCommon.fromString(provider.name())!!,
                     {
                         val account = Account(username, provider, AccountStatus.VERIFIED)
                         accounts.add(account)

@@ -44,16 +44,16 @@ fun RetailerView(
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
+    val context = LocalContext.current
+    var accounts by mutableStateOf<List<Account>?>(null)
+    MainScope().async {
+        accounts = Rewards.account.accounts(context, provider).await()
+    }
     val username = remember {
         mutableStateOf("")
     }
     val password = remember {
         mutableStateOf("")
-    }
-    val context = LocalContext.current
-    var accounts by mutableStateOf<List<Account>?>(null)
-    MainScope().async {
-        accounts = Rewards.account.accounts(context, provider).await()
     }
 
     Surface(
@@ -98,7 +98,7 @@ fun RetailerView(
                 item {
                     LoginForm(activity, username, password, provider) {
                         MainScope().async {
-                            accounts = Rewards.account.accounts(context, provider).await()
+                            accounts = Rewards.account.accounts.toList().filter {it.provider.name() == provider.name()}
                         }
                     }
                 }
@@ -117,8 +117,7 @@ fun RetailerView(
                     isfFilled = false
                 ) {
                     MainScope().async {
-                        val receipt = Rewards.capture.scan(activity).await()
-                        Log.d("*********", receipt.toString())
+                        Rewards.capture.scan(activity).await()
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))

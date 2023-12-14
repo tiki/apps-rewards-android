@@ -48,17 +48,18 @@ fun EmailView(
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
+    val context = LocalContext.current
+    var accounts by mutableStateOf<List<Account>?>(null)
+    MainScope().async {
+        accounts = Rewards.account.accounts(context, provider).await()
+    }
     val username = remember {
         mutableStateOf("")
     }
     val password = remember {
         mutableStateOf("")
     }
-    val context = LocalContext.current
-    var accounts by mutableStateOf<List<Account>?>(null)
-    MainScope().async {
-        accounts = Rewards.account.accounts(context, provider).await()
-    }
+
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -121,7 +122,7 @@ fun EmailView(
                         EmailGoogleBtn {
 //                            Rewards.account.login(activity,"oauth@gmail.com", "213", provider)
 //                            MainScope().async {
-//                                accounts = Rewards.account.accounts(context, provider).await()
+//                                accounts = Rewards.account.accounts.toList().filter {it.provider.name() == provider.name()}
 //                            }
                             val alertDialog = AlertDialog.Builder(activity)
                                 .setTitle(null)
@@ -161,7 +162,7 @@ fun EmailView(
 
                 LoginForm(activity, username, password, provider) {
                     MainScope().async {
-                        accounts = Rewards.account.accounts(context, provider).await()
+                        accounts = Rewards.account.accounts.toList().filter {it.provider.name() == provider.name()}
                     }
                 }
 
