@@ -5,10 +5,12 @@
 
 package com.mytiki.apps_receipt_rewards.utils.components
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -19,27 +21,28 @@ import com.mytiki.apps_receipt_rewards.account.AccountProvider
 
 @Composable
 fun LoginForm(
+    activity: AppCompatActivity,
+    username: MutableState<String>,
+    password: MutableState<String>,
     provider: AccountProvider,
     onLogin: () -> Unit
 ) {
-    var username by mutableStateOf("")
-    var password by mutableStateOf("")
     Spacer(modifier = Modifier.height(24.dp))
     Input(
         tile = "Email",
         isShow = true,
-        text = username,
+        text = username.value,
         onChange = {
-            username = it
+            username.value = it
         }
     )
     Spacer(modifier = Modifier.height(32.dp))
     Input(
         tile = "Password",
         isShow = false,
-        text = password,
+        text = password.value,
         onChange = {
-            password = it
+            password.value = it
         }
     )
     Spacer(modifier = Modifier.height(32.dp))
@@ -48,7 +51,7 @@ fun LoginForm(
         text = "Sign In",
         isfFilled = true
     ) {
-        Rewards.account.login(username, password, provider)
+        Rewards.account.login(activity, username.value, password.value, provider)
         onLogin()
     }
 }

@@ -16,6 +16,10 @@ enum class EmailEnum {
      */
     GMAIL;
 
+    override fun toString(): String {
+        return this.name
+    }
+
     fun resId(): Int {
         when (this) {
             GMAIL -> return R.drawable.gmail

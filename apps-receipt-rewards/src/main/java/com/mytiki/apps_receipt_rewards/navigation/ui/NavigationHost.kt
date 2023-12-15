@@ -6,6 +6,7 @@
 package com.mytiki.apps_receipt_rewards.navigation.ui
 
 import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
@@ -33,7 +34,7 @@ import com.mytiki.apps_receipt_rewards.retailer.ui.RetailerView
 private val accountProvider = mutableStateOf<AccountProvider?>(null)
 
 @Composable
-fun NavigationHost(activity: Activity) {
+fun NavigationHost(activity: AppCompatActivity) {
     var finish by mutableStateOf(false)
     val navController = rememberNavController()
     val context = LocalContext.current
@@ -240,6 +241,7 @@ fun NavigationHost(activity: Activity) {
                 )
             }) {
             EmailView(
+                activity,
                 provider = accountProvider.value!!,
                 onBackButton = { navController.popBackStack() }
             )

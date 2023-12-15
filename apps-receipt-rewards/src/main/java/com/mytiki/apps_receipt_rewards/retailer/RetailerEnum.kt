@@ -68,6 +68,10 @@ enum class RetailerEnum {
     WALMART,
     WEGMANS;
 
+    override fun toString(): String {
+        return this.name
+    }
+
     fun resId(): Int {
         when (this) {
             ACME_MARKETS -> return R.drawable.acme

@@ -8,6 +8,7 @@ package com.mytiki.apps_receipt_rewards.account
 import android.annotation.SuppressLint
 import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.retailer.RetailerEnum
+import com.mytiki.capture.receipt.account.AccountCommon
 
 /**
  * [AccountProvider] enum represents different account providers, including retailers and email providers.
@@ -26,6 +27,13 @@ sealed class AccountProvider {
             is Retailer -> retailerEnum.name
         }.replace("_", " ").lowercase().replaceFirstChar(Char::titlecase)
     }
+
+    /**
+     * Converts the [AccountProvider] object into a string representation.
+     *
+     * @return The name of the enum entry as a string.
+     */
+    fun name(): String = displayName().replace(" ", "_").uppercase()
 
     @SuppressLint("DiscouragedApi")
     fun resId(): Int {
@@ -55,6 +63,10 @@ sealed class AccountProvider {
                 providers.add(Retailer(provider))
             }
             return providers
+        }
+
+        fun fromString(name: String): AccountProvider?{
+            return all().firstOrNull{it.toString() == name}
         }
     }
 }

@@ -5,10 +5,8 @@
 
 package com.mytiki.apps_receipt_rewards.retailer.ui
 
-import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,11 +21,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.Rewards
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
@@ -40,12 +40,21 @@ import kotlinx.coroutines.async
 
 @Composable
 fun RetailerView(
-    activity: Activity,
+    activity: AppCompatActivity,
     provider: AccountProvider,
     onBackButton: () -> Unit
 ) {
-
-    var accounts by mutableStateOf(Rewards.account.accounts())
+    val context = LocalContext.current
+    var accounts by mutableStateOf<List<Account>?>(null)
+    MainScope().async {
+        accounts = Rewards.account.accounts(context, provider).await()
+    }
+    val username = remember {
+        mutableStateOf("")
+    }
+    val password = remember {
+        mutableStateOf("")
+    }
 
     Surface(
         modifier = Modifier
@@ -85,14 +94,16 @@ fun RetailerView(
                     style = MaterialTheme.typography.headlineLarge
                 )
             }
-            if (accounts.isEmpty()) {
+            if (accounts.isNullOrEmpty()) {
                 item {
-                    LoginForm(provider) {
-                        accounts = Rewards.account.accounts(provider)
+                    LoginForm(activity, username, password, provider) {
+                        MainScope().async {
+                            accounts = Rewards.account.accounts.toList().filter {it.provider.name() == provider.name()}
+                        }
                     }
                 }
             } else {
-                items(accounts) {
+                items(accounts!!) {
                     Spacer(modifier = Modifier.height(32.dp))
                     AccountCard(it, false) { Rewards.account.logout(it.username, it.provider) }
                     Spacer(modifier = Modifier.height(8.dp))
@@ -106,8 +117,7 @@ fun RetailerView(
                     isfFilled = false
                 ) {
                     MainScope().async {
-                        val receipt = Rewards.capture.scan(activity).await()
-                        Log.d("*********", receipt.toString())
+                        Rewards.capture.scan(activity).await()
                     }
                 }
                 Spacer(modifier = Modifier.height(30.dp))

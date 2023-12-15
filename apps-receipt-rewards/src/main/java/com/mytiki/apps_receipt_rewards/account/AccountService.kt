@@ -5,6 +5,16 @@
 
 package com.mytiki.apps_receipt_rewards.account
 
+import android.app.AlertDialog
+import android.content.Context
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.mytiki.capture.receipt.CaptureReceipt
+import com.mytiki.capture.receipt.account.AccountCommon
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
+
 /**
  * [AccountService] class manages user accounts, providing methods for retrieving account
  * information, handling logins, and managing sessions.
@@ -38,7 +48,7 @@ class AccountService {
     /**
      * An array containing the user accounts managed by the service.
      */
-    private val accounts: MutableList<Account> = mutableListOf()
+    val accounts: MutableList<Account> = mutableListOf()
 
     // Public Methods
 
@@ -47,8 +57,22 @@ class AccountService {
      *
      * @return An array of user accounts.
      */
-    fun accounts(): List<Account> {
-        return accounts.toList()
+    fun accounts(context: Context): CompletableDeferred<List<Account>> {
+
+        val onError = AlertDialog.Builder(context)
+            .setTitle(null)
+            .setMessage("It was not possible to retrieve the accounts list.")
+            .setPositiveButton("OK", null)
+            .create()
+
+        val accountList = CompletableDeferred<List<Account>>()
+        MainScope().async {
+            val list = CaptureReceipt.accounts(context){onError.show()}.await().map{Account(it)}
+            accounts.removeAll(accounts.toList())
+            accounts.addAll(list)
+            accountList.complete(list)
+        }
+        return accountList
     }
 
     /**
@@ -57,8 +81,13 @@ class AccountService {
      * @param provider The account provider for which accounts should be retrieved.
      * @return An array of user accounts for the specified provider.
      */
-    fun accounts(provider: AccountProvider): List<Account> {
-        return accounts.filter { it.provider == provider }
+    fun accounts(context: Context, provider: AccountProvider): CompletableDeferred<List<Account>> {
+        val accountList = CompletableDeferred<List<Account>>()
+        MainScope().async {
+            val list = accounts(context).await()
+            accountList.complete(list.filter { it.provider.toString() == provider.toString() })
+        }
+        return accountList
     }
 
     /**
@@ -81,17 +110,36 @@ class AccountService {
      * @throws Error An error indicating issues with the login process, such as empty credentials or an already linked account.
      */
     @Throws(Error::class)
-    fun login(username: String, password: String, provider: AccountProvider) {
+    fun login(activity: AppCompatActivity, username: String, password: String, provider: AccountProvider) {
         if (username.isEmpty() || password.isEmpty()) {
-            throw Error("Username and password should not be empty.")
+            val alertDialog = AlertDialog.Builder(activity)
+                .setTitle(null)
+                .setMessage("Username and password should not be empty.")
+                .setPositiveButton("OK", null)
+                .create()
+            alertDialog.show()
         } else {
             if (!accounts.any {
                     it.username == username &&
                             it.provider == provider &&
                             it.status == AccountStatus.VERIFIED
                 }) {
-                val account = Account(username, provider, AccountStatus.VERIFIED)
-                accounts.add(account)
+                CaptureReceipt.login(
+                    activity, username,
+                    password,
+                    AccountCommon.fromString(provider.name())!!,
+                    {
+                        val account = Account(username, provider, AccountStatus.VERIFIED)
+                        accounts.add(account)
+                    }
+                ){
+                    val alertDialog = AlertDialog.Builder(activity)
+                        .setTitle(null)
+                        .setMessage(it)
+                        .setPositiveButton("OK", null)
+                        .create()
+                    alertDialog.show()
+                }
             }
         }
     }

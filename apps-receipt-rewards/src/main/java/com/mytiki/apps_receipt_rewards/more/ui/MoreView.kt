@@ -16,11 +16,18 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.Rewards
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.utils.components.Header
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
 
 @Composable
 fun MoreView(
@@ -29,7 +36,12 @@ fun MoreView(
     onDecline: () -> Unit,
     onBackButton: () -> Unit
 ) {
-    val accList = Rewards.account.accounts().map { account -> account.provider }
+    val context = LocalContext.current
+    var accList by mutableStateOf<List<AccountProvider>?>(null)
+    MainScope().async {
+        accList = Rewards.account.accounts(context).await().map { it.provider }.distinctBy{it.toString()}
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxSize(),
@@ -54,8 +66,8 @@ fun MoreView(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            if (accList.isNotEmpty()) {
-                MoreAccounts(accList, onProvider)
+            if (!accList.isNullOrEmpty()) {
+                MoreAccounts(accList!!, onProvider)
                 Spacer(modifier = Modifier.height(30.dp))
             }
 
