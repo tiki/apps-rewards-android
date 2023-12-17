@@ -38,6 +38,7 @@ import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.ui.AccountCard
 import com.mytiki.apps_receipt_rewards.account.ui.AccountDisplay
+import com.mytiki.apps_receipt_rewards.capture.CaptureService
 import com.mytiki.apps_receipt_rewards.email.EmailEnum
 import com.mytiki.apps_receipt_rewards.utils.components.Header
 import com.mytiki.apps_receipt_rewards.utils.components.LoginForm
@@ -173,6 +174,7 @@ fun EmailView(
                         context,
                         provider
                     )
+                    Rewards.capture.scrape(context, provider)
                 }
 
             }

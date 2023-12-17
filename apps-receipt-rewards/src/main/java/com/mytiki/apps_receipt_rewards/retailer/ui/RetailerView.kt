@@ -102,6 +102,7 @@ fun RetailerView(
                 item {
                     LoginForm(activity, username, password, provider) {
                         updateAccounts(context, provider)
+                        Rewards.capture.scrape(context, provider)
                     }
                 }
             } else {
