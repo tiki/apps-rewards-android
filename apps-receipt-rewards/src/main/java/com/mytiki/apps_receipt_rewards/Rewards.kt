@@ -5,6 +5,7 @@
 
 package com.mytiki.apps_receipt_rewards
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -125,5 +126,14 @@ object Rewards {
 
         // Initialize the receipt capture system for a user
         CaptureReceipt.initialize("User01", context){ Log.e("CaptureReceipt Initialization Error", it.message.toString())}
+    }
+
+    fun onError(context: Context,message: String){
+        AlertDialog.Builder(context)
+            .setTitle(null)
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .create()
+            .show()
     }
 }

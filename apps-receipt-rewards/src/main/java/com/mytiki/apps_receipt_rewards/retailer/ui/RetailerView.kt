@@ -5,6 +5,7 @@
 
 package com.mytiki.apps_receipt_rewards.retailer.ui
 
+import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
@@ -38,6 +39,13 @@ import com.mytiki.apps_receipt_rewards.utils.components.MainButton
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 
+var accounts by mutableStateOf<List<Account>?>(null)
+fun updateAccounts(context: Context, provider: AccountProvider){
+    MainScope().async {
+        accounts = Rewards.account.accounts(context, provider)
+    }
+}
+
 @Composable
 fun RetailerView(
     activity: AppCompatActivity,
@@ -45,10 +53,6 @@ fun RetailerView(
     onBackButton: () -> Unit
 ) {
     val context = LocalContext.current
-    var accounts by mutableStateOf<List<Account>?>(null)
-    MainScope().async {
-        accounts = Rewards.account.accounts(context, provider).await()
-    }
     val username = remember {
         mutableStateOf("")
     }
@@ -97,15 +101,13 @@ fun RetailerView(
             if (accounts.isNullOrEmpty()) {
                 item {
                     LoginForm(activity, username, password, provider) {
-                        MainScope().async {
-                            accounts = Rewards.account.accounts.toList().filter {it.provider.name() == provider.name()}
-                        }
+                        updateAccounts(context, provider)
                     }
                 }
             } else {
                 items(accounts!!) {
                     Spacer(modifier = Modifier.height(32.dp))
-                    AccountCard(it, false) { Rewards.account.logout(it.username, it.provider) }
+                    AccountCard(it, false) { Rewards.account.logout(context, it.username, it.provider) }
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }
