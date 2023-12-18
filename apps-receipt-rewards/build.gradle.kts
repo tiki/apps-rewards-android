@@ -101,5 +101,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(composeBom)
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("com.android.support.test:rules:1.0.2")
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

@@ -5,6 +5,8 @@
 
 package com.mytiki.apps_receipt_rewards.license
 
+import com.mytiki.apps_receipt_rewards.Rewards
+
 /**
  * [LicenseService] manages licensing-related functionalities using TIKI infrastructure,
  * including license status, acceptance, decline, and providing license-related information.
@@ -91,12 +93,6 @@ class LicenseService {
      * @note Replace the placeholder string with your actual terms and conditions.
      */
     fun terms(): String {
-        return terms
+        return "${Rewards.company.name} ${Rewards.company.jurisdiction} ${Rewards.company.privacy} ${Rewards.company.terms}"
     }
-
-    /**
-     * The terms and conditions associated with the license.
-     */
-    private val terms =
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ... (Your long terms and conditions string)"
 }

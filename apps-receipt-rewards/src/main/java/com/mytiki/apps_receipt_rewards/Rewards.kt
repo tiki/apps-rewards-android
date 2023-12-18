@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import com.mytiki.apps_receipt_rewards.account.AccountService
 import com.mytiki.apps_receipt_rewards.capture.CaptureService
+import com.mytiki.apps_receipt_rewards.license.Company
 import com.mytiki.apps_receipt_rewards.license.LicenseService
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.Configuration
@@ -71,6 +72,14 @@ object Rewards {
     )
         private set
 
+    var company: Company = Company(
+        "Company Inc.",
+        "Tennessee, USA",
+        "https://your-co.com/privacy",
+        "https://your-co.com/terms",
+    )
+      private set
+
     /**
      * An instance of [AccountService] for managing 3rd party accounts.
      */
@@ -126,6 +135,15 @@ object Rewards {
 
         // Initialize the receipt capture system for a user
         CaptureReceipt.initialize("User01", context){ Log.e("CaptureReceipt Initialization Error", it.message.toString())}
+    }
+
+    fun company(
+        name: String,
+        jurisdiction: String,
+        privacy: String,
+        terms: String
+    ){
+        company = Company(name, jurisdiction, privacy, terms)
     }
 
     fun onError(context: Context,message: String){
