@@ -64,12 +64,12 @@ fun MoreAccounts(
                     .padding(horizontal = 32.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                accountsList.forEach { accountCommon ->
+                accountsList.forEach { accountProvider ->
                     AccountTile(
-                        accountProvider = accountCommon,
+                        accountProvider = accountProvider,
                         accountStatus = AccountStatus.UNLINKED,
                         padding = PaddingValues(horizontal = 4.dp, vertical = 12.dp),
-                        onClick = { onClick(accountCommon) }
+                        onClick = { onClick(accountProvider) }
                     )
                 }
             }

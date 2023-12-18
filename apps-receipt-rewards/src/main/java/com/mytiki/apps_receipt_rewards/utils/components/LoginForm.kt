@@ -51,7 +51,6 @@ fun LoginForm(
         text = "Sign In",
         isfFilled = true
     ) {
-        Rewards.account.login(activity, username.value, password.value, provider)
-        onLogin()
+        Rewards.account.login(activity, username.value, password.value, provider){onLogin()}
     }
 }

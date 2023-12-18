@@ -8,10 +8,12 @@ package com.mytiki.apps_receipt_rewards.capture
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.retailer.RetailerOffer
 import com.mytiki.capture.receipt.CaptureReceipt
+import com.mytiki.capture.receipt.account.AccountCommon
 import com.mytiki.capture.receipt.receipt.Receipt
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.MainScope
@@ -55,6 +57,14 @@ class CaptureService {
             )
         }
         return receipt
+    }
+
+    fun scrape(context: Context, provider: AccountProvider){
+        CaptureReceipt.scrape(context, AccountCommon.fromString(provider.name())!!,{},{}){}
+    }
+
+    fun scrape(context: Context, account: Account){
+        CaptureReceipt.scrape(context, account.toCaptureAccount(),{},{}){}
     }
 
     /**

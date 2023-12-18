@@ -5,6 +5,7 @@
 
 package com.mytiki.apps_receipt_rewards.home.ui
 
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -17,16 +18,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
 import com.mytiki.apps_receipt_rewards.account.AccountStatus
 import com.mytiki.apps_receipt_rewards.account.ui.AccountTile
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.async
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HomeGrid(onAccountProvider: (AccountProvider) -> Unit) {
+fun HomeGrid(providers: List<AccountProvider>?, onAccountProvider: (AccountProvider) -> Unit) {
+
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Spacer(modifier = Modifier.height(49.dp))
@@ -46,7 +54,7 @@ fun HomeGrid(onAccountProvider: (AccountProvider) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 maxItemsInEachRow = 3
             ) {
-                Rewards.account.providers().forEach { provider ->
+                providers?.forEach { provider ->
                     AccountTile(
                         accountProvider = provider,
                         accountStatus = AccountStatus.VERIFIED,

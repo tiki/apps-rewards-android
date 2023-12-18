@@ -9,6 +9,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.mutableStateListOf
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.account.AccountCommon
 import kotlinx.coroutines.CompletableDeferred
@@ -48,7 +50,7 @@ class AccountService {
     /**
      * An array containing the user accounts managed by the service.
      */
-    val accounts: MutableList<Account> = mutableListOf()
+
 
     // Public Methods
 
@@ -57,22 +59,10 @@ class AccountService {
      *
      * @return An array of user accounts.
      */
-    fun accounts(context: Context): CompletableDeferred<List<Account>> {
-
-        val onError = AlertDialog.Builder(context)
-            .setTitle(null)
-            .setMessage("It was not possible to retrieve the accounts list.")
-            .setPositiveButton("OK", null)
-            .create()
-
-        val accountList = CompletableDeferred<List<Account>>()
-        MainScope().async {
-            val list = CaptureReceipt.accounts(context){onError.show()}.await().map{Account(it)}
-            accounts.removeAll(accounts.toList())
-            accounts.addAll(list)
-            accountList.complete(list)
-        }
-        return accountList
+    suspend fun accounts(context: Context): List<Account> {
+        return CaptureReceipt.accounts(context){
+            Rewards.onError(context, "It was not possible to retrieve the accounts list.")
+        }.map{Account(it)}
     }
 
     /**
@@ -81,13 +71,8 @@ class AccountService {
      * @param provider The account provider for which accounts should be retrieved.
      * @return An array of user accounts for the specified provider.
      */
-    fun accounts(context: Context, provider: AccountProvider): CompletableDeferred<List<Account>> {
-        val accountList = CompletableDeferred<List<Account>>()
-        MainScope().async {
-            val list = accounts(context).await()
-            accountList.complete(list.filter { it.provider.toString() == provider.toString() })
-        }
-        return accountList
+    suspend fun accounts(context: Context, provider: AccountProvider): List<Account> {
+        return accounts(context).filter {it.provider.toString() == provider.toString()}
     }
 
     /**
@@ -95,8 +80,8 @@ class AccountService {
      *
      * @return An array of available account providers.
      */
-    fun providers(): List<AccountProvider> {
-        val existingProviders = accounts.map { it.provider }
+    suspend fun providers(context: Context): List<AccountProvider> {
+        val existingProviders = accounts(context).map { it.provider }.distinctBy { it.name() }
         return AccountProvider.all().filterNot { existingProviders.contains(it) }
     }
 
@@ -110,35 +95,24 @@ class AccountService {
      * @throws Error An error indicating issues with the login process, such as empty credentials or an already linked account.
      */
     @Throws(Error::class)
-    fun login(activity: AppCompatActivity, username: String, password: String, provider: AccountProvider) {
+    fun login(activity: AppCompatActivity, username: String, password: String, provider: AccountProvider, onSuccess: (Account) -> Unit) {
         if (username.isEmpty() || password.isEmpty()) {
-            val alertDialog = AlertDialog.Builder(activity)
-                .setTitle(null)
-                .setMessage("Username and password should not be empty.")
-                .setPositiveButton("OK", null)
-                .create()
-            alertDialog.show()
+            Rewards.onError(activity, "Username and password should not be empty.")
         } else {
-            if (!accounts.any {
-                    it.username == username &&
-                            it.provider == provider &&
-                            it.status == AccountStatus.VERIFIED
-                }) {
-                CaptureReceipt.login(
-                    activity, username,
-                    password,
-                    AccountCommon.fromString(provider.name())!!,
-                    {
-                        val account = Account(username, provider, AccountStatus.VERIFIED)
-                        accounts.add(account)
+            MainScope().async {
+                if (!accounts(activity).any {
+                        it.username == username &&
+                                it.provider == provider &&
+                                it.status == AccountStatus.VERIFIED
+                    }) {
+                    CaptureReceipt.login(
+                        activity, username,
+                        password,
+                        AccountCommon.fromString(provider.name())!!,
+                        {onSuccess(Account(it))}
+                    ) {
+                        Rewards.onError(activity, it)
                     }
-                ){
-                    val alertDialog = AlertDialog.Builder(activity)
-                        .setTitle(null)
-                        .setMessage(it)
-                        .setPositiveButton("OK", null)
-                        .create()
-                    alertDialog.show()
                 }
             }
         }
@@ -153,17 +127,27 @@ class AccountService {
      * @throws Error An error indicating issues with the logout process, such as an empty username or an account not found.
      */
     @Throws(Error::class)
-    fun logout(username: String, provider: AccountProvider) {
+    fun logout(context: Context, username: String, provider: AccountProvider) {
         if (username.isEmpty()) {
-            throw Error("Username should not be empty.")
+            Rewards.onError(context, "Please pass a username and a provider.")
         } else {
-            val account = accounts.firstOrNull {
-                it.username == username &&
-                        it.provider == provider
+            MainScope().async {
+                val account = accounts(context).firstOrNull {
+                    it.username == username &&
+                            it.provider == provider
+                }
+                if (account != null) {
+                    CaptureReceipt.logout(context, account.toCaptureAccount(), {}){}
+                } else {
+                    Rewards.onError(context, "This account doesn't exist.")
+                }
             }
-            if (account != null) {
-                accounts.remove(account)
-            }
+        }
+    }
+
+    fun logout(context: Context) {
+        MainScope().async {
+            CaptureReceipt.logout(context, {}){Rewards.onError(context, it)}
         }
     }
 }

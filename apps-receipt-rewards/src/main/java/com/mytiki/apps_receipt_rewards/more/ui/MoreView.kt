@@ -5,6 +5,7 @@
 
 package com.mytiki.apps_receipt_rewards.more.ui
 
+import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,6 +30,12 @@ import com.mytiki.apps_receipt_rewards.utils.components.Header
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 
+var providers by mutableStateOf<List<AccountProvider>?>(null)
+fun updateProviders(context: Context, provider: AccountProvider){
+    MainScope().async {
+        providers = Rewards.account.providers(context)
+    }
+}
 @Composable
 fun MoreView(
     onProvider: (AccountProvider) -> Unit,
@@ -39,7 +46,7 @@ fun MoreView(
     val context = LocalContext.current
     var accList by mutableStateOf<List<AccountProvider>?>(null)
     MainScope().async {
-        accList = Rewards.account.accounts(context).await().map { it.provider }.distinctBy{it.toString()}
+        accList = Rewards.account.accounts(context).map { it.provider }.distinctBy{it.toString()}
     }
 
     Surface(
