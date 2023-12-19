@@ -22,6 +22,7 @@ import com.mytiki.apps_receipt_rewards.license.License
 import com.mytiki.apps_receipt_rewards.license.LicenseService
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.Configuration
+import kotlin.coroutines.coroutineContext
 
 /**
  * [Rewards] class is the main API to interact with TIKI Rewards program.
@@ -192,6 +193,31 @@ object Rewards {
             outlineVariant = secondaryTextColor,
         )
         this.fontFamily = fontFamily
+    }
+
+    fun config(
+        context: Context,
+        companyName: String,
+        companyJurisdiction: String,
+        privacy: String,
+        terms: String,
+        tikiPublishingID: String,
+        microblinkLicenseKey: String,
+        productIntelligenceKey: String,
+        gmailAPIKey: String? = null,
+        outlookAPIKey: String? = null,
+        primaryTextColor: Color = Theme().primaryTextColor, // optional
+        secondaryTextColor: Color = Theme().secondaryTextColor, // optional
+        primaryBackgroundColor: Color = Theme().primaryBackgroundColor, // optional
+        secondaryBackgroundColor: Color = Theme().secondaryBackgroundColor, // optional
+        accentColor: Color = Theme().accentColor, // optional
+        fontFamily: FontFamily = Theme().fontFamily,
+    ){
+        company(companyName, companyJurisdiction, privacy, terms)
+        licenses(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
+        oauth( gmailAPIKey, outlookAPIKey)
+        theme(primaryTextColor, secondaryTextColor, primaryBackgroundColor, secondaryBackgroundColor, accentColor, fontFamily)
+        start(context)
     }
 
 
