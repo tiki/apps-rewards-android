@@ -11,4 +11,15 @@ class RewardsTest {
         assert(Rewards.licenseConfig.microblinkLicenseKey == "Test")
         assert(Rewards.licenseConfig.productIntelligenceKey == "Test")
     }
+
+    @Test
+    fun oauthTest(){
+        Rewards.oauth(
+            "test",
+           "test",
+        )
+        assert(Rewards.oauth.gmailAPIKey == "test")
+        assert(Rewards.oauth.outlookAPIKey == "test")
+    }
+
 }
