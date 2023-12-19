@@ -165,23 +165,14 @@ object Rewards {
     }
 
     fun oauth(
-        context: Context,
         gmailAPIKey: String?,
         outlookAPIKey: String?,
+        context: Context? = null
     ){
         oauth = OAuth(gmailAPIKey, outlookAPIKey)
-        CaptureReceipt.config(
-            Configuration(
-                licenseConfig.tikiPublishingID,
-                licenseConfig.microblinkLicenseKey,
-                licenseConfig.productIntelligenceKey,
-                license.terms(),
-                oauth.gmailAPIKey,
-                oauth.outlookAPIKey
-            )
-        ){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
-
-        CaptureReceipt.initialize("User01", context){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
+        if (context != null) {
+            start(context)
+        }
     }
 
     fun theme(
