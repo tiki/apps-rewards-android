@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontFamily
 import com.mytiki.apps_receipt_rewards.account.AccountService
 import com.mytiki.apps_receipt_rewards.capture.CaptureService
 import com.mytiki.apps_receipt_rewards.license.Company
+import com.mytiki.apps_receipt_rewards.license.License
 import com.mytiki.apps_receipt_rewards.license.LicenseService
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.Configuration
@@ -79,6 +80,8 @@ object Rewards {
         "https://your-co.com/terms",
     )
       private set
+
+    var licenseConfig: License = License("","", "")
 
     /**
      * An instance of [AccountService] for managing 3rd party accounts.
@@ -144,6 +147,14 @@ object Rewards {
         terms: String
     ){
         company = Company(name, jurisdiction, privacy, terms)
+    }
+
+    fun licenses(
+        tikiPublishingID: String,
+        microblinkLicenseKey: String,
+        productIntelligenceKey: String,
+    ){
+        licenseConfig = License(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
     }
 
     fun onError(context: Context,message: String){
