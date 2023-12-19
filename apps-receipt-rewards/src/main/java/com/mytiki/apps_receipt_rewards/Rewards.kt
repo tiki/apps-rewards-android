@@ -219,6 +219,14 @@ object Rewards {
         initialize(context, userId)
     }
 
+    fun logout(context: Context){
+        CaptureReceipt.logout(context, {
+            userId = UUID.randomUUID().toString()
+        }){
+            onError(context, "Logout didn't work, please try again later")
+        }
+    }
+
 
     fun onError(context: Context,message: String,title: String? = null){
         AlertDialog.Builder(context)
