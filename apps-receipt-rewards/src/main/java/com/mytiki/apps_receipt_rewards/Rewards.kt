@@ -11,7 +11,9 @@ import android.content.Intent
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import com.mytiki.apps_receipt_rewards.account.AccountService
 import com.mytiki.apps_receipt_rewards.capture.CaptureService
 import com.mytiki.apps_receipt_rewards.email.OAuth
@@ -125,7 +127,7 @@ object Rewards {
             outline = appTheme.primaryTextColor,
             outlineVariant = appTheme.secondaryTextColor,
         )
-        this.fontFamily = appTheme.fontFamily
+        fontFamily = appTheme.fontFamily
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
 
@@ -181,6 +183,26 @@ object Rewards {
 
         CaptureReceipt.initialize("User01", context){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
     }
+
+    fun theme(
+         primaryTextColor: Color,
+         secondaryTextColor: Color,
+         primaryBackgroundColor: Color,
+         secondaryBackgroundColor: Color,
+         accentColor: Color,
+         fontFamily: FontFamily
+    ){
+        colorScheme = lightColorScheme(
+            primary = accentColor,
+            error = Color(0xFFC73000),
+            background = primaryBackgroundColor,
+            onBackground = secondaryBackgroundColor,
+            outline = primaryTextColor,
+            outlineVariant = secondaryTextColor,
+        )
+        this.fontFamily = fontFamily
+    }
+
 
     fun onError(context: Context,message: String,title: String? = null){
         AlertDialog.Builder(context)
