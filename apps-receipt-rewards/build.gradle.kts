@@ -48,7 +48,13 @@ android {
             excludes += "/META-INF/{NOTICE,LICENSE,DEPENDENCIES,LICENSE.md,NOTICE.txt,NOTICE.md}"
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
+
 
 dependencies {
     implementation(files("/Users/gabrielschuler/Developer/GitHub/capture-receipt-android/CaptureReceipt/build/outputs/aar/CaptureReceipt-release.aar"))
@@ -66,7 +72,7 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation(composeBom)
     implementation("androidx.compose.foundation:foundation")
-    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation("androidx.compose.material3:material3:$material3Version")
@@ -78,9 +84,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.2")
 
     //Navigation
-    implementation("androidx.compose.ui:ui:1.6.0-beta01")
-    implementation("androidx.navigation:navigation-compose:2.7.5")
-    androidTestImplementation("androidx.navigation:navigation-testing:2.7.5")
+    implementation("androidx.compose.ui:ui:1.6.0-beta03")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.7.6")
 
 
     implementation(platform("com.microblink.blinkreceipt:blinkreceipt-bom:1.6.8"))
@@ -103,4 +109,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     androidTestImplementation("com.android.support.test:rules:1.0.2")
     debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.5.4")
+    debugImplementation("androidx.test:core:1.5.0")
+    debugImplementation("androidx.test:rules:1.5.0")
+    debugImplementation("androidx.test:runner:1.5.2")
 }

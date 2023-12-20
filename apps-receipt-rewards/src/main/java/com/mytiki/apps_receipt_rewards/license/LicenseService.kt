@@ -43,6 +43,13 @@ class LicenseService {
      * The current license status.
      */
     private var isLicensed: Boolean = false
+    var company: Company = Company(
+        "Company Inc.",
+        "Tennessee, USA",
+        "https://your-co.com/privacy",
+        "https://your-co.com/terms",
+    )
+        private set
 
     /**
      * Retrieves the current license status.
@@ -85,6 +92,15 @@ class LicenseService {
         return LicenseEarnings(34.30, 4.8, 12.00)
     }
 
+    fun company(
+        name: String,
+        jurisdiction: String,
+        privacy: String,
+        terms: String
+    ){
+        company = Company(name, jurisdiction, privacy, terms)
+    }
+
     /**
      * Retrieves the terms and conditions associated with the license.
      *
@@ -93,6 +109,6 @@ class LicenseService {
      * @note Replace the placeholder string with your actual terms and conditions.
      */
     fun terms(): String {
-        return "${Rewards.company.name} ${Rewards.company.jurisdiction} ${Rewards.company.privacy} ${Rewards.company.terms}"
+        return "${company.name} ${company.jurisdiction} ${company.privacy} ${company.terms}"
     }
 }

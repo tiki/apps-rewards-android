@@ -75,13 +75,7 @@ object Rewards {
     )
         private set
 
-    var company: Company = Company(
-        "Company Inc.",
-        "Tennessee, USA",
-        "https://your-co.com/privacy",
-        "https://your-co.com/terms",
-    )
-      private set
+
 
     var licenseConfig: License = License(
         "be19730a-00d5-45f5-b18e-2e19eb25f311",
@@ -152,50 +146,10 @@ object Rewards {
         jurisdiction: String,
         privacy: String,
         terms: String
-    ){
-        company = Company(name, jurisdiction, privacy, terms)
+    ) {
+        license.company(name, jurisdiction, privacy, terms)
     }
-
-    fun licenses(
-        tikiPublishingID: String,
-        microblinkLicenseKey: String,
-        productIntelligenceKey: String,
-    ){
-        licenseConfig = License(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
-    }
-
-    fun oauth(
-        gmailAPIKey: String?,
-        outlookAPIKey: String?,
-        context: Context? = null
-    ){
-        oauth = OAuth(gmailAPIKey, outlookAPIKey)
-        if (context != null) {
-            start(context)
-        }
-    }
-
-    fun theme(
-         primaryTextColor: Color,
-         secondaryTextColor: Color,
-         primaryBackgroundColor: Color,
-         secondaryBackgroundColor: Color,
-         accentColor: Color,
-         fontFamily: FontFamily
-    ){
-        colorScheme = lightColorScheme(
-            primary = accentColor,
-            error = Color(0xFFC73000),
-            background = primaryBackgroundColor,
-            onBackground = secondaryBackgroundColor,
-            outline = primaryTextColor,
-            outlineVariant = secondaryTextColor,
-        )
-        this.fontFamily = fontFamily
-    }
-
-
-    fun onError(context: Context,message: String,title: String? = null){
+    fun onError(context: Context,message: String){
         AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
