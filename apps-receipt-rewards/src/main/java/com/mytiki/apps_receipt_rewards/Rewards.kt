@@ -72,13 +72,7 @@ object Rewards {
     )
         private set
 
-    var company: Company = Company(
-        "Company Inc.",
-        "Tennessee, USA",
-        "https://your-co.com/privacy",
-        "https://your-co.com/terms",
-    )
-      private set
+
 
     /**
      * An instance of [AccountService] for managing 3rd party accounts.
@@ -142,9 +136,10 @@ object Rewards {
         jurisdiction: String,
         privacy: String,
         terms: String
-    ){
-        company = Company(name, jurisdiction, privacy, terms)
+    ) {
+        license.company(name, jurisdiction, privacy, terms)
     }
+
 
     fun onError(context: Context,message: String){
         AlertDialog.Builder(context)

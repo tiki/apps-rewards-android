@@ -6,13 +6,21 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseTerms
+import com.mytiki.apps_receipt_rewards.license.ui.LicenseView
 import org.junit.Rule
 import org.junit.Test
 
 class LicenseViewTest {
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
     @Test
     fun setCompanyTermsTest(){
-        Rewards.company("test1","test2","test2","test4")
-        assert(Rewards.license.terms() == "test1 test2 test2 test4")
+        Rewards.company("nameTest","jurisdictionTest","privacyTest","termsTest")
+        composeTestRule.setContent {
+            LicenseTerms({}) {}
+        }
+
+        composeTestRule.onNodeWithText("nameTest jurisdictionTest privacyTest termsTest").assertExists()
     }
 }
