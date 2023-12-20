@@ -22,6 +22,7 @@ import com.mytiki.apps_receipt_rewards.license.License
 import com.mytiki.apps_receipt_rewards.license.LicenseService
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.Configuration
+import java.util.UUID
 import kotlin.coroutines.coroutineContext
 
 /**
@@ -87,6 +88,10 @@ object Rewards {
 
     var oauth: OAuth = OAuth(null, null)
         private set
+
+    var userId: String = UUID.randomUUID().toString()
+        private set
+
     /**
      * An instance of [AccountService] for managing 3rd party accounts.
      */
@@ -110,19 +115,11 @@ object Rewards {
      *
      * The home screen is presented modally with a cross-dissolve transition and a semi-transparent background.
      */
-    fun start(
+    fun initialize(
         context: Context,
-        appTheme: Theme = Theme()
+        userId: String
     ) {
-        colorScheme = lightColorScheme(
-            primary = appTheme.accentColor,
-            error = Color(0xFFC73000),
-            background = appTheme.primaryBackgroundColor,
-            onBackground = appTheme.secondaryBackgroundColor,
-            outline = appTheme.primaryTextColor,
-            outlineVariant = appTheme.secondaryTextColor,
-        )
-        fontFamily = appTheme.fontFamily
+        this.userId = userId
         val intent = Intent(context, RewardsActivity::class.java)
         context.startActivity(intent)
 
@@ -139,7 +136,7 @@ object Rewards {
         ){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
 
         // Initialize the receipt capture system for a user
-        CaptureReceipt.initialize("User01", context){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
+        CaptureReceipt.initialize(this.userId, context){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
     }
 
     fun company(
@@ -147,12 +144,52 @@ object Rewards {
         jurisdiction: String,
         privacy: String,
         terms: String
-    ) {
-        license.company(name, jurisdiction, privacy, terms)
+    ){
+        company = Company(name, jurisdiction, privacy, terms)
+    }
+
+    fun licenses(
+        tikiPublishingID: String,
+        microblinkLicenseKey: String,
+        productIntelligenceKey: String,
+    ){
+        licenseConfig = License(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
+    }
+
+    fun oauth(
+        gmailAPIKey: String?,
+        outlookAPIKey: String?,
+        context: Context? = null,
+        userId: String? = null
+    ){
+        oauth = OAuth(gmailAPIKey, outlookAPIKey)
+        if (context != null && !userId.isNullOrEmpty()) {
+            initialize(context, userId)
+        }
+    }
+
+    fun theme(
+         primaryTextColor: Color,
+         secondaryTextColor: Color,
+         primaryBackgroundColor: Color,
+         secondaryBackgroundColor: Color,
+         accentColor: Color,
+         fontFamily: FontFamily
+    ){
+        colorScheme = lightColorScheme(
+            primary = accentColor,
+            error = Color(0xFFC73000),
+            background = primaryBackgroundColor,
+            onBackground = secondaryBackgroundColor,
+            outline = primaryTextColor,
+            outlineVariant = secondaryTextColor,
+        )
+        this.fontFamily = fontFamily
     }
 
     fun config(
         context: Context,
+        userId: String,
         companyName: String,
         companyJurisdiction: String,
         privacy: String,
@@ -173,7 +210,15 @@ object Rewards {
         licenses(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
         oauth( gmailAPIKey, outlookAPIKey)
         theme(primaryTextColor, secondaryTextColor, primaryBackgroundColor, secondaryBackgroundColor, accentColor, fontFamily)
-        start(context)
+        initialize(context, userId)
+    }
+
+    fun logout(context: Context){
+        CaptureReceipt.logout(context, {
+            userId = UUID.randomUUID().toString()
+        }){
+            onError(context, "Logout didn't work, please try again later")
+        }
     }
 
 
