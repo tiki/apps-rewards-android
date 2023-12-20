@@ -77,13 +77,7 @@ object Rewards {
     )
         private set
 
-    var company: Company = Company(
-        "Company Inc.",
-        "Tennessee, USA",
-        "https://your-co.com/privacy",
-        "https://your-co.com/terms",
-    )
-      private set
+
 
     var licenseConfig: License = License(
         "be19730a-00d5-45f5-b18e-2e19eb25f311",
@@ -229,6 +223,7 @@ object Rewards {
 
 
     fun onError(context: Context,message: String,title: String? = null){
+
         AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
