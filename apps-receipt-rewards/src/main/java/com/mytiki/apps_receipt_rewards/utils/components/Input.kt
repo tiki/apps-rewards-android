@@ -35,11 +35,11 @@ fun Input(tile: String, text: String, isShow: Boolean, onChange: (String) -> Uni
         Text(
             text = tile,
             style = TextStyle(
-                fontFamily = Rewards.fontFamily,
+                fontFamily = Rewards.theme.fontFamily,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
                 lineHeight = 18.sp,
-                color = Rewards.colorScheme.outlineVariant
+                color = Rewards.theme.colorScheme.outlineVariant
             )
         )
         Spacer(modifier = Modifier.height(8.dp))

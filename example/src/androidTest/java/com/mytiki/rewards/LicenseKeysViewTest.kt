@@ -2,7 +2,7 @@ package com.mytiki.rewards
 
 import org.junit.Test
 
-class LicenseViewTest {
+class LicenseKeysViewTest {
     @Test
     fun setCompanyTermsTest(){
 

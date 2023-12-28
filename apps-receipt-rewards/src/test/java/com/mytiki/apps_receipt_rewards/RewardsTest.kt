@@ -11,19 +11,19 @@ class RewardsTest {
     @Test
     fun licenseTest(){
         Rewards.licenses("Test", "Test", "Test")
-        assert(Rewards.licenseConfig.tikiPublishingID == "Test")
-        assert(Rewards.licenseConfig.microblinkLicenseKey == "Test")
-        assert(Rewards.licenseConfig.productIntelligenceKey == "Test")
+        assert(Rewards.license.licenseKeys.tikiPublishingID == "Test")
+        assert(Rewards.license.licenseKeys.microblinkLicenseKey == "Test")
+        assert(Rewards.license.licenseKeys.productIntelligenceKey == "Test")
     }
 
     @Test
     fun oauthTest(){
         Rewards.oauth(
             "test",
-           "test",
+            "test",
         )
-        assert(Rewards.oauth.gmailAPIKey == "test")
-        assert(Rewards.oauth.outlookAPIKey == "test")
+        assert(Rewards.capture.authKeys.gmailAPIKey == "test")
+        assert(Rewards.capture.authKeys.outlookAPIKey == "test")
     }
 
     @Test
@@ -42,7 +42,18 @@ class RewardsTest {
                 Font(R.font.space_grotesk_bold, FontWeight.Bold), //700
             )
         )
-        assert(Rewards.colorScheme.outline == Color(0xFF32484E))
-        assert(Rewards.colorScheme.primary == Color(0xFF5E00F5))
+        assert(Rewards.theme.colorScheme.outline == Color(0xFF32484E))
+        assert(Rewards.theme.colorScheme.outline != Color(0xFF000000))
+        assert(Rewards.theme.colorScheme.primary == Color(0xFF5E00F5))
+        assert(
+            Rewards.theme.fontFamily == FontFamily(
+            Font(R.font.space_grotesk_light, FontWeight.Light), //300
+            Font(R.font.space_grotesk_regular, FontWeight.Normal), //400
+            Font(R.font.space_grotesk_medium, FontWeight.Medium), //500
+            Font(R.font.space_grotesk_semi_bold, FontWeight.SemiBold), //600
+            Font(R.font.space_grotesk_bold, FontWeight.Bold), //700
+        ))
     }
+
+
 }

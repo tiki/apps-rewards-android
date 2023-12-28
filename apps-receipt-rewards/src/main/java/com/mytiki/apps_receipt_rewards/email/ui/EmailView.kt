@@ -129,7 +129,7 @@ fun EmailView(
                         contentAlignment = Alignment.Center
                     ) {
                         EmailGoogleBtn {
-//                            Rewards.account.login(activity,"oauth@gmail.com", "213", provider)
+//                            Rewards.account.login(activity,"authKeys@gmail.com", "213", provider)
 //                            MainScope().async {
 //                                accounts = Rewards.account.accounts.toList().filter {it.provider.name() == provider.name()}
 //                            }
