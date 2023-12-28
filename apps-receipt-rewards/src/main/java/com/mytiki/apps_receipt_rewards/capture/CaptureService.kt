@@ -6,10 +6,11 @@
 package com.mytiki.apps_receipt_rewards.capture
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
+import com.mytiki.apps_receipt_rewards.Rewards
 import com.mytiki.apps_receipt_rewards.account.Account
 import com.mytiki.apps_receipt_rewards.account.AccountProvider
+import com.mytiki.apps_receipt_rewards.email.AuthKeys
 import com.mytiki.apps_receipt_rewards.more.MoreContributor
 import com.mytiki.apps_receipt_rewards.retailer.RetailerOffer
 import com.mytiki.capture.receipt.CaptureReceipt
@@ -41,6 +42,22 @@ import kotlinx.coroutines.async
  * ```
  */
 class CaptureService {
+
+    var authKeys: AuthKeys = AuthKeys(null, null)
+        private set
+
+
+    fun oauth(
+        gmailAPIKey: String?,
+        outlookAPIKey: String?,
+        context: Context? = null,
+        userId: String? = null
+    ){
+        authKeys = AuthKeys(gmailAPIKey, outlookAPIKey)
+        if (context != null && !userId.isNullOrEmpty()) {
+            Rewards.initialize(context, userId)
+        }
+    }
 
     /**
      * Initiates the receipt scanning process.

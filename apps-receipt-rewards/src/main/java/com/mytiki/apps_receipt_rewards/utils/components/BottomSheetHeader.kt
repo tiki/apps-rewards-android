@@ -19,7 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.mytiki.apps_receipt_rewards.TestTag
 
 @Composable
 fun BottomSheetHeader(title: String, subTitle: String) {
@@ -32,9 +34,9 @@ fun BottomSheetHeader(title: String, subTitle: String) {
         verticalAlignment = Alignment.Top
     ) {
         Column {
-            Text(text = title.uppercase(), style = MaterialTheme.typography.headlineSmall)
+            Text(text = title.uppercase(), Modifier.testTag(TestTag.TITLE.name), style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(5.dp))
-            Text(text = subTitle, style = MaterialTheme.typography.titleMedium)
+            Text(text = subTitle, Modifier.testTag(TestTag.SUBTITLE.name), style = MaterialTheme.typography.titleMedium)
         }
         CloseButton {
             activity.finish()
