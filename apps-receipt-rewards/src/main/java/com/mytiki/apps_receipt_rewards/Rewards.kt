@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import com.mytiki.apps_receipt_rewards.account.AccountService
 import com.mytiki.apps_receipt_rewards.capture.CaptureService
+import com.mytiki.apps_receipt_rewards.card.Card
+import com.mytiki.apps_receipt_rewards.card.CardService
 import com.mytiki.apps_receipt_rewards.license.LicenseService
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.Configuration
@@ -67,6 +69,8 @@ object Rewards {
     val license: LicenseService = LicenseService()
 
     val theme: ThemeService = ThemeService()
+
+    val card: CardService = CardService()
 
 
     private var userId: String = UUID.randomUUID().toString()
@@ -172,6 +176,22 @@ object Rewards {
         account.logout(context){
             userId = UUID.randomUUID().toString()
         }
+    }
+
+    fun cards(vararg cards: Card): List<Card>{
+        card.addCard(cards.toList())
+        return card.getCards()
+    }
+
+    fun cards(cards: List<Card>): List<Card>{
+        card.addCard(cards)
+        return card.getCards()
+    }
+
+    fun cards() = card.getCards()
+
+    fun removeCard(card: Card){
+        this.card.removeCard(card)
     }
 
 

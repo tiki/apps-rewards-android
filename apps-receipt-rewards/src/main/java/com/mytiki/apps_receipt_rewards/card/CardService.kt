@@ -4,17 +4,12 @@ class CardService {
 
     val cardList = mutableListOf<Card>()
 
-    fun addCard(vararg cards: Card){
-        cards.forEach {
-            cardList.add(it)
-        }
-    }
-
     fun addCard(list: List<Card>){
         list.forEach{
             cardList.add(it)
         }
     }
+    fun getCards() = cardList.toList()
 
     fun removeCard(card: Card){
         cardList.remove(card)
