@@ -16,6 +16,7 @@ import com.mytiki.capture.receipt.account.AccountCommon
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
+import java.util.UUID
 
 /**
  * [AccountService] class manages user accounts, providing methods for retrieving account
@@ -44,14 +45,6 @@ import kotlinx.coroutines.async
  * ```
  */
 class AccountService {
-
-    // Properties
-
-    /**
-     * An array containing the user accounts managed by the service.
-     */
-
-
     // Public Methods
 
     /**
@@ -145,9 +138,7 @@ class AccountService {
         }
     }
 
-    fun logout(context: Context) {
-        MainScope().async {
-            CaptureReceipt.logout(context, {}){Rewards.onError(context, it)}
-        }
+    fun logout(context: Context, onSuccess: () -> Unit) {
+        CaptureReceipt.logout(context,onSuccess){Rewards.onError(context, it)}
     }
 }

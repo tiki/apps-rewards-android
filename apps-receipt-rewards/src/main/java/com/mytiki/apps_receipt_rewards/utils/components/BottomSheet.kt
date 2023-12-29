@@ -17,7 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.mytiki.apps_receipt_rewards.TestTag
 
 @Composable
 fun BottomSheet(
@@ -41,7 +43,7 @@ fun BottomSheet(
         Surface(
             shape = RoundedCornerShape(40.dp, 40.dp, 0.dp, 0.dp),
             color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().testTag(TestTag.SURFACE_CONTAINER.name)
         ) {
             content()
         }

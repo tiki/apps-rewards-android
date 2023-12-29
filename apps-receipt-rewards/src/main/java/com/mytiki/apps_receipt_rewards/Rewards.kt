@@ -11,19 +11,15 @@ import android.content.Intent
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import com.mytiki.apps_receipt_rewards.account.AccountService
 import com.mytiki.apps_receipt_rewards.capture.CaptureService
-import com.mytiki.apps_receipt_rewards.email.OAuth
-import com.mytiki.apps_receipt_rewards.license.Company
-import com.mytiki.apps_receipt_rewards.license.License
+import com.mytiki.apps_receipt_rewards.card.Card
+import com.mytiki.apps_receipt_rewards.card.CardService
 import com.mytiki.apps_receipt_rewards.license.LicenseService
 import com.mytiki.capture.receipt.CaptureReceipt
 import com.mytiki.capture.receipt.Configuration
 import java.util.UUID
-import kotlin.coroutines.coroutineContext
 
 /**
  * [Rewards] class is the main API to interact with TIKI Rewards program.
@@ -57,41 +53,6 @@ import kotlin.coroutines.coroutineContext
  * ```
  */
 object Rewards {
-
-    /**
-     * The current color font family.
-     */
-    var fontFamily: FontFamily = Theme().fontFamily
-        private set
-
-    /**
-     * The current color scheme.
-     */
-    var colorScheme: ColorScheme = lightColorScheme(
-        primary = Theme().accentColor,
-        error = Color(0xFFC73000),
-        background = Theme().primaryBackgroundColor,
-        onBackground = Theme().secondaryBackgroundColor,
-        outline = Theme().primaryTextColor,
-        outlineVariant = Theme().secondaryTextColor,
-    )
-        private set
-
-
-
-    var licenseConfig: License = License(
-        "be19730a-00d5-45f5-b18e-2e19eb25f311",
-        "sRwAAAAoY29tLm15dGlraS5zZGsuY2FwdHVyZS5yZWNlaXB0LmNhcGFjaXRvcgY6SQlVDCCrMOCc/jLI1A3BmOhqNvtZLzShMcb3/OLQLiqgWjuHuFiqGfg4fnAiPtRcc5uRJ6bCBRkg8EsKabMQkEsMOuVjvEOejVD497WkMgobMbk/X+bdfhPPGdcAHWn5Vnz86SmGdHX5xs6RgYe5jmJCSLiPmB7cjWmxY5ihkCG12Q==",
-        "wSNX3mu+YGc/2I1DDd0NmrYHS6zS1BQt2geMUH7DDowER43JGeJRUErOHVwU2tz6xHDXia8BuvXQI3j37I0uYw=="
-    )
-        private set
-
-    var oauth: OAuth = OAuth(null, null)
-        private set
-
-    var userId: String = UUID.randomUUID().toString()
-        private set
-
     /**
      * An instance of [AccountService] for managing 3rd party accounts.
      */
@@ -107,6 +68,13 @@ object Rewards {
      */
     val license: LicenseService = LicenseService()
 
+    val theme: ThemeService = ThemeService()
+
+    val card: CardService = CardService()
+
+
+    private var userId: String = UUID.randomUUID().toString()
+
     /**
      * Initializes the rewards system and presents the home screen.
      *
@@ -120,23 +88,24 @@ object Rewards {
         userId: String
     ) {
         this.userId = userId
-        val intent = Intent(context, RewardsActivity::class.java)
-        context.startActivity(intent)
 
         // Configure the receipt capture system
         CaptureReceipt.config(
             Configuration(
-                licenseConfig.tikiPublishingID,
-                licenseConfig.microblinkLicenseKey,
-                licenseConfig.productIntelligenceKey,
+                license.licenseKeys.tikiPublishingID,
+                license.licenseKeys.microblinkLicenseKey,
+                license.licenseKeys.productIntelligenceKey,
                 license.terms(),
-                oauth.gmailAPIKey,
-                oauth.outlookAPIKey
+                capture.authKeys.gmailAPIKey,
+                capture.authKeys.outlookAPIKey
             )
         ){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
 
         // Initialize the receipt capture system for a user
         CaptureReceipt.initialize(this.userId, context){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
+
+        val intent = Intent(context, RewardsActivity::class.java)
+        context.startActivity(intent)
     }
 
     fun company(
@@ -145,7 +114,7 @@ object Rewards {
         privacy: String,
         terms: String
     ){
-        company = Company(name, jurisdiction, privacy, terms)
+        license.company(name, jurisdiction, privacy, terms)
     }
 
     fun licenses(
@@ -153,7 +122,7 @@ object Rewards {
         microblinkLicenseKey: String,
         productIntelligenceKey: String,
     ){
-        licenseConfig = License(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
+        license.licenses(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
     }
 
     fun oauth(
@@ -162,30 +131,20 @@ object Rewards {
         context: Context? = null,
         userId: String? = null
     ){
-        oauth = OAuth(gmailAPIKey, outlookAPIKey)
-        if (context != null && !userId.isNullOrEmpty()) {
-            initialize(context, userId)
-        }
+        capture.oauth(gmailAPIKey, outlookAPIKey, context, userId)
     }
 
     fun theme(
-         primaryTextColor: Color,
-         secondaryTextColor: Color,
-         primaryBackgroundColor: Color,
-         secondaryBackgroundColor: Color,
-         accentColor: Color,
-         fontFamily: FontFamily
+        primaryTextColor: Color,
+        secondaryTextColor: Color,
+        primaryBackgroundColor: Color,
+        secondaryBackgroundColor: Color,
+        accentColor: Color,
+        fontFamily: FontFamily
     ){
-        colorScheme = lightColorScheme(
-            primary = accentColor,
-            error = Color(0xFFC73000),
-            background = primaryBackgroundColor,
-            onBackground = secondaryBackgroundColor,
-            outline = primaryTextColor,
-            outlineVariant = secondaryTextColor,
-        )
-        this.fontFamily = fontFamily
+        theme.theme(primaryTextColor, secondaryTextColor, primaryBackgroundColor, secondaryBackgroundColor, accentColor, fontFamily)
     }
+
 
     fun config(
         context: Context,
@@ -214,11 +173,25 @@ object Rewards {
     }
 
     fun logout(context: Context){
-        CaptureReceipt.logout(context, {
+        account.logout(context){
             userId = UUID.randomUUID().toString()
-        }){
-            onError(context, "Logout didn't work, please try again later")
         }
+    }
+
+    fun cards(vararg cards: Card): List<Card>{
+        card.addCard(cards.toList())
+        return card.getCards()
+    }
+
+    fun cards(cards: List<Card>): List<Card>{
+        card.addCard(cards)
+        return card.getCards()
+    }
+
+    fun cards() = card.getCards()
+
+    fun removeCard(card: Card){
+        this.card.removeCard(card)
     }
 
 

@@ -23,7 +23,7 @@ class RewardsActivity : AppCompatActivity() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                RewardsTheme(Rewards.colorScheme) {
+                RewardsTheme(Rewards.theme.colorScheme) {
                     NavigationHost(this@RewardsActivity)
                 }
             }
