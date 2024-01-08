@@ -1,7 +1,9 @@
 package com.mytiki.apps_receipt_rewards
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.colorspace.ColorSpaces
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -9,9 +11,18 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.compose.ComposeNavigator
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ActivityScenario
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseTerms
 import com.mytiki.apps_receipt_rewards.license.ui.LicenseView
+import com.mytiki.apps_receipt_rewards.navigation.NavigationRoute
+import com.mytiki.apps_receipt_rewards.navigation.ui.NavigationHost
 import com.mytiki.apps_receipt_rewards.utils.theme.RewardsTheme
+import io.mockk.mockkObject
+import io.mockk.spyk
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -76,5 +87,13 @@ class RewardsUiTest {
 
     }
 
-
+    @Test
+    fun showErrorTest(){
+        ActivityScenario.launch(RewardsActivity::class.java).onActivity { activity ->
+            Assert.assertThrows(
+                "Please configure the company information and license keys",
+                Exception::class.java
+            ) { Rewards.show(activity, "testUserId") }
+        }
+    }
 }

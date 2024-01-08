@@ -6,7 +6,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.mytiki.apps_receipt_rewards.card.Card
 import com.mytiki.apps_receipt_rewards.card.CardNetwork
-import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class RewardsTest {

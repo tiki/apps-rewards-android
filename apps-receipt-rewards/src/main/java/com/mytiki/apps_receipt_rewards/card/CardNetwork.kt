@@ -5,7 +5,7 @@ enum class CardNetwork {
     MASTER_CARD,
     AMERICAN;
 
-    override fun toString() = this.name
+     override fun toString() = this.name
 
     companion object{
         fun fromString(cardNetwork: String) = CardNetwork.values().firstOrNull{it.name == cardNetwork}

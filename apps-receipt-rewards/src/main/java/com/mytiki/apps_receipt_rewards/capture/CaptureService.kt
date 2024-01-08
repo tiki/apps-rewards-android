@@ -55,7 +55,7 @@ class CaptureService {
     ){
         authKeys = AuthKeys(gmailAPIKey, outlookAPIKey)
         if (context != null && !userId.isNullOrEmpty()) {
-            Rewards.initialize(context, userId)
+            Rewards.show(context, userId)
         }
     }
 

@@ -45,6 +45,22 @@ import java.util.UUID
  * ```
  */
 class AccountService {
+    /**
+     * Displays an error dialog with the given message and title.
+     *
+     * @param context The application context.
+     * @param message The error message to display.
+     * @param title The title of the error dialog (optional).
+     */
+    private fun onError(context: Context, message: String, title: String? = null){
+
+        AlertDialog.Builder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .create()
+            .show()
+    }
     // Public Methods
 
     /**
@@ -54,7 +70,7 @@ class AccountService {
      */
     suspend fun accounts(context: Context): List<Account> {
         return CaptureReceipt.accounts(context){
-            Rewards.onError(context, "It was not possible to retrieve the accounts list.")
+            onError(context, "It was not possible to retrieve the accounts list.")
         }.map{Account(it)}
     }
 
@@ -90,7 +106,7 @@ class AccountService {
     @Throws(Error::class)
     fun login(activity: AppCompatActivity, username: String, password: String, provider: AccountProvider, onSuccess: (Account) -> Unit) {
         if (username.isEmpty() || password.isEmpty()) {
-            Rewards.onError(activity, "Username and password should not be empty.")
+            onError(activity, "Username and password should not be empty.")
         } else {
             MainScope().async {
                 if (!accounts(activity).any {
@@ -104,7 +120,7 @@ class AccountService {
                         AccountCommon.fromString(provider.name())!!,
                         {onSuccess(Account(it))}
                     ) {
-                        Rewards.onError(activity, it)
+                        onError(activity, it)
                     }
                 }
             }
@@ -122,7 +138,7 @@ class AccountService {
     @Throws(Error::class)
     fun logout(context: Context, username: String, provider: AccountProvider) {
         if (username.isEmpty()) {
-            Rewards.onError(context, "Please pass a username and a provider.")
+            onError(context, "Please pass a username and a provider.")
         } else {
             MainScope().async {
                 val account = accounts(context).firstOrNull {
@@ -132,13 +148,13 @@ class AccountService {
                 if (account != null) {
                     CaptureReceipt.logout(context, account.toCaptureAccount(), {}){}
                 } else {
-                    Rewards.onError(context, "This account doesn't exist.")
+                    onError(context, "This account doesn't exist.")
                 }
             }
         }
     }
 
     fun logout(context: Context, onSuccess: () -> Unit) {
-        CaptureReceipt.logout(context,onSuccess){Rewards.onError(context, it)}
+        CaptureReceipt.logout(context,onSuccess){onError(context, it)}
     }
 }
