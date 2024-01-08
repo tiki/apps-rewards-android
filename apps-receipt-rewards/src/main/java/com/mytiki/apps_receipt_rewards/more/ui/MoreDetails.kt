@@ -214,7 +214,7 @@ fun MoreDetails(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        "Opt out of cashback connections",
+                        "Opt out of Cashback Connections",
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.error
                     )
