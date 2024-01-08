@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -34,9 +35,8 @@ import com.mytiki.apps_receipt_rewards.retailer.ui.RetailerView
 private val accountProvider = mutableStateOf<AccountProvider?>(null)
 
 @Composable
-fun NavigationHost(activity: AppCompatActivity) {
+fun NavigationHost(activity: AppCompatActivity, navController: NavHostController = rememberNavController()) {
     var finish by mutableStateOf(false)
-    val navController = rememberNavController()
     val context = LocalContext.current
     navController.addOnDestinationChangedListener { _, _, _ ->
         if (finish) (context as Activity).finish()

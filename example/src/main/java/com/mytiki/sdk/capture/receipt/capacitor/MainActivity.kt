@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.start).setOnClickListener {
-            Rewards.initialize(this, "userId1")
+            Rewards.show(this, "userId1")
         }
     }
 }
