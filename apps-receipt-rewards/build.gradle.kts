@@ -113,4 +113,10 @@ dependencies {
     debugImplementation("androidx.test:core:1.5.0")
     debugImplementation("androidx.test:rules:1.5.0")
     debugImplementation("androidx.test:runner:1.5.2")
+    testImplementation("io.mockk:mockk:1.13.9")
+    androidTestImplementation("io.mockk:mockk-android:1.13.9")
+    androidTestImplementation("io.mockk:mockk-agent:1.13.9")
+    testImplementation("io.mockk:mockk-android:1.13.9")
+    testImplementation("io.mockk:mockk-agent:1.13.9")
 }
+

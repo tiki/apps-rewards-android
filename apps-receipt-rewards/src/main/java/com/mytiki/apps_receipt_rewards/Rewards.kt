@@ -8,8 +8,6 @@ package com.mytiki.apps_receipt_rewards
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import com.mytiki.apps_receipt_rewards.account.AccountService
@@ -85,30 +83,50 @@ object Rewards {
      *
      * @param context The application context.
      * @param userId The unique identifier of the user.
+     *
+     * @throws Exception if company information or license keys are not configured.
      */
-    fun initialize(
+    fun show(
         context: Context,
         userId: String
     ) {
         this.userId = userId
 
-        // Configure the receipt capture system
-        CaptureReceipt.config(
-            Configuration(
-                license.licenseKeys.tikiPublishingID,
-                license.licenseKeys.microblinkLicenseKey,
-                license.licenseKeys.productIntelligenceKey,
-                license.terms(),
-                capture.authKeys.gmailAPIKey,
-                capture.authKeys.outlookAPIKey
-            )
-        ){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
+        if (
+            license.licenseKeys.tikiPublishingID.isNotEmpty() &&
+            license.company.name.isNotEmpty() &&
+            license.company.terms.isNotEmpty() &&
+            license.company.jurisdiction.isNotEmpty() &&
+            license.company.privacy.isNotEmpty()
+        ) {
 
-        // Initialize the receipt capture system for a user
-        CaptureReceipt.initialize(this.userId, context){ onError(context, it.message.toString(), "CaptureReceipt Configuration Error")}
 
-        val intent = Intent(context, RewardsActivity::class.java)
-        context.startActivity(intent)
+            // Configure the receipt capture system
+            CaptureReceipt.config(
+                Configuration(
+                    license.licenseKeys.tikiPublishingID,
+                    license.licenseKeys.microblinkLicenseKey,
+                    license.licenseKeys.productIntelligenceKey,
+                    license.terms(),
+                    capture.authKeys.gmailAPIKey,
+                    capture.authKeys.outlookAPIKey
+                )
+            ) { onError(context, it.message.toString(), "CaptureReceipt Configuration Error") }
+
+            // Initialize the receipt capture system for a user
+            CaptureReceipt.initialize(this.userId, context) {
+                onError(
+                    context,
+                    it.message.toString(),
+                    "CaptureReceipt Configuration Error"
+                )
+            }
+
+            val intent = Intent(context, RewardsActivity::class.java)
+            context.startActivity(intent)
+        } else {
+            throw Exception("Please configure the company information and license keys")
+        }
     }
 
     /**
@@ -120,10 +138,10 @@ object Rewards {
      * @param terms The terms and conditions of the company.
      */
     fun company(
-        name: String,
-        jurisdiction: String,
-        privacy: String,
-        terms: String
+        name: String = "Company Inc.",
+        jurisdiction: String = "Tennessee, USA",
+        privacy: String = "https://your-co.com/privacy",
+        terms: String = "https://your-co.com/terms",
     ){
         license.company(name, jurisdiction, privacy, terms)
     }
@@ -136,9 +154,9 @@ object Rewards {
      * @param productIntelligenceKey The product intelligence key.
      */
     fun licenses(
-        tikiPublishingID: String,
-        microblinkLicenseKey: String,
-        productIntelligenceKey: String,
+        tikiPublishingID: String = "be19730a-00d5-45f5-b18e-2e19eb25f311",
+        microblinkLicenseKey: String = "sRwAAAAoY29tLm15dGlraS5zZGsuY2FwdHVyZS5yZWNlaXB0LmNhcGFjaXRvcgY6SQlVDCCrMOCc/jLI1A3BmOhqNvtZLzShMcb3/OLQLiqgWjuHuFiqGfg4fnAiPtRcc5uRJ6bCBRkg8EsKabMQkEsMOuVjvEOejVD497WkMgobMbk/X+bdfhPPGdcAHWn5Vnz86SmGdHX5xs6RgYe5jmJCSLiPmB7cjWmxY5ihkCG12Q==",
+        productIntelligenceKey: String = "wSNX3mu+YGc/2I1DDd0NmrYHS6zS1BQt2geMUH7DDowER43JGeJRUErOHVwU2tz6xHDXia8BuvXQI3j37I0uYw=="
     ){
         license.licenses(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
     }
@@ -227,7 +245,7 @@ object Rewards {
         licenses(tikiPublishingID, microblinkLicenseKey, productIntelligenceKey)
         oauth( gmailAPIKey, outlookAPIKey)
         theme(primaryTextColor, secondaryTextColor, primaryBackgroundColor, secondaryBackgroundColor, accentColor, fontFamily)
-        initialize(context, userId)
+        show(context, userId)
     }
 
     /**
@@ -287,7 +305,7 @@ object Rewards {
      * @param message The error message to display.
      * @param title The title of the error dialog (optional).
      */
-    fun onError(context: Context, message: String, title: String? = null){
+     private fun onError(context: Context, message: String, title: String? = null){
 
         AlertDialog.Builder(context)
             .setTitle(title)
